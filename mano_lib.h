@@ -11,4 +11,5 @@ struct Stud{
     string var, pav;
     vector<int> paz;
     int egz;
+    double vidurkis;
 };
