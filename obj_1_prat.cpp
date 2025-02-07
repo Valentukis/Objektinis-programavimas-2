@@ -3,18 +3,31 @@
 int main(){
 
     vector <Stud> grupe;
-    int sum, atsisk_paz, medianos_poz;
-    for (int i = 0; i < 2; i++) {
+    int sum, atsisk_paz, medianos_poz, n, m;
+    char pasirinkimas;
+
+    cout << "Sveiki! Padesiu jums paskaiciuoti galutini studento bala! Kiek si semestra turejote studentu?: ";
+    cin >> n;
+
+    cout << "Kiek namu darbu atsiskaitymu turejote semestro metu?: ";
+    cin >> m;
+
+    for (int i = 0; i < n; i++) {
         Stud laik;
         sum = 0;
+        cout << "Iveskite studento varda: ";
         cin >> laik.var;
+        cout << "Iveskite studento pavarde: ";
         cin >> laik.pav;
         
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < m; i++) {
+            cout << "Iveskite " << i+1 << " atsiskaitymo pazymi: ";
             cin >> atsisk_paz;
             sum += atsisk_paz;
             laik.paz.push_back(atsisk_paz);
         }
+
+        cout << "Iveskite egzamino ivertinima: ";
         cin >> laik.egz;
         laik.vidurkis = double(sum) / laik.paz.size();
 
@@ -32,10 +45,15 @@ int main(){
         grupe.push_back(laik);
     }
 
-    for (auto n: grupe) {
-        cout << endl << n.var << " " << n.pav << " " << n.egz << " " << n.vidurkis << " " << n.mediana << endl;
-        for (auto m: n.paz) cout << m << " ";
-    }
+    cout << "Ivedimas baigtas! Norite skaiciuoti galutini bala su studentu vidurkiais ar medianomis? [V/M]" << endl;
+    cin >> pasirinkimas;
 
+    cout << std::left << setw(20) << "Pavardė" << setw(20) << " Vardas" << setw(20) << ( (pasirinkimas == 'V') ? " Galutinis (Vid.)" : " Galutinis (Med.)" ) << endl;
+    cout << string(56, '-') << endl;
+    for (auto n: grupe) {
+        n.galutinis = (pasirinkimas == 'V') ? (0.4 * n.vidurkis + 0.6 * n.egz) : (0.4 * n.mediana + 0.6 * n.egz);
+        cout << std::left << setw(20) << n.pav << setw(20) << n.var << setw(20) << std::fixed << std::setprecision(2) << n.galutinis << endl;
+        }
 
 }
+

@@ -2,6 +2,7 @@
 #include <vector>
 #include <algorithm>
 #include <cmath>
+#include <iomanip>
 
 using std::string;
 using std::cout;
@@ -10,11 +11,12 @@ using std::vector;
 using std::endl;
 using std::cin;
 using std::sort;
-
+using std::setw;
 struct Stud{
     string var, pav;
     vector<int> paz;
     int egz;
     double vidurkis;
     double mediana;
+    double galutinis;
 };
