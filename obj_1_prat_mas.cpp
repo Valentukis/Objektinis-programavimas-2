@@ -10,49 +10,49 @@ int main(){
     bool egz_generavimas = false, paz_generavimas = true;
     int paz_sk, pazymys;
 
-    cout << "Sveiki! Padesiu jums paskaiciuoti galutini studento bala!" << endl;
+    cout << "Sveiki! Padėsiu jums paskaičiuoti galutinius Jūsų studentožų balus!" << endl;
 
    while(testi) {
         Stud laik;
         sum = 0;
         int i = 0;
 
-        cout << "Ar norite siam studentui generuoti egzamino pazymi atsitiktinai? (0 - Ne, 1 - Taip): " << endl;
+        cout << "Ar norite šiam studentui generuoti egzamino pažymį atsitiktinai? (0 - Ne, 1 - Taip): " << endl;
         cin >> egz_generavimas;
-        cout << "Ar norite siam studentui generuoti atsiskaitymu pazymius atsitiktinai (0 - Ne, 1 - Taip): " << endl;
+        cout << "Ar norite šiam studentui generuoti atsiskaitymu pažymius atsitiktinai (0 - Ne, 1 - Taip): " << endl;
         cin >> paz_generavimas;
         if (paz_generavimas) {
-            cout << "Kiek pazymiu sugeneruoti siam studentui? ";
+            cout << "Kiek pažymiu sugeneruoti šiam studentui? ";
             cin >> paz_sk;
 
             for (i = 0; i < paz_sk; i++) {
                 atsisk_paz = rand() % 10 + 1;
                 laik.paz[i] = atsisk_paz;
                 sum += atsisk_paz;
-                cout << i+1 << " pazymys: " << laik.paz[i] << endl;
+                cout << i+1 << " pažymys: " << laik.paz[i] << endl;
             }
 
         }
 
-        cout << "Iveskite studento varda: ";
+        cout << "Įveskite studento vardą: ";
         cin >> laik.var;
-        cout << "Iveskite studento pavarde: ";
+        cout << "Įveskite studento pavardę: ";
         cin >> laik.pav;
         
         while(testi && !paz_generavimas){
-            cout << "Iveskite " << i+1 << "-a atsiskaitymo pazymi: ";
+            cout << "Įveskite " << i+1 << "-ą atsiskaitymo pažymį: ";
             cin >> atsisk_paz;
             sum += atsisk_paz;
             laik.paz[i] = atsisk_paz;
             i++;
-            cout << "Ar norite testi pazymiu ivedima? (0 - Ne, 1 - taip): ";
+            cout << "Ar norite tęsti pažymių įvedimą? (0 - Ne, 1 - Taip): ";
             cin >> testi;
             if (!testi) break;
 
         }
 
         if (!egz_generavimas) {
-            cout << "Iveskite egzamino ivertinima: ";
+            cout << "Įveskite egzamino įvertinimą: ";
             cin >> laik.egz;
         }
         else laik.egz = rand() % 10 + 1;
@@ -71,12 +71,13 @@ int main(){
         }
 
         grupe.push_back(laik);
-        cout << "Ar norite testi studentu ivedima? (0 - Ne, 1 - taip): ";
+        cout << "Ar norite tęsti studentų įvedimą? (0 - Ne, 1 - taip): ";
         cin >> testi;
+        cout << string(56, '-') << endl;
         if(!testi) break;
     }
 
-    cout << "Ivedimas baigtas! Norite skaiciuoti galutini bala su studentu vidurkiais ar medianomis? [V/M]" << endl;
+    cout << "Įvedimas baigtas! Norite skaičiuoti galutinį įvertinimą su studentų pažymių vidurkiais ar medianomis? [V/M]" << endl;
     cin >> pasirinkimas;
 
     cout << std::left << setw(20) << "Pavardė" << setw(20) << " Vardas" << setw(20) << ( (pasirinkimas == 'V') ? " Galutinis (Vid.)" : " Galutinis (Med.)" ) << endl;
