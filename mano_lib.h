@@ -3,6 +3,8 @@
 #include <algorithm>
 #include <cmath>
 #include <iomanip>
+#include <random>
+#include <ctime>
 
 using std::string;
 using std::cout;

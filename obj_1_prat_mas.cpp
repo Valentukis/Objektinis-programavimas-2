@@ -2,22 +2,44 @@
 
 int main(){
 
+    srand(time(NULL));
     vector <Stud> grupe;
     int sum, atsisk_paz, medianos_poz, n, m;
     char pasirinkimas;
     bool testi = true;
+    bool egz_generavimas = false, paz_generavimas = true;
+    int paz_sk, pazymys;
+
     cout << "Sveiki! Padesiu jums paskaiciuoti galutini studento bala!" << endl;
 
    while(testi) {
         Stud laik;
         sum = 0;
         int i = 0;
+
+        cout << "Ar norite siam studentui generuoti egzamino pazymi atsitiktinai? (0 - Ne, 1 - Taip): " << endl;
+        cin >> egz_generavimas;
+        cout << "Ar norite siam studentui generuoti atsiskaitymu pazymius atsitiktinai (0 - Ne, 1 - Taip): " << endl;
+        cin >> paz_generavimas;
+        if (paz_generavimas) {
+            cout << "Kiek pazymiu sugeneruoti siam studentui? ";
+            cin >> paz_sk;
+
+            for (i = 0; i < paz_sk; i++) {
+                atsisk_paz = rand() % 10 + 1;
+                laik.paz[i] = atsisk_paz;
+                sum += atsisk_paz;
+                cout << i+1 << " pazymys: " << laik.paz[i] << endl;
+            }
+
+        }
+
         cout << "Iveskite studento varda: ";
         cin >> laik.var;
         cout << "Iveskite studento pavarde: ";
         cin >> laik.pav;
         
-        while(testi){
+        while(testi && !paz_generavimas){
             cout << "Iveskite " << i+1 << "-a atsiskaitymo pazymi: ";
             cin >> atsisk_paz;
             sum += atsisk_paz;
@@ -29,8 +51,12 @@ int main(){
 
         }
 
-        cout << "Iveskite egzamino ivertinima: ";
-        cin >> laik.egz;
+        if (!egz_generavimas) {
+            cout << "Iveskite egzamino ivertinima: ";
+            cin >> laik.egz;
+        }
+        else laik.egz = rand() % 10 + 1;
+
         laik.vidurkis = double(sum) / i;
 
         sort(laik.paz, laik.paz + i);
@@ -43,7 +69,7 @@ int main(){
             medianos_poz = floor(i / 2);
             laik.mediana = laik.paz[medianos_poz];
         }
-        
+
         grupe.push_back(laik);
         cout << "Ar norite testi studentu ivedima? (0 - Ne, 1 - taip): ";
         cin >> testi;
@@ -61,4 +87,3 @@ int main(){
         }
 
 }
-
