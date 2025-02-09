@@ -22,17 +22,18 @@ int main(){
             cin >> atsisk_paz;
             sum += atsisk_paz;
             laik.paz[i] = atsisk_paz;
+            i++;
             cout << "Ar norite testi pazymiu ivedima? (0 - Ne, 1 - taip): ";
             cin >> testi;
             if (!testi) break;
-            i++;
+
         }
 
         cout << "Iveskite egzamino ivertinima: ";
         cin >> laik.egz;
         laik.vidurkis = double(sum) / i;
 
-        sort(laik.paz[0], laik.paz[i]);
+        sort(laik.paz, laik.paz + i);
 
         if (i % 2 == 0) {
             medianos_poz = i / 2;

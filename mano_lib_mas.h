@@ -12,9 +12,12 @@ using std::cin;
 using std::sort;
 using std::setw;
 using std::vector;
+
+const int mas_dyd = 100;
+
 struct Stud{
     string var, pav;
-    int paz[100];
+    int paz[mas_dyd];
     int egz;
     double vidurkis;
     double mediana;
