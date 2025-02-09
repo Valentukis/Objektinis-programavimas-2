@@ -5,26 +5,27 @@ int main(){
     vector <Stud> grupe;
     int sum, atsisk_paz, medianos_poz, n, m;
     char pasirinkimas;
+    bool testi = true;
+    cout << "Sveiki! Padesiu jums paskaiciuoti galutini studento bala!" << endl;
 
-    cout << "Sveiki! Padesiu jums paskaiciuoti galutini studento bala! Kiek si semestra turejote studentu?: ";
-    cin >> n;
-
-    cout << "Kiek namu darbu atsiskaitymu turejote semestro metu?: ";
-    cin >> m;
-
-    for (int i = 0; i < n; i++) {
+   while(testi) {
         Stud laik;
         sum = 0;
+        int i = 1;
         cout << "Iveskite studento varda: ";
         cin >> laik.var;
         cout << "Iveskite studento pavarde: ";
         cin >> laik.pav;
         
-        for (int i = 0; i < m; i++) {
-            cout << "Iveskite " << i+1 << " atsiskaitymo pazymi: ";
+        while(testi){
+            cout << "Iveskite " << i << "-a atsiskaitymo pazymi: ";
+            i++;
             cin >> atsisk_paz;
             sum += atsisk_paz;
             laik.paz.push_back(atsisk_paz);
+            cout << "Ar norite testi pazymiu ivedima? (0 - Ne, 1 - taip): ";
+            cin >> testi;
+            if (!testi) break;
         }
 
         cout << "Iveskite egzamino ivertinima: ";
@@ -43,6 +44,9 @@ int main(){
         }
         
         grupe.push_back(laik);
+        cout << "Ar norite testi studentu ivedima? (0 - Ne, 1 - taip): ";
+        cin >> testi;
+        if(!testi) break;
     }
 
     cout << "Ivedimas baigtas! Norite skaiciuoti galutini bala su studentu vidurkiais ar medianomis? [V/M]" << endl;
