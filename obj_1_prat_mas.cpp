@@ -24,6 +24,9 @@ int main(){
         if (paz_generavimas) {
             cout << "Kiek pažymiu sugeneruoti šiam studentui? ";
             cin >> paz_sk;
+            laik.paz_sk = paz_sk;
+            //laik.paz = new int[paz_sk]; 
+            laik.paz = (int*)malloc(paz_sk * sizeof(int)); 
 
             for (i = 0; i < paz_sk; i++) {
                 atsisk_paz = rand() % 10 + 1;
@@ -34,28 +37,43 @@ int main(){
 
         }
 
+        if (!egz_generavimas) {
+            cout << "Įveskite egzamino įvertinimą: ";
+            cin >> laik.egz;
+        }
+        else {
+            laik.egz = rand() % 10 + 1;
+            cout << "Egzamino įvertinimas: " << laik.egz << endl;
+        }
+
         cout << "Įveskite studento vardą: ";
         cin >> laik.var;
         cout << "Įveskite studento pavardę: ";
         cin >> laik.pav;
         
         while(testi && !paz_generavimas){
-            cout << "Įveskite " << i+1 << "-ą atsiskaitymo pažymį: ";
+            cout << "Įveskite " << i + 1 << "-ą atsiskaitymo pažymį: ";
             cin >> atsisk_paz;
             sum += atsisk_paz;
+
+            /* int* temp = new int[i+1];
+            for (int j = 0; j < i; j++) {
+                temp[j] = laik.paz[j];
+            }
+            temp[i] = atsisk_paz;
+            delete[] laik.paz;
+            // laik.paz = temp; */
+            laik.paz = (int*)realloc(laik.paz, (i + 1) * sizeof(int));
+
             laik.paz[i] = atsisk_paz;
+            laik.paz_sk++;
+
             i++;
             cout << "Ar norite tęsti pažymių įvedimą? (0 - Ne, 1 - Taip): ";
             cin >> testi;
             if (!testi) break;
 
         }
-
-        if (!egz_generavimas) {
-            cout << "Įveskite egzamino įvertinimą: ";
-            cin >> laik.egz;
-        }
-        else laik.egz = rand() % 10 + 1;
 
         laik.vidurkis = double(sum) / i;
 
@@ -87,4 +105,9 @@ int main(){
         cout << std::left << setw(20) << n.pav << setw(20) << n.var << setw(20) << std::fixed << std::setprecision(2) << n.galutinis << endl;
         }
 
+    for (auto n: grupe) {
+        //delete[] n.paz;
+        free(n.paz);
+    }
+    grupe.clear();
 }

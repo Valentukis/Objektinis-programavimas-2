@@ -15,11 +15,10 @@ using std::sort;
 using std::setw;
 using std::vector;
 
-const int mas_dyd = 100;
-
 struct Stud{
     string var, pav;
-    int paz[mas_dyd];
+    int* paz = nullptr;
+    int paz_sk;
     int egz;
     double vidurkis;
     double mediana;
