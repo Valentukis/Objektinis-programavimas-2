@@ -5,6 +5,7 @@
 #include <iomanip>
 #include <random>
 #include <ctime>
+#include <string>
 
 using std::string;
 using std::cout;
@@ -14,6 +15,7 @@ using std::endl;
 using std::cin;
 using std::sort;
 using std::setw;
+
 struct Stud{
     string var, pav;
     vector<int> paz;

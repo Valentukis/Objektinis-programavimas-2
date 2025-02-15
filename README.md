@@ -4,6 +4,6 @@ Objektinio programavimo praktikos projektinis darbas, skirtas kaip pagalbinė pr
 -Paprastumas
 -Efektyvumas
 
-Pirmosios projekto versijos susitelks į pagrindinį funckionalumą, o vėlesnese bus siekiama užtikrinti sklandžią, visapusiškai pilną patirtį.
+Pirmosios projekto versijos susitelks į pagrindinį funckionalumą, o vėlesnese bus siekiama užtikrinti sklandžią, visapusiškai pilną vartotojo patirtį.
 
 Kylus klausimams ar pastaboms, susisiekti el. paštu: valentinas.samatovicius@mif.stud.vu.lt
