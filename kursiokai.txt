@@ -1,0 +1,3 @@
+Vardas      Pavardė     ND1  ND2  ND3  ND4  ND5  Egzaminas
+Arvydas     Sabonis     8    9    10   6    10   9
+Rimas       Kurtinaitis 7    10   8    5    4    6

@@ -6,6 +6,7 @@
 #include <random>
 #include <ctime>
 #include <string>
+#include <fstream>
 
 using std::string;
 using std::cout;
@@ -15,6 +16,7 @@ using std::endl;
 using std::cin;
 using std::sort;
 using std::setw;
+using std::ifstream;
 
 struct Stud{
     string var, pav;

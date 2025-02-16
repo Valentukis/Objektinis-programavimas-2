@@ -31,6 +31,8 @@ int main(){
     char pasirinkimas;
     int paz_sk, pazymys, lytis;
 
+    ifstream fd("kursiokai.txt");
+
     cout << "Sveiki! Padėsiu jums paskaičiuoti galutinius Jūsų studentų balus!" << endl;
 
    while(true) {
