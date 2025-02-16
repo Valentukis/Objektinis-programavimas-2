@@ -12,6 +12,7 @@ using std::endl;
 using std::endl;
 using std::cin;
 using std::sort;
+using std::stable_sort;
 using std::setw;
 using std::vector;
 

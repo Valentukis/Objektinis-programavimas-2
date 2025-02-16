@@ -23,6 +23,22 @@ string sugeneruoti_pavarde(int lytis) {
     else return moteru_pavardes[pasirinkimas];
 }
 
+bool lyginti_pagal_varda(const Stud &a, const Stud &b) {
+    return a.var < b.var;
+}
+
+bool lyginti_pagal_pavarde(const Stud &a, const Stud &b) {
+    return a.pav < b.pav;
+}
+
+bool lyginti_pagal_vidurki(const Stud &a, const Stud &b) {
+    return a.galutinis_pagal_vid > b.galutinis_pagal_vid;
+}
+
+bool lyginti_pagal_mediana(const Stud &a, const Stud &b) {
+    return a.galutinis_pagal_med > b.galutinis_pagal_med;
+}
+
 int main(){
 
     srand(time(NULL));
@@ -128,10 +144,19 @@ int main(){
             medianos_poz = floor(laik.paz.size() / 2);
             laik.mediana = laik.paz.at(medianos_poz);
         }
-        
+        laik.galutinis_pagal_vid = (0.4 * laik.vidurkis + 0.6 * laik.egz);
+        laik.galutinis_pagal_med = (0.4 * laik.mediana + 0.6 * laik.egz);
         grupe.push_back(laik);
 
             }
+
+            cout << "Pagal ką norėsite rūšiuoti duomenis? (1 - vardas, 2 - pavardė, 3 - galutinis balas pagal vidurkį, 4 - galutinis balas pagal medianą): " << endl;
+            cin >> a;
+            if (a == 1) stable_sort(grupe.begin(), grupe.end(), lyginti_pagal_varda);
+            else if (a == 2) stable_sort(grupe.begin(), grupe.end(), lyginti_pagal_pavarde);
+            else if (a == 3) stable_sort(grupe.begin(), grupe.end(), lyginti_pagal_vidurki);
+            else if (a == 4) stable_sort(grupe.begin(), grupe.end(), lyginti_pagal_mediana);
+
             cout << std::left << setw(20) << "Pavardė" << setw(20) << " Vardas" << setw(20) << " Galutinis (Vid.)" << setw(20) << " Galutinis (Med.)" << endl;
             cout << string(76, '-') << endl;
             for (auto n: grupe) {

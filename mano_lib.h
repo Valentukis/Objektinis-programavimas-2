@@ -25,4 +25,6 @@ struct Stud{
     double vidurkis;
     double mediana;
     double galutinis;
+    double galutinis_pagal_vid;
+    double galutinis_pagal_med;
 };
