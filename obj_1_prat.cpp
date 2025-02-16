@@ -41,7 +41,7 @@ int main(){
         int i = 0;
         lytis = rand() % 2;
 
-        cout << "Kaip norėsite įvesti duomenis apie studentus? (1 - ranka, 2 - generuoti pažymius ir egzamino rezultatą, 3 - generuoti pažymius, egzaminą bei vardus ir pavardes, 4 - baigti darbą): \n";
+        cout << "Kaip norėsite įvesti duomenis apie šį studentą? \n(1 - ranka, 2 - generuoti pažymius ir egzamino rezultatą, 3 - generuoti pažymius, egzaminą bei vardą ir pavardę, 4 - nuskaityti duomenis iš failo (visiems studentams), 5 - baigti darbą): \n";
         cin >> eiga;
 
         if (eiga == 1) {
@@ -105,7 +105,37 @@ int main(){
 
         }
 
-        else if (eiga == 4) break;
+        else if (eiga == 4) {
+            int a;
+            string line;
+            std::getline(fd, line);
+            while(fd >> laik.var >> laik.pav) {
+                cout << laik.var << " " << laik.pav << endl;
+                for (int i = 0; i < 5; i++) {
+                    fd >> a;
+                    laik.paz.push_back(a);
+                }
+                fd >> laik.egz;
+                
+                laik.vidurkis = double(sum) / laik.paz.size();
+        sort(laik.paz.begin(), laik.paz.end());
+
+        if (laik.paz.size() % 2 == 0) {
+            medianos_poz = laik.paz.size() / 2;
+            laik.mediana = ( laik.paz.at(medianos_poz) + laik.paz.at(medianos_poz - 1) ) / 2.0;
+        }
+        else {
+            medianos_poz = floor(laik.paz.size() / 2);
+            laik.mediana = laik.paz.at(medianos_poz);
+        }
+        
+        grupe.push_back(laik);
+        
+
+            }
+            break;
+        }
+        else if (eiga == 5) break;
         else {
             cout << "Bloga įvestis! Bandykite dar kartą" << endl;
             continue;
