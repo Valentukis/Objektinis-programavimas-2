@@ -47,7 +47,7 @@ int main(){
     char pasirinkimas;
     int paz_sk, pazymys, lytis;
 
-    ifstream fd("kursiokai.txt");
+    ifstream fd("studentai10000.txt");
 
     cout << "Sveiki! Padėsiu jums paskaičiuoti galutinius Jūsų studentų balus!" << endl;
 
@@ -124,10 +124,17 @@ int main(){
         else if (eiga == 4) {
             int a;
             string line;
-            std::getline(fd, line);
+            string word;
+            int nd_sk = 0;
+
+            getline(fd, line);
+            istringstream pirma_eilute(line);
+
+            while (pirma_eilute >> word) nd_sk++;
+            nd_sk -= 3; //atimti varda, pavarde, egz
+
             while(fd >> laik.var >> laik.pav) {
-                cout << laik.var << " " << laik.pav << endl;
-                for (int i = 0; i < 5; i++) {
+                for (int i = 0; i < nd_sk; i++) {
                     fd >> a;
                     laik.paz.push_back(a);
                 }
@@ -149,7 +156,7 @@ int main(){
         grupe.push_back(laik);
 
             }
-
+            cout << nd_sk;
             cout << "Pagal ką norėsite rūšiuoti duomenis? (1 - vardas, 2 - pavardė, 3 - galutinis balas pagal vidurkį, 4 - galutinis balas pagal medianą): " << endl;
             cin >> a;
             if (a == 1) stable_sort(grupe.begin(), grupe.end(), lyginti_pagal_varda);

@@ -7,7 +7,9 @@
 #include <ctime>
 #include <string>
 #include <fstream>
+#include <sstream>
 
+using std::istringstream;
 using std::string;
 using std::cout;
 using std::endl;
