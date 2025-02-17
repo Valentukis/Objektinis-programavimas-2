@@ -46,9 +46,11 @@ int main(){
     int sum, atsisk_paz, medianos_poz, eiga;
     char pasirinkimas;
     int paz_sk, pazymys, lytis;
+    bool spausdinimas;
+    const size_t buffer_size = 8192;
+    vector <char> buffer(buffer_size);
 
-    ifstream fd("studentai10000.txt");
-
+    ifstream fd("studentai1000000.txt");
     cout << "Sveiki! Padėsiu jums paskaičiuoti galutinius Jūsų studentų balus!" << endl;
 
    while(true) {
@@ -123,8 +125,7 @@ int main(){
 
         else if (eiga == 4) {
             int a;
-            string line;
-            string word;
+            string line, leftover = "", word, chunk;
             int nd_sk = 0;
 
             getline(fd, line);
@@ -133,37 +134,78 @@ int main(){
             while (pirma_eilute >> word) nd_sk++;
             nd_sk -= 3; //atimti varda, pavarde, egz
 
-            while(fd >> laik.var >> laik.pav) {
-                for (int i = 0; i < nd_sk; i++) {
-                    fd >> a;
-                    laik.paz.push_back(a);
+
+            while(fd.read(buffer.data(), buffer_size) || fd.gcount() ) {
+                chunk = leftover + string(buffer.data(), fd.gcount());
+                size_t last_new_line = chunk.rfind('\n');
+
+                if (last_new_line != string::npos) {
+                    leftover = chunk.substr(last_new_line + 1);
+                    chunk = chunk.substr(0, last_new_line);
                 }
-                fd >> laik.egz;
+
+                else {
+                    leftover = "";
+                }
+
+                istringstream stream(chunk);
+
+                while (std::getline(stream, line)) {
+                    istringstream duom(line);
+                    duom >> laik.var >> laik.pav;
+                    for (int i = 0; i < nd_sk; i++) {
+                        duom >> a;
+                        laik.paz.push_back(a);
+
+                    }
+                    duom >> laik.egz;
+                    laik.vidurkis = double(sum) / laik.paz.size();
+                    sort(laik.paz.begin(), laik.paz.end());
+
+                    if (laik.paz.size() % 2 == 0) {
+                        medianos_poz = laik.paz.size() / 2;
+                        laik.mediana = ( laik.paz.at(medianos_poz) + laik.paz.at(medianos_poz - 1) ) / 2.0;
+                    }
+                    else {
+                        medianos_poz = floor(laik.paz.size() / 2);
+                        laik.mediana = laik.paz.at(medianos_poz);
+                    }   
+                        laik.galutinis_pagal_vid = (0.4 * laik.vidurkis + 0.6 * laik.egz);
+                        laik.galutinis_pagal_med = (0.4 * laik.mediana + 0.6 * laik.egz);
+                        grupe.emplace_back(std::move(laik)); //Pagrindas opttimizacijos
+                        cout << laik.var << " " << laik.pav << endl;
+                }
                 
-                laik.vidurkis = double(sum) / laik.paz.size();
-        sort(laik.paz.begin(), laik.paz.end());
-
-        if (laik.paz.size() % 2 == 0) {
-            medianos_poz = laik.paz.size() / 2;
-            laik.mediana = ( laik.paz.at(medianos_poz) + laik.paz.at(medianos_poz - 1) ) / 2.0;
-        }
-        else {
-            medianos_poz = floor(laik.paz.size() / 2);
-            laik.mediana = laik.paz.at(medianos_poz);
-        }
-        laik.galutinis_pagal_vid = (0.4 * laik.vidurkis + 0.6 * laik.egz);
-        laik.galutinis_pagal_med = (0.4 * laik.mediana + 0.6 * laik.egz);
-        grupe.push_back(laik);
-
             }
-            cout << nd_sk;
+
+            fd.close();
+
             cout << "Pagal ką norėsite rūšiuoti duomenis? (1 - vardas, 2 - pavardė, 3 - galutinis balas pagal vidurkį, 4 - galutinis balas pagal medianą): " << endl;
             cin >> a;
+            cout << "Duomenis išvesti ekrane ar į tekstinį failą? (0 - ekrane, 1 - faile): " << endl;
+            cin >> spausdinimas;
+
             if (a == 1) stable_sort(grupe.begin(), grupe.end(), lyginti_pagal_varda);
             else if (a == 2) stable_sort(grupe.begin(), grupe.end(), lyginti_pagal_pavarde);
             else if (a == 3) stable_sort(grupe.begin(), grupe.end(), lyginti_pagal_vidurki);
             else if (a == 4) stable_sort(grupe.begin(), grupe.end(), lyginti_pagal_mediana);
+            
+            if (spausdinimas) {
+                std::ofstream fr("rez.txt");
+                fr << std::left << setw(20) << "Pavardė" << setw(20) << " Vardas" << setw(20) << " Galutinis (Vid.)" << setw(20) << " Galutinis (Med.)" << endl;
+                fr << string(76, '-') << endl;
+                for (auto n: grupe) {
+                    n.galutinis = (pasirinkimas == 'V') ? (0.4 * n.vidurkis + 0.6 * n.egz) : (0.4 * n.mediana + 0.6 * n.egz);
+                    fr << std::left << setw(20) << n.pav << setw(20) << n.var << setw(20) << std::fixed << std::setprecision(2) << (0.4 * n.vidurkis + 0.6 * n.egz) << setw(20) << (0.4 * n.mediana + 0.6 * n.egz) << endl;
+                    }
+                    grupe.clear();
+                    fr.close();
+                    return 0;
+            }
+            
+            else {
 
+            
             cout << std::left << setw(20) << "Pavardė" << setw(20) << " Vardas" << setw(20) << " Galutinis (Vid.)" << setw(20) << " Galutinis (Med.)" << endl;
             cout << string(76, '-') << endl;
             for (auto n: grupe) {
@@ -172,6 +214,7 @@ int main(){
                 }
                 grupe.clear();
                 return 0;
+            }
         }
 
         
