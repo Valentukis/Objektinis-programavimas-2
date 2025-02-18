@@ -239,7 +239,8 @@ int main(){
             medianos_poz = floor(laik.paz.size() / 2);
             laik.mediana = laik.paz.at(medianos_poz);
         }
-        
+        laik.galutinis_pagal_vid = (0.4 * laik.vidurkis + 0.6 * laik.egz);
+        laik.galutinis_pagal_med = (0.4 * laik.mediana + 0.6 * laik.egz);
         grupe.push_back(laik);
         cout << string(56, '-') << endl;
     }
@@ -250,8 +251,7 @@ int main(){
     cout << std::left << setw(20) << "Pavardė" << setw(20) << " Vardas" << setw(20) << ( (toupper(pasirinkimas) == 'V') ? " Galutinis (Vid.)" : " Galutinis (Med.)" ) << endl;
     cout << string(56, '-') << endl;
     for (auto n: grupe) {
-        n.galutinis = (toupper(pasirinkimas) == 'V') ? (0.4 * n.vidurkis + 0.6 * n.egz) : (0.4 * n.mediana + 0.6 * n.egz);
-        cout << std::left << setw(20) << n.pav << setw(20) << n.var << setw(20) << std::fixed << std::setprecision(2) << n.galutinis << endl;
+        cout << std::left << setw(20) << n.pav << setw(20) << n.var << setw(20) << std::fixed << std::setprecision(2) << ((toupper(pasirinkimas) == 'V') ? (n.galutinis_pagal_vid) : (n.galutinis_pagal_med)) << endl;
         }
         grupe.clear();
 }
