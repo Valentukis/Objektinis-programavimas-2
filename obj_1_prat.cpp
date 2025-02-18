@@ -101,6 +101,26 @@ void ivedimas_generuojant_viska(Stud& laik, int& sum, int lytis) {
     cout << "Egzamino įvertinimas: " << laik.egz << endl;
 }
 
+void pasirink_rusiavimas(vector<Stud> &grupe) {
+    int ivestis;
+    cin >> ivestis;
+    if (ivestis == 1) stable_sort(grupe.begin(), grupe.end(), lyginti_pagal_varda);
+    else if (ivestis == 2) stable_sort(grupe.begin(), grupe.end(), lyginti_pagal_pavarde);
+    else if (ivestis == 3) stable_sort(grupe.begin(), grupe.end(), lyginti_pagal_vidurki);
+    else if (ivestis == 4) stable_sort(grupe.begin(), grupe.end(), lyginti_pagal_mediana);
+}
+
+int rasti_nd_skaiciu_faile(ifstream& fd) {
+    string line, word;
+    int nd_sk = 0;
+    getline(fd, line);
+    istringstream pirma_eilute(line);
+
+    while (pirma_eilute >> word) nd_sk++;
+    nd_sk -= 3; //atimti varda, pavarde, egz
+    return nd_sk;
+}
+
 int main(){
 
     srand(time(NULL));
@@ -129,18 +149,15 @@ int main(){
         else if (eiga == 3) ivedimas_generuojant_viska(laik, sum, lytis);
 
         else if (eiga == 4) {
+            const size_t buffer_size = 8192;
+            vector <char> buffer(buffer_size);
+            ifstream fd("kursiokai.txt");
+
             string line, leftover = "", word, chunk;
-            int nd_sk = 0;
             
             cout << "Nuskaitomi duomenys iš failo..." << endl;
             // auto start = std::chrono::high_resolution_clock::now(); laiko testavimui
-            getline(fd, line);
-            istringstream pirma_eilute(line);
-
-            while (pirma_eilute >> word) nd_sk++;
-            nd_sk -= 3; //atimti varda, pavarde, egz
-
-
+            int nd_sk = rasti_nd_skaiciu_faile(fd);
             while(fd.read(buffer.data(), buffer_size) || fd.gcount() ) {
                 chunk = leftover + string(buffer.data(), fd.gcount());
                 size_t last_new_line = chunk.rfind('\n');
@@ -190,14 +207,9 @@ int main(){
             // cout << "Užtruko: " << std::fixed << std::setprecision(2) << elapsed.count() << " s" << endl;
 
             cout << "Baigta! Pagal ką norėsite rūšiuoti duomenis? (1 - vardas, 2 - pavardė, 3 - galutinis balas pagal vidurkį, 4 - galutinis balas pagal medianą): " << endl;
-            cin >> ivestis;
+            pasirink_rusiavimas(grupe);
             cout << "Duomenis išvesti ekrane ar į tekstinį failą? (0 - ekrane, 1 - faile): " << endl;
             cin >> spausdinimas;
-
-            if (ivestis == 1) stable_sort(grupe.begin(), grupe.end(), lyginti_pagal_varda);
-            else if (ivestis == 2) stable_sort(grupe.begin(), grupe.end(), lyginti_pagal_pavarde);
-            else if (ivestis == 3) stable_sort(grupe.begin(), grupe.end(), lyginti_pagal_vidurki);
-            else if (ivestis == 4) stable_sort(grupe.begin(), grupe.end(), lyginti_pagal_mediana);
             
             if (spausdinimas) {
                 std::ofstream fr("rez.txt");
