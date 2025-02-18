@@ -154,6 +154,33 @@ void spausdinimas_atskiras(vector <Stud> &grupe) {
         grupe.clear();
 }
 
+void spausdinimas_kartu(vector <Stud> &grupe, bool spausdinimas) {
+    if (spausdinimas) {
+        std::ofstream fr("rez.txt");
+        cout << "Įrašoma į failą..." << endl;
+        fr << std::left << setw(20) << "Pavardė" << setw(20) << " Vardas" << setw(20) << " Galutinis (Vid.)" << setw(20) << " Galutinis (Med.)" << endl;
+        fr << string(76, '-') << endl;
+        for (auto n: grupe) {
+            fr << std::left << setw(20) << n.pav << setw(20) << n.var << setw(20) << std::fixed << std::setprecision(2) << (0.4 * n.vidurkis + 0.6 * n.egz) << setw(20) << (0.4 * n.mediana + 0.6 * n.egz) << endl;
+            }
+            grupe.clear();
+            fr.close();
+            cout << "Baigta!";
+    }
+    
+    else {
+
+    
+    cout << std::left << setw(20) << "Pavardė" << setw(20) << " Vardas" << setw(20) << " Galutinis (Vid.)" << setw(20) << " Galutinis (Med.)" << endl;
+    cout << string(76, '-') << endl;
+    for (auto n: grupe) {
+        cout << std::left << setw(20) << n.pav << setw(20) << n.var << setw(20) << std::fixed << std::setprecision(2) << (0.4 * n.vidurkis + 0.6 * n.egz) << setw(20) << (0.4 * n.mediana + 0.6 * n.egz) << endl;
+        }
+        grupe.clear();
+    }
+}
+
+
 
 
 int main(){
@@ -234,31 +261,8 @@ int main(){
             pasirink_rusiavimas(grupe);
             cout << "Duomenis išvesti ekrane ar į tekstinį failą? (0 - ekrane, 1 - faile): " << endl;
             cin >> spausdinimas;
-            
-            if (spausdinimas) {
-                std::ofstream fr("rez.txt");
-                cout << "Įrašoma į failą..." << endl;
-                fr << std::left << setw(20) << "Pavardė" << setw(20) << " Vardas" << setw(20) << " Galutinis (Vid.)" << setw(20) << " Galutinis (Med.)" << endl;
-                fr << string(76, '-') << endl;
-                for (auto n: grupe) {
-                    fr << std::left << setw(20) << n.pav << setw(20) << n.var << setw(20) << std::fixed << std::setprecision(2) << (0.4 * n.vidurkis + 0.6 * n.egz) << setw(20) << (0.4 * n.mediana + 0.6 * n.egz) << endl;
-                    }
-                    grupe.clear();
-                    fr.close();
-                    return 0;
-            }
-            
-            else {
-
-            
-            cout << std::left << setw(20) << "Pavardė" << setw(20) << " Vardas" << setw(20) << " Galutinis (Vid.)" << setw(20) << " Galutinis (Med.)" << endl;
-            cout << string(76, '-') << endl;
-            for (auto n: grupe) {
-                cout << std::left << setw(20) << n.pav << setw(20) << n.var << setw(20) << std::fixed << std::setprecision(2) << (0.4 * n.vidurkis + 0.6 * n.egz) << setw(20) << (0.4 * n.mediana + 0.6 * n.egz) << endl;
-                }
-                grupe.clear();
-                return 0;
-            }
+            spausdinimas_kartu(grupe, spausdinimas);
+            return 0;
         }
 
         
