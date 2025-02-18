@@ -170,7 +170,6 @@ void spausdinimas_kartu(vector <Stud> &grupe, bool spausdinimas) {
     
     else {
 
-    
     cout << std::left << setw(20) << "Pavardė" << setw(20) << " Vardas" << setw(20) << " Galutinis (Vid.)" << setw(20) << " Galutinis (Med.)" << endl;
     cout << string(76, '-') << endl;
     for (auto n: grupe) {
@@ -181,17 +180,11 @@ void spausdinimas_kartu(vector <Stud> &grupe, bool spausdinimas) {
 }
 
 
-
-
 int main(){
 
     srand(time(NULL));
     vector <Stud> grupe;
-    int atsisk_paz, eiga;
-    int paz_sk, pazymys, lytis, ivestis;
-    bool spausdinimas;
-    const size_t buffer_size = 8192;
-    vector <char> buffer(buffer_size);
+    int eiga, lytis;
     
     ifstream fd("kursiokai.txt");
     cout << "Sveiki! Padėsiu jums paskaičiuoti galutinius Jūsų studentų balus!" << endl;
@@ -200,6 +193,7 @@ int main(){
         Stud laik;
         lytis = rand() % 2;
         int sum = 0;
+        
         cout << "Kaip norėsite įvesti duomenis apie šį studentą? \n(1 - ranka, 2 - generuoti pažymius ir egzamino rezultatą, 3 - generuoti pažymius, egzaminą bei vardą ir pavardę, 4 - nuskaityti duomenis iš failo (visiems studentams), 5 - baigti darbą): \n";
         cin >> eiga;
 
@@ -213,6 +207,8 @@ int main(){
             const size_t buffer_size = 8192;
             vector <char> buffer(buffer_size);
             ifstream fd("kursiokai.txt");
+            bool spausdinimas;
+            int ivestis;
 
             string line, leftover = "", word, chunk;
             
@@ -228,10 +224,8 @@ int main(){
                     chunk = chunk.substr(0, last_new_line);
                 }
 
-                else {
-                    leftover = "";
-                }
-
+                else leftover = "";
+                    
                 istringstream stream(chunk);
 
                 while (std::getline(stream, line)) {
@@ -267,6 +261,7 @@ int main(){
 
         
         else if (eiga == 5) break;
+
         else {
             cout << "Bloga įvestis! Bandykite dar kartą" << endl;
             continue;
