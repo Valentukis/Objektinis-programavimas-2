@@ -179,6 +179,59 @@ void spausdinimas_kartu(vector <Stud> &grupe, bool spausdinimas) {
     }
 }
 
+void buferio_apdorojimas(vector <Stud> &grupe, Stud& laik, size_t buffer_size, vector <char> buffer, ifstream &fd, int &sum, int nd_sk) {
+    string line, leftover = "", word, chunk;
+    int ivestis;
+
+    while(fd.read(buffer.data(), buffer_size) || fd.gcount() ) {
+        chunk = leftover + string(buffer.data(), fd.gcount());
+        size_t last_new_line = chunk.rfind('\n');
+
+        if (last_new_line != string::npos) {
+            leftover = chunk.substr(last_new_line + 1);
+            chunk = chunk.substr(0, last_new_line);
+        }
+
+        else leftover = "";
+            
+        istringstream stream(chunk);
+
+        while (std::getline(stream, line)) {
+            istringstream duom(line);
+            duom >> laik.var >> laik.pav;
+            for (int i = 0; i < nd_sk; i++) {
+                duom >> ivestis;
+                sum += ivestis; 
+                laik.paz.push_back(ivestis);
+
+            }
+            duom >> laik.egz;
+            paskaiciuoti_vid_ir_med(laik, sum);
+            paskaiciuoti_gal(laik);
+            grupe.emplace_back(std::move(laik)); //Vietoje push_back()
+            sum = 0;
+        }
+        
+    }
+
+    if (!leftover.empty()) {
+        istringstream duom(leftover);
+        duom >> laik.var >> laik.pav;
+    
+        for (int i = 0; i < nd_sk; i++) {
+            duom >> ivestis;
+            sum += ivestis;
+            laik.paz.push_back(ivestis);
+        }
+        duom >> laik.egz;
+    
+        paskaiciuoti_vid_ir_med(laik, sum);
+        paskaiciuoti_gal(laik);
+        grupe.emplace_back(std::move(laik));
+    }
+    fd.close();
+}
+
 
 int main(){
 
@@ -206,63 +259,12 @@ int main(){
             vector <char> buffer(buffer_size);
             ifstream fd("kursiokai.txt");
             bool spausdinimas;
-            int ivestis;
-
-            string line, leftover = "", word, chunk;
             
             cout << "Nuskaitomi duomenys iš failo..." << endl;
             // auto start = std::chrono::high_resolution_clock::now(); laiko testavimui
             int nd_sk = rasti_nd_skaiciu_faile(fd);
             
-            while(fd.read(buffer.data(), buffer_size) || fd.gcount() ) {
-                chunk = leftover + string(buffer.data(), fd.gcount());
-                size_t last_new_line = chunk.rfind('\n');
-
-                if (last_new_line != string::npos) {
-                    leftover = chunk.substr(last_new_line + 1);
-                    chunk = chunk.substr(0, last_new_line);
-                }
-
-                else leftover = "";
-                    
-                istringstream stream(chunk);
-
-                while (std::getline(stream, line)) {
-                    istringstream duom(line);
-                    duom >> laik.var >> laik.pav;
-                    for (int i = 0; i < nd_sk; i++) {
-                        duom >> ivestis;
-                        sum += ivestis; 
-                        laik.paz.push_back(ivestis);
-
-                    }
-                    duom >> laik.egz;
-                    paskaiciuoti_vid_ir_med(laik, sum);
-                    paskaiciuoti_gal(laik);
-                    grupe.emplace_back(std::move(laik)); //Vietoje push_back()
-                    sum = 0;
-                }
-                
-            }
-
-            if (!leftover.empty()) {
-                int a;
-                istringstream duom(leftover);
-                duom >> laik.var >> laik.pav;
-            
-                for (int i = 0; i < nd_sk; i++) {
-                    duom >> a;
-                    sum += a;
-                    laik.paz.push_back(a);
-                }
-                duom >> laik.egz;
-            
-                paskaiciuoti_vid_ir_med(laik, sum);
-                paskaiciuoti_gal(laik);
-                grupe.emplace_back(std::move(laik));
-            }
-
-            fd.close();
+            buferio_apdorojimas(grupe, laik, buffer_size, buffer, fd, sum, nd_sk);
             // auto end = std::chrono::high_resolution_clock::now(); Laiko testavimas
             // std::chrono::duration<double> elapsed = end - start;
             // cout << "Užtruko: " << std::fixed << std::setprecision(2) << elapsed.count() << " s" << endl;
