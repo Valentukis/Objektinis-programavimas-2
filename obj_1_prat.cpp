@@ -38,6 +38,26 @@ bool lyginti_pagal_vidurki(const Stud &a, const Stud &b) {
 bool lyginti_pagal_mediana(const Stud &a, const Stud &b) {
     return a.galutinis_pagal_med > b.galutinis_pagal_med;
 }
+void ivedimas_ranka(Stud& laik, int& sum) {
+    int i = 0;
+    int atsisk_paz;
+    cout << "Įveskite studento vardą: ";
+    cin >> laik.var;
+    cout << "Įveskite studento pavardę: ";
+    cin >> laik.pav;
+
+    while(true){
+    cout << "Įveskite " << i + 1 << "-ą atsiskaitymo pažymį (Arba, jei baigėte pažymių įvedimą, įveskite -1): ";
+    i++;
+    cin >> atsisk_paz;
+    if (atsisk_paz == -1) break;
+    sum += atsisk_paz;
+    laik.paz.push_back(atsisk_paz);
+        }
+
+    cout << "Įveskite egzamino įvertinimą: ";
+    cin >> laik.egz;
+}
 
 int main(){
 
@@ -55,31 +75,12 @@ int main(){
 
    while(true) {
         Stud laik;
-        sum = 0;
-        int i = 0;
         lytis = rand() % 2;
-
+        int sum = 0;
         cout << "Kaip norėsite įvesti duomenis apie šį studentą? \n(1 - ranka, 2 - generuoti pažymius ir egzamino rezultatą, 3 - generuoti pažymius, egzaminą bei vardą ir pavardę, 4 - nuskaityti duomenis iš failo (visiems studentams), 5 - baigti darbą): \n";
         cin >> eiga;
 
-        if (eiga == 1) {
-            cout << "Įveskite studento vardą: ";
-            cin >> laik.var;
-            cout << "Įveskite studento pavardę: ";
-            cin >> laik.pav;
-
-            while(true){
-            cout << "Įveskite " << i + 1 << "-ą atsiskaitymo pažymį (Arba, jei baigėte pažymių įvedimą, įveskite -1): ";
-            i++;
-            cin >> atsisk_paz;
-            sum += atsisk_paz;
-            laik.paz.push_back(atsisk_paz);
-            if (atsisk_paz == -1) break;
-        }
-
-        cout << "Įveskite egzamino įvertinimą: ";
-            cin >> laik.egz;
-    }
+        if (eiga == 1) ivedimas_ranka(laik, sum);
 
         else if (eiga == 2) {
             cout << "Įveskite studento vardą: ";
