@@ -59,6 +59,27 @@ void ivedimas_ranka(Stud& laik, int& sum) {
     cin >> laik.egz;
 }
 
+void pazymiu_generavimas(Stud& laik, int& sum) {
+    int paz_sk, pazymys;
+    cout << "Įveskite studento vardą: ";
+    cin >> laik.var;
+    cout << "Įveskite studento pavardę: ";
+    cin >> laik.pav;
+    
+    cout << "Kiek pažymiu sugeneruoti šiam studentui? ";
+    cin >> paz_sk;
+
+    for (int i = 0; i < paz_sk; i++) {
+        pazymys = rand() % 10 + 1;
+        laik.paz.push_back(pazymys);
+        sum += pazymys;
+        cout << i + 1 << " pažymys: " << laik.paz.at(i) << endl;
+    }
+
+    laik.egz = rand() % 10 + 1;
+    cout << "Egzamino įvertinimas: " << laik.egz << endl;
+}
+
 int main(){
 
     srand(time(NULL));
