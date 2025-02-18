@@ -59,12 +59,33 @@ void ivedimas_ranka(Stud& laik, int& sum) {
     cin >> laik.egz;
 }
 
-void pazymiu_generavimas(Stud& laik, int& sum) {
+void ivedimas_pazymiu_generavimu(Stud& laik, int& sum) {
     int paz_sk, pazymys;
     cout << "Įveskite studento vardą: ";
     cin >> laik.var;
     cout << "Įveskite studento pavardę: ";
     cin >> laik.pav;
+    
+    cout << "Kiek pažymiu sugeneruoti šiam studentui? ";
+    cin >> paz_sk;
+
+    for (int i = 0; i < paz_sk; i++) {
+        pazymys = rand() % 10 + 1;
+        laik.paz.push_back(pazymys);
+        sum += pazymys;
+        cout << i + 1 << " pažymys: " << laik.paz.at(i) << endl;
+    }
+
+    laik.egz = rand() % 10 + 1;
+    cout << "Egzamino įvertinimas: " << laik.egz << endl;
+}
+
+void ivedimas_generuojant_viska(Stud& laik, int& sum, int lytis) {
+    int paz_sk, pazymys;
+    laik.var = sugeneruoti_varda(lytis);
+    laik.pav = sugeneruoti_pavarde(lytis);
+    cout << "Vardas - " << laik.var << endl;
+    cout << "Pavardė - " << laik.pav << endl;
     
     cout << "Kiek pažymiu sugeneruoti šiam studentui? ";
     cin >> paz_sk;
@@ -103,47 +124,9 @@ int main(){
 
         if (eiga == 1) ivedimas_ranka(laik, sum);
 
-        else if (eiga == 2) {
-            cout << "Įveskite studento vardą: ";
-            cin >> laik.var;
-            cout << "Įveskite studento pavardę: ";
-            cin >> laik.pav;
-            
-            cout << "Kiek pažymiu sugeneruoti šiam studentui? ";
-            cin >> paz_sk;
+        else if (eiga == 2) ivedimas_pazymiu_generavimu(laik, sum);
 
-            for (int i = 0; i < paz_sk; i++) {
-                pazymys = rand() % 10 + 1;
-                laik.paz.push_back(pazymys);
-                sum += pazymys;
-                cout << i + 1 << " pažymys: " << laik.paz.at(i) << endl;
-            }
-
-            laik.egz = rand() % 10 + 1;
-            cout << "Egzamino įvertinimas: " << laik.egz << endl;
-
-        }
-
-        else if (eiga == 3) {
-            laik.var = sugeneruoti_varda(lytis);
-            laik.pav = sugeneruoti_pavarde(lytis);
-            cout << "Vardas - " << laik.var << endl;
-            cout << "Pavardė - " << laik.pav << endl;
-            
-            cout << "Kiek pažymiu sugeneruoti šiam studentui? ";
-            cin >> paz_sk;
-
-            for (int i = 0; i < paz_sk; i++) {
-                pazymys = rand() % 10 + 1;
-                laik.paz.push_back(pazymys);
-                sum += pazymys;
-                cout << i + 1 << " pažymys: " << laik.paz.at(i) << endl;
-            }
-
-            laik.egz = rand() % 10 + 1;
-            cout << "Egzamino įvertinimas: " << laik.egz << endl;
-
-        }
+        else if (eiga == 3) ivedimas_generuojant_viska(laik, sum, lytis);
 
         else if (eiga == 4) {
             string line, leftover = "", word, chunk;
