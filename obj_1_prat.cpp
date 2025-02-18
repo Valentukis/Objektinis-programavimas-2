@@ -185,15 +185,13 @@ int main(){
     srand(time(NULL));
     vector <Stud> grupe;
     int eiga, lytis;
-    
-    ifstream fd("kursiokai.txt");
     cout << "Sveiki! Padėsiu jums paskaičiuoti galutinius Jūsų studentų balus!" << endl;
 
    while(true) {
         Stud laik;
         lytis = rand() % 2;
         int sum = 0;
-        
+
         cout << "Kaip norėsite įvesti duomenis apie šį studentą? \n(1 - ranka, 2 - generuoti pažymius ir egzamino rezultatą, 3 - generuoti pažymius, egzaminą bei vardą ir pavardę, 4 - nuskaityti duomenis iš failo (visiems studentams), 5 - baigti darbą): \n";
         cin >> eiga;
 
@@ -215,6 +213,7 @@ int main(){
             cout << "Nuskaitomi duomenys iš failo..." << endl;
             // auto start = std::chrono::high_resolution_clock::now(); laiko testavimui
             int nd_sk = rasti_nd_skaiciu_faile(fd);
+            
             while(fd.read(buffer.data(), buffer_size) || fd.gcount() ) {
                 chunk = leftover + string(buffer.data(), fd.gcount());
                 size_t last_new_line = chunk.rfind('\n');
@@ -244,6 +243,23 @@ int main(){
                     sum = 0;
                 }
                 
+            }
+
+            if (!leftover.empty()) {
+                int a;
+                istringstream duom(leftover);
+                duom >> laik.var >> laik.pav;
+            
+                for (int i = 0; i < nd_sk; i++) {
+                    duom >> a;
+                    sum += a;
+                    laik.paz.push_back(a);
+                }
+                duom >> laik.egz;
+            
+                paskaiciuoti_vid_ir_med(laik, sum);
+                paskaiciuoti_gal(laik);
+                grupe.emplace_back(std::move(laik));
             }
 
             fd.close();
