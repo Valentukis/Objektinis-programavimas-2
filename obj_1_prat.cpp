@@ -121,12 +121,46 @@ int rasti_nd_skaiciu_faile(ifstream& fd) {
     return nd_sk;
 }
 
+void paskaiciuoti_vid_ir_med(Stud& laik, int sum) {
+    int medianos_poz;
+    laik.vidurkis = double(sum) / laik.paz.size();
+    sort(laik.paz.begin(), laik.paz.end());
+
+    if (laik.paz.size() % 2 == 0) {
+        medianos_poz = laik.paz.size() / 2;
+        laik.mediana = ( laik.paz.at(medianos_poz) + laik.paz.at(medianos_poz - 1) ) / 2.0;
+    }
+    else {
+        medianos_poz = floor(laik.paz.size() / 2);
+        laik.mediana = laik.paz.at(medianos_poz);
+    }   
+}
+
+void paskaiciuoti_gal(Stud& laik) {
+    laik.galutinis_pagal_vid = (0.4 * laik.vidurkis + 0.6 * laik.egz);
+    laik.galutinis_pagal_med = (0.4 * laik.mediana + 0.6 * laik.egz);
+}
+
+void spausdinimas_atskiras(vector <Stud> &grupe) {
+    char pasirinkimas;
+    cout << "Įvedimas baigtas! Norite skaičiuoti galutinį įvertinimą su studentų pažymių vidurkiais ar medianomis? [V/M]" << endl;
+    cin >> pasirinkimas;
+
+    cout << std::left << setw(20) << "Pavardė" << setw(20) << " Vardas" << setw(20) << ( (toupper(pasirinkimas) == 'V') ? " Galutinis (Vid.)" : " Galutinis (Med.)" ) << endl;
+    cout << string(56, '-') << endl;
+    for (auto n: grupe) {
+        cout << std::left << setw(20) << n.pav << setw(20) << n.var << setw(20) << std::fixed << std::setprecision(2) << ((toupper(pasirinkimas) == 'V') ? (n.galutinis_pagal_vid) : (n.galutinis_pagal_med)) << endl;
+        }
+        grupe.clear();
+}
+
+
+
 int main(){
 
     srand(time(NULL));
     vector <Stud> grupe;
-    int sum, atsisk_paz, medianos_poz, eiga;
-    char pasirinkimas;
+    int atsisk_paz, eiga;
     int paz_sk, pazymys, lytis, ivestis;
     bool spausdinimas;
     const size_t buffer_size = 8192;
@@ -178,25 +212,15 @@ int main(){
                     duom >> laik.var >> laik.pav;
                     for (int i = 0; i < nd_sk; i++) {
                         duom >> ivestis;
+                        sum += ivestis; 
                         laik.paz.push_back(ivestis);
 
                     }
                     duom >> laik.egz;
-                    laik.vidurkis = double(sum) / laik.paz.size();
-                    sort(laik.paz.begin(), laik.paz.end());
-
-                    if (laik.paz.size() % 2 == 0) {
-                        medianos_poz = laik.paz.size() / 2;
-                        laik.mediana = ( laik.paz.at(medianos_poz) + laik.paz.at(medianos_poz - 1) ) / 2.0;
-                    }
-                    else {
-                        medianos_poz = floor(laik.paz.size() / 2);
-                        laik.mediana = laik.paz.at(medianos_poz);
-                    }   
-                        laik.galutinis_pagal_vid = (0.4 * laik.vidurkis + 0.6 * laik.egz);
-                        laik.galutinis_pagal_med = (0.4 * laik.mediana + 0.6 * laik.egz);
-                        grupe.emplace_back(std::move(laik)); //Vietoje push_back()
-
+                    paskaiciuoti_vid_ir_med(laik, sum);
+                    paskaiciuoti_gal(laik);
+                    grupe.emplace_back(std::move(laik)); //Vietoje push_back()
+                    sum = 0;
                 }
                 
             }
@@ -244,32 +268,12 @@ int main(){
             continue;
         }
         
-
-        laik.vidurkis = double(sum) / laik.paz.size();
-        sort(laik.paz.begin(), laik.paz.end());
-
-        if (laik.paz.size() % 2 == 0) {
-            medianos_poz = laik.paz.size() / 2;
-            laik.mediana = ( laik.paz.at(medianos_poz) + laik.paz.at(medianos_poz - 1) ) / 2.0;
-        }
-        else {
-            medianos_poz = floor(laik.paz.size() / 2);
-            laik.mediana = laik.paz.at(medianos_poz);
-        }
-        laik.galutinis_pagal_vid = (0.4 * laik.vidurkis + 0.6 * laik.egz);
-        laik.galutinis_pagal_med = (0.4 * laik.mediana + 0.6 * laik.egz);
+        paskaiciuoti_vid_ir_med(laik, sum);
+        paskaiciuoti_gal(laik);
         grupe.push_back(laik);
         cout << string(56, '-') << endl;
     }
 
-    cout << "Įvedimas baigtas! Norite skaičiuoti galutinį įvertinimą su studentų pažymių vidurkiais ar medianomis? [V/M]" << endl;
-    cin >> pasirinkimas;
-
-    cout << std::left << setw(20) << "Pavardė" << setw(20) << " Vardas" << setw(20) << ( (toupper(pasirinkimas) == 'V') ? " Galutinis (Vid.)" : " Galutinis (Med.)" ) << endl;
-    cout << string(56, '-') << endl;
-    for (auto n: grupe) {
-        cout << std::left << setw(20) << n.pav << setw(20) << n.var << setw(20) << std::fixed << std::setprecision(2) << ((toupper(pasirinkimas) == 'V') ? (n.galutinis_pagal_vid) : (n.galutinis_pagal_med)) << endl;
-        }
-        grupe.clear();
+    spausdinimas_atskiras(grupe);
 }
 
