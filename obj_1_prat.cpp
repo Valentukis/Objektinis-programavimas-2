@@ -232,6 +232,29 @@ void buferio_apdorojimas(vector <Stud> &grupe, Stud& laik, size_t buffer_size, v
     fd.close();
 }
 
+void ivedimas_failu(vector <Stud> &grupe, Stud &laik, int &sum) {
+    const size_t buffer_size = 8192;
+    vector <char> buffer(buffer_size);
+    ifstream fd("studentai10000.txt");
+    bool spausdinimas;
+    
+    cout << "Nuskaitomi duomenys iš failo..." << endl;
+    // auto start = std::chrono::high_resolution_clock::now(); laiko testavimui
+    int nd_sk = rasti_nd_skaiciu_faile(fd);
+    
+    buferio_apdorojimas(grupe, laik, buffer_size, buffer, fd, sum, nd_sk);
+    // auto end = std::chrono::high_resolution_clock::now(); Laiko testavimas
+    // std::chrono::duration<double> elapsed = end - start;
+    // cout << "Užtruko: " << std::fixed << std::setprecision(2) << elapsed.count() << " s" << endl;
+
+    cout << "Baigta! Pagal ką norėsite rūšiuoti duomenis? (1 - vardas, 2 - pavardė, 3 - galutinis balas pagal vidurkį, 4 - galutinis balas pagal medianą): " << endl;
+    pasirink_rusiavimas(grupe);
+
+    cout << "Duomenis išvesti ekrane ar į tekstinį failą? (0 - ekrane, 1 - faile): " << endl;
+    cin >> spausdinimas;
+    spausdinimas_kartu(grupe, spausdinimas);
+    exit(0);
+}
 
 int main(){
 
@@ -254,30 +277,8 @@ int main(){
 
         else if (eiga == 3) ivedimas_generuojant_viska(laik, sum, lytis);
 
-        else if (eiga == 4) {
-            const size_t buffer_size = 8192;
-            vector <char> buffer(buffer_size);
-            ifstream fd("kursiokai.txt");
-            bool spausdinimas;
-            
-            cout << "Nuskaitomi duomenys iš failo..." << endl;
-            // auto start = std::chrono::high_resolution_clock::now(); laiko testavimui
-            int nd_sk = rasti_nd_skaiciu_faile(fd);
-            
-            buferio_apdorojimas(grupe, laik, buffer_size, buffer, fd, sum, nd_sk);
-            // auto end = std::chrono::high_resolution_clock::now(); Laiko testavimas
-            // std::chrono::duration<double> elapsed = end - start;
-            // cout << "Užtruko: " << std::fixed << std::setprecision(2) << elapsed.count() << " s" << endl;
+        else if (eiga == 4) ivedimas_failu(grupe, laik, sum);
 
-            cout << "Baigta! Pagal ką norėsite rūšiuoti duomenis? (1 - vardas, 2 - pavardė, 3 - galutinis balas pagal vidurkį, 4 - galutinis balas pagal medianą): " << endl;
-            pasirink_rusiavimas(grupe);
-            cout << "Duomenis išvesti ekrane ar į tekstinį failą? (0 - ekrane, 1 - faile): " << endl;
-            cin >> spausdinimas;
-            spausdinimas_kartu(grupe, spausdinimas);
-            return 0;
-        }
-
-        
         else if (eiga == 5) break;
 
         else {
