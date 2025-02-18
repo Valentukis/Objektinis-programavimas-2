@@ -45,12 +45,12 @@ int main(){
     vector <Stud> grupe;
     int sum, atsisk_paz, medianos_poz, eiga;
     char pasirinkimas;
-    int paz_sk, pazymys, lytis;
+    int paz_sk, pazymys, lytis, ivestis;
     bool spausdinimas;
     const size_t buffer_size = 8192;
     vector <char> buffer(buffer_size);
-
-    ifstream fd("studentai1000000.txt");
+    
+    ifstream fd("kursiokai.txt");
     cout << "Sveiki! Padėsiu jums paskaičiuoti galutinius Jūsų studentų balus!" << endl;
 
    while(true) {
@@ -124,10 +124,11 @@ int main(){
         }
 
         else if (eiga == 4) {
-            int a;
             string line, leftover = "", word, chunk;
             int nd_sk = 0;
-
+            
+            cout << "Nuskaitomi duomenys iš failo..." << endl;
+            // auto start = std::chrono::high_resolution_clock::now(); laiko testavimui
             getline(fd, line);
             istringstream pirma_eilute(line);
 
@@ -154,8 +155,8 @@ int main(){
                     istringstream duom(line);
                     duom >> laik.var >> laik.pav;
                     for (int i = 0; i < nd_sk; i++) {
-                        duom >> a;
-                        laik.paz.push_back(a);
+                        duom >> ivestis;
+                        laik.paz.push_back(ivestis);
 
                     }
                     duom >> laik.egz;
@@ -172,30 +173,33 @@ int main(){
                     }   
                         laik.galutinis_pagal_vid = (0.4 * laik.vidurkis + 0.6 * laik.egz);
                         laik.galutinis_pagal_med = (0.4 * laik.mediana + 0.6 * laik.egz);
-                        grupe.emplace_back(std::move(laik)); //Pagrindas opttimizacijos
-                        cout << laik.var << " " << laik.pav << endl;
+                        grupe.emplace_back(std::move(laik)); //Vietoje push_back()
+
                 }
                 
             }
 
             fd.close();
+            // auto end = std::chrono::high_resolution_clock::now(); Laiko testavimas
+            // std::chrono::duration<double> elapsed = end - start;
+            // cout << "Užtruko: " << std::fixed << std::setprecision(2) << elapsed.count() << " s" << endl;
 
-            cout << "Pagal ką norėsite rūšiuoti duomenis? (1 - vardas, 2 - pavardė, 3 - galutinis balas pagal vidurkį, 4 - galutinis balas pagal medianą): " << endl;
-            cin >> a;
+            cout << "Baigta! Pagal ką norėsite rūšiuoti duomenis? (1 - vardas, 2 - pavardė, 3 - galutinis balas pagal vidurkį, 4 - galutinis balas pagal medianą): " << endl;
+            cin >> ivestis;
             cout << "Duomenis išvesti ekrane ar į tekstinį failą? (0 - ekrane, 1 - faile): " << endl;
             cin >> spausdinimas;
 
-            if (a == 1) stable_sort(grupe.begin(), grupe.end(), lyginti_pagal_varda);
-            else if (a == 2) stable_sort(grupe.begin(), grupe.end(), lyginti_pagal_pavarde);
-            else if (a == 3) stable_sort(grupe.begin(), grupe.end(), lyginti_pagal_vidurki);
-            else if (a == 4) stable_sort(grupe.begin(), grupe.end(), lyginti_pagal_mediana);
+            if (ivestis == 1) stable_sort(grupe.begin(), grupe.end(), lyginti_pagal_varda);
+            else if (ivestis == 2) stable_sort(grupe.begin(), grupe.end(), lyginti_pagal_pavarde);
+            else if (ivestis == 3) stable_sort(grupe.begin(), grupe.end(), lyginti_pagal_vidurki);
+            else if (ivestis == 4) stable_sort(grupe.begin(), grupe.end(), lyginti_pagal_mediana);
             
             if (spausdinimas) {
                 std::ofstream fr("rez.txt");
+                cout << "Įrašoma į failą..." << endl;
                 fr << std::left << setw(20) << "Pavardė" << setw(20) << " Vardas" << setw(20) << " Galutinis (Vid.)" << setw(20) << " Galutinis (Med.)" << endl;
                 fr << string(76, '-') << endl;
                 for (auto n: grupe) {
-                    n.galutinis = (pasirinkimas == 'V') ? (0.4 * n.vidurkis + 0.6 * n.egz) : (0.4 * n.mediana + 0.6 * n.egz);
                     fr << std::left << setw(20) << n.pav << setw(20) << n.var << setw(20) << std::fixed << std::setprecision(2) << (0.4 * n.vidurkis + 0.6 * n.egz) << setw(20) << (0.4 * n.mediana + 0.6 * n.egz) << endl;
                     }
                     grupe.clear();
@@ -209,7 +213,6 @@ int main(){
             cout << std::left << setw(20) << "Pavardė" << setw(20) << " Vardas" << setw(20) << " Galutinis (Vid.)" << setw(20) << " Galutinis (Med.)" << endl;
             cout << string(76, '-') << endl;
             for (auto n: grupe) {
-                n.galutinis = (pasirinkimas == 'V') ? (0.4 * n.vidurkis + 0.6 * n.egz) : (0.4 * n.mediana + 0.6 * n.egz);
                 cout << std::left << setw(20) << n.pav << setw(20) << n.var << setw(20) << std::fixed << std::setprecision(2) << (0.4 * n.vidurkis + 0.6 * n.egz) << setw(20) << (0.4 * n.mediana + 0.6 * n.egz) << endl;
                 }
                 grupe.clear();
@@ -244,10 +247,10 @@ int main(){
     cout << "Įvedimas baigtas! Norite skaičiuoti galutinį įvertinimą su studentų pažymių vidurkiais ar medianomis? [V/M]" << endl;
     cin >> pasirinkimas;
 
-    cout << std::left << setw(20) << "Pavardė" << setw(20) << " Vardas" << setw(20) << ( (pasirinkimas == 'V') ? " Galutinis (Vid.)" : " Galutinis (Med.)" ) << endl;
+    cout << std::left << setw(20) << "Pavardė" << setw(20) << " Vardas" << setw(20) << ( (toupper(pasirinkimas) == 'V') ? " Galutinis (Vid.)" : " Galutinis (Med.)" ) << endl;
     cout << string(56, '-') << endl;
     for (auto n: grupe) {
-        n.galutinis = (pasirinkimas == 'V') ? (0.4 * n.vidurkis + 0.6 * n.egz) : (0.4 * n.mediana + 0.6 * n.egz);
+        n.galutinis = (toupper(pasirinkimas) == 'V') ? (0.4 * n.vidurkis + 0.6 * n.egz) : (0.4 * n.mediana + 0.6 * n.egz);
         cout << std::left << setw(20) << n.pav << setw(20) << n.var << setw(20) << std::fixed << std::setprecision(2) << n.galutinis << endl;
         }
         grupe.clear();

@@ -1,0 +1,9 @@
+Prieš optimizavimą:
+10000 studentu: 2min40s
+100000 studentu: -
+1000000 studentu: -
+
+Po optimizavimo (5 laikų ir jų vidurkio rezultatai):
+10000 studentų: 0.23s 0.22s 0.22s 0.22s 0.22s; Vidurkis = 0.222s
+100000 studentų: 1.00s 1.10s 1.03s 1.11s 1.00s; Vidurkis = 1.048s
+1000000 studentų: 58.62s 72.25s 58.24s 71.99s 59.50s; Vidurkis = 64.12s
