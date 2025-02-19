@@ -50,9 +50,3 @@ int main(){
 
     spausdinimas_atskiras(grupe);
 }
-
-//To do for tommorow:
-//Error handling
-//Delete these comments
-//Seperate files
-//You got this bro!

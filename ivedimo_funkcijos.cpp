@@ -138,13 +138,17 @@ void ivedimas_generuojant_viska(Stud& laik, int& sum, int lytis) {
 }
 
 void ivedimas_failu(vector <Stud> &grupe, Stud &laik, int &sum) {
+    string file_name;
     const size_t buffer_size = 8192;
     vector <char> buffer(buffer_size);
     int spausdinimas;
     ifstream fd;
+
+    cout << "Iveskite failo pavadinimą, esantį darbo aplanke, kurį norite naudoti [pavadinimas.txt]: " << endl;
+    cin >> file_name;
     try {
-        fd.open("studentai10000.txt");
-        if (!fd) throw std::runtime_error("Klaida atidarant failą. Patikrinkite, ar failas direktyvoje ir paleiskite programą iš naujo.");
+        fd.open(file_name);
+        if (!fd || fd.peek() == ifstream::traits_type::eof()) throw std::runtime_error("Klaida atidarant failą. Patikrinkite, ar failas direktyvoje ir paleiskite programą iš naujo.");
     }
     catch(const std::exception &e) {
         std::cerr << e.what();
