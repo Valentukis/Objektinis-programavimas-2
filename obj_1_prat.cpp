@@ -41,43 +41,82 @@ bool lyginti_pagal_mediana(const Stud &a, const Stud &b) {
 void ivedimas_ranka(Stud& laik, int& sum) {
     int i = 0;
     int atsisk_paz;
-    cout << "Įveskite studento vardą: ";
-    cin >> laik.var;
-    cout << "Įveskite studento pavardę: ";
-    cin >> laik.pav;
 
-    while(true){
-    cout << "Įveskite " << i + 1 << "-ą atsiskaitymo pažymį (Arba, jei baigėte pažymių įvedimą, įveskite -1): ";
-    i++;
-    cin >> atsisk_paz;
-    if (atsisk_paz == -1) break;
-    sum += atsisk_paz;
-    laik.paz.push_back(atsisk_paz);
+    while (true) {
+
+        try {
+        cout << "Įveskite studento vardą: ";
+        cin >> laik.var;
+        if (cin.fail()) throw std::runtime_error("Netinkamas vardo įvedimas. Bandykite vėl.");
+
+        cout << "Įveskite studento pavardę: ";
+        cin >> laik.pav;
+        if (cin.fail()) throw std::runtime_error("Netinkamas pavardės įvedimas. Bandykite vėl.");
+
+        while(true){
+            cout << "Įveskite " << i + 1 << "-ą atsiskaitymo pažymį (Arba, jei baigėte pažymių įvedimą, įveskite -1): ";
+            i++;
+            cin >> atsisk_paz;
+            if (cin.fail() || atsisk_paz < 0) throw std::runtime_error("Netinkamas pažymio įvedimas. Bandykite vėl.");
+
+            if (atsisk_paz == -1) break;
+            sum += atsisk_paz;
+            laik.paz.push_back(atsisk_paz);
         }
 
-    cout << "Įveskite egzamino įvertinimą: ";
-    cin >> laik.egz;
+        cout << "Įveskite egzamino įvertinimą: ";
+        cin >> laik.egz;
+        if (cin.fail() || laik.egz < 0 || laik.egz > 10) throw std::runtime_error("Netinkamas egzamino įvedimas. Bandykite vėl.");
+        break;
+        }
+
+        catch(const std::exception &e) {
+            std::cerr << e.what() << endl;
+            cin.clear();
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            laik.paz.clear();
+            sum = 0;
+            i = 0;
+        }
+
+    }
 }
 
 void ivedimas_pazymiu_generavimu(Stud& laik, int& sum) {
     int paz_sk, pazymys;
-    cout << "Įveskite studento vardą: ";
-    cin >> laik.var;
-    cout << "Įveskite studento pavardę: ";
-    cin >> laik.pav;
-    
-    cout << "Kiek pažymiu sugeneruoti šiam studentui? ";
-    cin >> paz_sk;
 
-    for (int i = 0; i < paz_sk; i++) {
-        pazymys = rand() % 10 + 1;
-        laik.paz.push_back(pazymys);
-        sum += pazymys;
-        cout << i + 1 << " pažymys: " << laik.paz.at(i) << endl;
+    while(true) {
+        try {
+        cout << "Įveskite studento vardą: ";
+        cin >> laik.var;
+        if (cin.fail()) throw std::runtime_error("Netinkamas vardo įvedimas. Bandykite vėl.");
+        cout << "Įveskite studento pavardę: ";
+        cin >> laik.pav;
+        if (cin.fail()) throw std::runtime_error("Netinkamas pavardės įvedimas. Bandykite vėl.");
+        
+        cout << "Kiek pažymiu sugeneruoti šiam studentui? ";
+        cin >> paz_sk;
+        if (cin.fail() || paz_sk < 0 || paz_sk > 10) throw std::runtime_error("Netinkamas pažymių skaičiaus įvedimas. Bandykite vėl.");
+
+        for (int i = 0; i < paz_sk; i++) {
+            pazymys = rand() % 10 + 1;
+            laik.paz.push_back(pazymys);
+            sum += pazymys;
+            cout << i + 1 << " pažymys: " << laik.paz.at(i) << endl;
+        }
+
+        laik.egz = rand() % 10 + 1;
+        cout << "Egzamino įvertinimas: " << laik.egz << endl;
+        break;
     }
-
-    laik.egz = rand() % 10 + 1;
-    cout << "Egzamino įvertinimas: " << laik.egz << endl;
+    catch(const std::exception &e) {
+        std::cerr << e.what() << endl;
+        cin.clear();
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        laik.paz.clear();
+        sum = 0;
+    }
+    }
 }
 
 void ivedimas_generuojant_viska(Stud& laik, int& sum, int lytis) {
@@ -87,8 +126,19 @@ void ivedimas_generuojant_viska(Stud& laik, int& sum, int lytis) {
     cout << "Vardas - " << laik.var << endl;
     cout << "Pavardė - " << laik.pav << endl;
     
-    cout << "Kiek pažymiu sugeneruoti šiam studentui? ";
-    cin >> paz_sk;
+    while(true) {
+        try{
+            cout << "Kiek pažymiu sugeneruoti šiam studentui? ";
+            cin >> paz_sk;
+            if (cin.fail() || paz_sk < 0) throw std::runtime_error("Netinkamas pažymių skaičiaus įvedimas. Bandykite įvesti jį vėl.");
+            break;
+        }
+        catch (const std::exception &e) {
+            std::cerr << e.what() << endl;
+            cin.clear();
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+    }
 
     for (int i = 0; i < paz_sk; i++) {
         pazymys = rand() % 10 + 1;
@@ -102,8 +152,20 @@ void ivedimas_generuojant_viska(Stud& laik, int& sum, int lytis) {
 }
 
 void pasirink_rusiavimas(vector<Stud> &grupe) {
+
     int ivestis;
-    cin >> ivestis;
+
+    while(true) {
+        cin >> ivestis;
+        if (cin.fail() || ivestis > 4 || ivestis < 1) {
+            std::cerr << "Bloga įvestis! Bandykite vėl." << endl;
+            cout << "Pagal ką norėsite rūšiuoti duomenis? (1 - vardas, 2 - pavardė, 3 - galutinis balas pagal vidurkį, 4 - galutinis balas pagal medianą):" << endl; 
+            cin.clear();  // ✅ Reset cin error state
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
+        }
+        else break;
+    }
+
     if (ivestis == 1) stable_sort(grupe.begin(), grupe.end(), lyginti_pagal_varda);
     else if (ivestis == 2) stable_sort(grupe.begin(), grupe.end(), lyginti_pagal_pavarde);
     else if (ivestis == 3) stable_sort(grupe.begin(), grupe.end(), lyginti_pagal_vidurki);
@@ -143,13 +205,19 @@ void paskaiciuoti_gal(Stud& laik) {
 
 void spausdinimas_atskiras(vector <Stud> &grupe) {
     char pasirinkimas;
-    cout << "Įvedimas baigtas! Norite skaičiuoti galutinį įvertinimą su studentų pažymių vidurkiais ar medianomis? [V/M]" << endl;
-    cin >> pasirinkimas;
-
-    cout << std::left << setw(20) << "Pavardė" << setw(20) << " Vardas" << setw(20) << ( (toupper(pasirinkimas) == 'V') ? " Galutinis (Vid.)" : " Galutinis (Med.)" ) << endl;
+    
+    while(true) {
+        cout << "Norite skaičiuoti galutinį įvertinimą su studentų pažymių vidurkiais ar medianomis? [V/M]" << endl;
+        cin >> pasirinkimas;
+        pasirinkimas = toupper(pasirinkimas);
+        if (pasirinkimas != 'V' && pasirinkimas != 'M') std::cerr << "Bloga pasirinkimo įvestis. Bandykite vėl: " << endl;
+        else break;
+    }
+    
+    cout << std::left << setw(20) << "Pavardė" << setw(20) << " Vardas" << setw(20) << ( (pasirinkimas == 'V') ? " Galutinis (Vid.)" : " Galutinis (Med.)" ) << endl;
     cout << string(56, '-') << endl;
     for (auto n: grupe) {
-        cout << std::left << setw(20) << n.pav << setw(20) << n.var << setw(20) << std::fixed << std::setprecision(2) << ((toupper(pasirinkimas) == 'V') ? (n.galutinis_pagal_vid) : (n.galutinis_pagal_med)) << endl;
+        cout << std::left << setw(20) << n.pav << setw(20) << n.var << setw(20) << std::fixed << std::setprecision(2) << ((pasirinkimas == 'V') ? (n.galutinis_pagal_vid) : (n.galutinis_pagal_med)) << endl;
         }
         grupe.clear();
 }
@@ -235,8 +303,16 @@ void buferio_apdorojimas(vector <Stud> &grupe, Stud& laik, size_t buffer_size, v
 void ivedimas_failu(vector <Stud> &grupe, Stud &laik, int &sum) {
     const size_t buffer_size = 8192;
     vector <char> buffer(buffer_size);
-    ifstream fd("studentai10000.txt");
     bool spausdinimas;
+    ifstream fd;
+    try {
+        fd.open("studentai10000.txt");
+        if (!fd) throw std::runtime_error("Klaida atidarant failą. Patikrinkite, ar failas direktyvoje ir paleiskite programą iš naujo.");
+    }
+    catch(const std::exception &e) {
+        std::cerr << e.what();
+        exit(1);
+    }
     
     cout << "Nuskaitomi duomenys iš failo..." << endl;
     // auto start = std::chrono::high_resolution_clock::now(); laiko testavimui
@@ -327,5 +403,4 @@ int main(){
 //Error handling
 //Delete these comments
 //Seperate files
-//switch statement
 //You got this bro!

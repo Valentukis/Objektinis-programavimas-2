@@ -10,6 +10,7 @@
 #include <sstream>
 #include <chrono>
 #include <limits>
+#include <exception>
 
 using std::istringstream;
 using std::string;
