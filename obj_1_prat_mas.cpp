@@ -158,7 +158,4 @@ int main(){
     grupe.clear();
 }
 
-//TO DO:
-//FIX FORMATTING ZJBL
-//Make input contain options 1-4
-//fix github
+

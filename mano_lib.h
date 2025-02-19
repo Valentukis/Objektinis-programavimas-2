@@ -9,6 +9,7 @@
 #include <fstream>
 #include <sstream>
 #include <chrono>
+#include <limits>
 
 using std::istringstream;
 using std::string;

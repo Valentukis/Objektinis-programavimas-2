@@ -179,7 +179,7 @@ void spausdinimas_kartu(vector <Stud> &grupe, bool spausdinimas) {
     }
 }
 
-void buferio_apdorojimas(vector <Stud> &grupe, Stud& laik, size_t buffer_size, vector <char> buffer, ifstream &fd, int &sum, int nd_sk) {
+void buferio_apdorojimas(vector <Stud> &grupe, Stud& laik, size_t buffer_size, vector <char> &buffer, ifstream &fd, int &sum, int nd_sk) {
     string line, leftover = "", word, chunk;
     int ivestis;
 
@@ -208,7 +208,7 @@ void buferio_apdorojimas(vector <Stud> &grupe, Stud& laik, size_t buffer_size, v
             duom >> laik.egz;
             paskaiciuoti_vid_ir_med(laik, sum);
             paskaiciuoti_gal(laik);
-            grupe.emplace_back(std::move(laik)); //Vietoje push_back()
+            grupe.emplace_back(std::move(laik)); 
             sum = 0;
         }
         
@@ -256,42 +256,76 @@ void ivedimas_failu(vector <Stud> &grupe, Stud &laik, int &sum) {
     exit(0);
 }
 
+int eigos_parinktis() {
+    int eiga;
+    while(true) {
+        cout << "Kaip norėsite įvesti duomenis apie šį studentą? \n(1 - ranka, 2 - generuoti pažymius ir egzamino rezultatą, 3 - generuoti pažymius, egzaminą bei vardą ir pavardę, 4 - nuskaityti duomenis iš failo (visiems studentams), 5 - baigti darbą): \n";
+        cin >> eiga;
+
+        if(cin.fail() || eiga < 1 || eiga > 5) {
+            std::cerr << "Bloga įvestis! Bandykite dar kartą" << endl;
+            cout << string(56, '-') << endl;
+            cin.clear();
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+
+        else {
+            break;
+        }
+    }
+    return eiga;
+}
 int main(){
 
     srand(time(NULL));
     vector <Stud> grupe;
     int eiga, lytis;
+    bool testi = true;
     cout << "Sveiki! Padėsiu jums paskaičiuoti galutinius Jūsų studentų balus!" << endl;
 
-   while(true) {
+   while(testi) {
         Stud laik;
         lytis = rand() % 2;
         int sum = 0;
 
-        cout << "Kaip norėsite įvesti duomenis apie šį studentą? \n(1 - ranka, 2 - generuoti pažymius ir egzamino rezultatą, 3 - generuoti pažymius, egzaminą bei vardą ir pavardę, 4 - nuskaityti duomenis iš failo (visiems studentams), 5 - baigti darbą): \n";
-        cin >> eiga;
+        eiga = eigos_parinktis();
 
-        if (eiga == 1) ivedimas_ranka(laik, sum);
+        switch(eiga) {
+            case 1:
+            ivedimas_ranka(laik, sum);
+            break;
 
-        else if (eiga == 2) ivedimas_pazymiu_generavimu(laik, sum);
+            case 2:
+            ivedimas_pazymiu_generavimu(laik, sum);
+            break;
 
-        else if (eiga == 3) ivedimas_generuojant_viska(laik, sum, lytis);
+            case 3:
+            ivedimas_generuojant_viska(laik, sum, lytis);
+            break;
 
-        else if (eiga == 4) ivedimas_failu(grupe, laik, sum);
+            case 4:
+            ivedimas_failu(grupe, laik, sum);
+            break;
 
-        else if (eiga == 5) break;
-
-        else {
-            cout << "Bloga įvestis! Bandykite dar kartą" << endl;
-            continue;
+            case 5:
+            testi = false;
+            break;
         }
         
+        if (eiga != 5) {
         paskaiciuoti_vid_ir_med(laik, sum);
         paskaiciuoti_gal(laik);
         grupe.push_back(laik);
         cout << string(56, '-') << endl;
+        }
     }
 
     spausdinimas_atskiras(grupe);
 }
 
+//To do for tommorow:
+//Error handling
+//Delete these comments
+//Seperate files
+//switch statement
+//You got this bro!
