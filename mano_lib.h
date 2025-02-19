@@ -1,3 +1,5 @@
+#ifndef MANO_BIBLIOTEKA
+#define MANO_BIBLIOTEKA
 #include <iostream>
 #include <vector>
 #include <algorithm>
@@ -32,3 +34,4 @@ struct Stud{
     double galutinis_pagal_vid;
     double galutinis_pagal_med;
 };
+#endif
