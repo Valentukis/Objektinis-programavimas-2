@@ -57,7 +57,7 @@ void ivedimas_ranka(Stud& laik, int& sum) {
             cout << "Įveskite " << i + 1 << "-ą atsiskaitymo pažymį (Arba, jei baigėte pažymių įvedimą, įveskite -1): ";
             i++;
             cin >> atsisk_paz;
-            if (cin.fail() || atsisk_paz < 0) throw std::runtime_error("Netinkamas pažymio įvedimas. Bandykite vėl.");
+            if (cin.fail() || (atsisk_paz < 0 && atsisk_paz != -1)) throw std::runtime_error("Netinkamas pažymio įvedimas. Bandykite vėl.");
 
             if (atsisk_paz == -1) break;
             sum += atsisk_paz;
@@ -160,7 +160,7 @@ void pasirink_rusiavimas(vector<Stud> &grupe) {
         if (cin.fail() || ivestis > 4 || ivestis < 1) {
             std::cerr << "Bloga įvestis! Bandykite vėl." << endl;
             cout << "Pagal ką norėsite rūšiuoti duomenis? (1 - vardas, 2 - pavardė, 3 - galutinis balas pagal vidurkį, 4 - galutinis balas pagal medianą):" << endl; 
-            cin.clear();  // ✅ Reset cin error state
+            cin.clear();  
             cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
         }
         else break;
@@ -237,13 +237,14 @@ void spausdinimas_kartu(vector <Stud> &grupe, bool spausdinimas) {
     }
     
     else {
-
-    cout << std::left << setw(20) << "Pavardė" << setw(20) << " Vardas" << setw(20) << " Galutinis (Vid.)" << setw(20) << " Galutinis (Med.)" << endl;
-    cout << string(76, '-') << endl;
+    std::ostringstream output;
+    output << std::left << setw(20) << "Pavardė" << setw(20) << " Vardas" << setw(20) << " Galutinis (Vid.)" << setw(20) << " Galutinis (Med.)" << endl;
+    output << string(76, '-') << endl;
     for (auto n: grupe) {
-        cout << std::left << setw(20) << n.pav << setw(20) << n.var << setw(20) << std::fixed << std::setprecision(2) << (0.4 * n.vidurkis + 0.6 * n.egz) << setw(20) << (0.4 * n.mediana + 0.6 * n.egz) << endl;
+        output << std::left << setw(20) << n.pav << setw(20) << n.var << setw(20) << std::fixed << std::setprecision(2) << (0.4 * n.vidurkis + 0.6 * n.egz) << setw(20) << (0.4 * n.mediana + 0.6 * n.egz) << endl;
         }
         grupe.clear();
+        cout << output.str();
     }
 }
 
@@ -277,6 +278,7 @@ void buferio_apdorojimas(vector <Stud> &grupe, Stud& laik, size_t buffer_size, v
             paskaiciuoti_vid_ir_med(laik, sum);
             paskaiciuoti_gal(laik);
             grupe.emplace_back(std::move(laik)); 
+            laik.paz.clear();
             sum = 0;
         }
         
@@ -303,10 +305,10 @@ void buferio_apdorojimas(vector <Stud> &grupe, Stud& laik, size_t buffer_size, v
 void ivedimas_failu(vector <Stud> &grupe, Stud &laik, int &sum) {
     const size_t buffer_size = 8192;
     vector <char> buffer(buffer_size);
-    bool spausdinimas;
+    int spausdinimas;
     ifstream fd;
     try {
-        fd.open("studentai10000.txt");
+        fd.open("studentai1000000.txt");
         if (!fd) throw std::runtime_error("Klaida atidarant failą. Patikrinkite, ar failas direktyvoje ir paleiskite programą iš naujo.");
     }
     catch(const std::exception &e) {
@@ -315,19 +317,27 @@ void ivedimas_failu(vector <Stud> &grupe, Stud &laik, int &sum) {
     }
     
     cout << "Nuskaitomi duomenys iš failo..." << endl;
-    // auto start = std::chrono::high_resolution_clock::now(); laiko testavimui
+    auto start = std::chrono::high_resolution_clock::now(); 
     int nd_sk = rasti_nd_skaiciu_faile(fd);
     
     buferio_apdorojimas(grupe, laik, buffer_size, buffer, fd, sum, nd_sk);
-    // auto end = std::chrono::high_resolution_clock::now(); Laiko testavimas
-    // std::chrono::duration<double> elapsed = end - start;
-    // cout << "Užtruko: " << std::fixed << std::setprecision(2) << elapsed.count() << " s" << endl;
+    auto end = std::chrono::high_resolution_clock::now(); 
+    std::chrono::duration<double> elapsed = end - start;
+    cout << "Užtruko: " << std::fixed << std::setprecision(2) << elapsed.count() << " s" << endl;
 
     cout << "Baigta! Pagal ką norėsite rūšiuoti duomenis? (1 - vardas, 2 - pavardė, 3 - galutinis balas pagal vidurkį, 4 - galutinis balas pagal medianą): " << endl;
     pasirink_rusiavimas(grupe);
-
+    
+    while(true) {
     cout << "Duomenis išvesti ekrane ar į tekstinį failą? (0 - ekrane, 1 - faile): " << endl;
     cin >> spausdinimas;
+    if (cin.fail() || spausdinimas < 0 || spausdinimas > 1) {
+        std::cerr << "Bloga įvestis. Bandykite vėl." << endl;
+        cin.clear();
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    }
+    else break;
+    }
     spausdinimas_kartu(grupe, spausdinimas);
     exit(0);
 }
