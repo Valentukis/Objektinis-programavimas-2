@@ -50,3 +50,4 @@ int main(){
 
     spausdinimas_atskiras(grupe);
 }
+
