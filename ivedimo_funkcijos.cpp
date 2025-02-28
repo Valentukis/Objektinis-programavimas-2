@@ -144,16 +144,19 @@ void ivedimas_failu(vector <Stud> &grupe, Stud &laik, int &sum) {
     int spausdinimas;
     ifstream fd;
 
-    cout << "Iveskite failo pavadinimą, esantį darbo aplanke, kurį norite naudoti [pavadinimas.txt]: " << endl;
-    cin >> file_name;
-    try {
+    while (true) {
+        cout << "Įveskite failo pavadinimą, esantį darbo aplanke, kurį norite naudoti [pavadinimas.txt]: " << endl;
+        cin >> file_name;
         fd.open(file_name);
-        if (!fd || fd.peek() == ifstream::traits_type::eof()) throw std::runtime_error("Klaida atidarant failą. Patikrinkite, ar failas direktyvoje ir paleiskite programą iš naujo.");
+        if (!fd || fd.peek() == ifstream::traits_type::eof()){
+             std::cerr << ("Klaida atidarant failą. Patikrinkite, ar failas direktyvoje ir bandykite įvesti vėl.\n");
+             cin.clear();
+             cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+             cout << string(80, '-') << endl;
     }
-    catch(const std::exception &e) {
-        std::cerr << e.what();
-        exit(1);
-    }
+    else break;
+    
+}
     
     cout << "Nuskaitomi duomenys iš failo..." << endl;
     auto start = std::chrono::high_resolution_clock::now(); 
