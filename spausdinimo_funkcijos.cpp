@@ -25,11 +25,15 @@ void spausdinimas_kartu(vector <Stud> &grupe, bool spausdinimas, vector <Stud> &
         cout << "Įrašoma į failą..." << endl;
         fr << std::left << setw(20) << "Pavardė" << setw(20) << " Vardas" << setw(20) << " Galutinis (Vid.)" << setw(20) << " Galutinis (Med.)" << endl;
         fr << string(76, '-') << endl;
+        auto start = std::chrono::high_resolution_clock::now();
         for (auto n: grupe) {
             fr << std::left << setw(20) << n.pav << setw(20) << n.var << setw(20) << std::fixed << std::setprecision(2) << (0.4 * n.vidurkis + 0.6 * n.egz) << setw(20) << (0.4 * n.mediana + 0.6 * n.egz) << endl;
             if (n.galutinis_pagal_vid >= 5.0) kietuoliai.emplace_back(std::move(n));
             else vargseliai.emplace_back(std::move(n));
             }
+            auto end = std::chrono::high_resolution_clock::now(); 
+            std::chrono::duration<double> elapsed = end - start;
+            cout << "Spausdinimas + studentų rūšiavimas užtruko: " << std::fixed << std::setprecision(1) << elapsed.count() << "s" << endl;
             grupe.clear();
             fr.close();
             cout << "Baigta!";
@@ -39,6 +43,7 @@ void spausdinimas_kartu(vector <Stud> &grupe, bool spausdinimas, vector <Stud> &
     std::ostringstream output;
     output << std::left << setw(20) << "Pavardė" << setw(20) << " Vardas" << setw(20) << " Galutinis (Vid.)" << setw(20) << " Galutinis (Med.)" << endl;
     output << string(76, '-') << endl;
+    auto start = std::chrono::high_resolution_clock::now(); 
     for (auto n: grupe) {
         output << std::left << setw(20) << n.pav << setw(20) << n.var << setw(20) << std::fixed << std::setprecision(2) << (0.4 * n.vidurkis + 0.6 * n.egz) << setw(20) << (0.4 * n.mediana + 0.6 * n.egz) << endl;
         if (n.galutinis_pagal_vid >= 5.0) kietuoliai.emplace_back(std::move(n));
@@ -46,6 +51,9 @@ void spausdinimas_kartu(vector <Stud> &grupe, bool spausdinimas, vector <Stud> &
         }
         grupe.clear();
         cout << output.str();
+        auto end = std::chrono::high_resolution_clock::now(); 
+        std::chrono::duration<double> elapsed = end - start;
+        cout << "Spausdinimas + studentų rūšiavimas užtruko: " << std::fixed << std::setprecision(1) << elapsed.count() << "s" << endl;
     }
 }
 
