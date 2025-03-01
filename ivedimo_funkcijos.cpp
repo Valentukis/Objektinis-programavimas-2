@@ -155,6 +155,8 @@ void ivedimas_failu(vector <Stud> &grupe, Stud &laik, int &sum) {
         cout << "Įveskite, kiek buvo namų darbų atsiskaitymų: " << endl;
         cin >> nd_sk;
 
+        auto start = std::chrono::high_resolution_clock::now(); 
+
         string failo_pav = "studentai" + std::to_string(student_sk) + ".txt";
         ofstream fr;
         fr.open(failo_pav);
@@ -169,6 +171,9 @@ void ivedimas_failu(vector <Stud> &grupe, Stud &laik, int &sum) {
             fr << rand() % 10 + 1 << endl;
         }
         fr.close();
+        auto end = std::chrono::high_resolution_clock::now(); 
+        std::chrono::duration<double> elapsed = end - start;
+        cout << "Failas sugeneruotas per " << std::fixed << std::setprecision(1) << elapsed.count() << " sekundžių!" << endl;
         fd.open(failo_pav);
     }
 
