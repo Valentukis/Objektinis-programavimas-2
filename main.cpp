@@ -4,6 +4,9 @@
 #include "apdorojimo_funkcijos.h"
 
 int main(){
+    auto prog_prad = std::chrono::high_resolution_clock::now(); 
+    std::chrono::time_point<std::chrono::high_resolution_clock> prog_pab;
+    std::chrono::duration<double> prog_laik;
 
     srand(time(NULL));
     vector <Stud> grupe;
@@ -33,6 +36,10 @@ int main(){
 
             case 4:
             ivedimas_failu(grupe, laik, sum);
+            prog_pab = std::chrono::high_resolution_clock::now(); 
+            prog_laik = prog_pab - prog_prad;
+            cout << "Visa programa veikė: " << std::fixed << std::setprecision(1) << prog_laik.count() << "s" << endl;
+            exit(0);
             break;
 
             case 5:

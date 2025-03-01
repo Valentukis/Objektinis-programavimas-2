@@ -229,5 +229,4 @@ void ivedimas_failu(vector <Stud> &grupe, Stud &laik, int &sum) {
     elapsed = end - start;
     cout << "Sūrušiuotų studentų išvedimas į failą užtruko: " << std::fixed << std::setprecision(1) << elapsed.count() << "s" << endl;
 
-    exit(0);
 }
