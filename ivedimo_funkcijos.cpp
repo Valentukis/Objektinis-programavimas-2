@@ -155,10 +155,18 @@ void ivedimas_failu(vector <Stud> &grupe, Stud &laik, int &sum) {
         cin >> nd_sk;
 
         string failo_pav = "studentai" + std::to_string(student_sk) + ".txt";
-
         ofstream fr;
         fr.open(failo_pav);
-        fr << "Test";
+        
+        fr << std::left << setw(20) << "Vardas" << setw(20) << std::right << "Pavarde" << setw(15);
+        for (int i = 0; i < nd_sk; i++) fr << "ND" + std::to_string(i+1) << setw(15); 
+        fr << "Egzaminas" << endl;
+
+        for (int i = 0; i < student_sk; i++) {
+            fr << std::left << setw(20) << "Vardas" + std::to_string(i+1) << std::right << setw(20) << "Pavarde" + std::to_string(i+1) << setw(15);
+            for (int j = 0; j < nd_sk; j++) fr << std::right << rand() % 10 + 1 << setw(15);
+            fr << rand() % 10 + 1 << endl;
+        }
         fr.close();
         exit(1);
 
