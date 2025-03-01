@@ -143,6 +143,26 @@ void ivedimas_failu(vector <Stud> &grupe, Stud &laik, int &sum) {
     vector <char> buffer(buffer_size);
     int spausdinimas;
     ifstream fd;
+    bool generuoti;
+    cout << "Norite naudoti ęsamą failą ar sugeneruoti naują? (0 - Naudoti esamą, 1 - Generuoti naują): " << endl;
+    cin >> generuoti;
+
+    if(generuoti) {
+        int student_sk, nd_sk;
+        cout << "Įveskite, kiek studentų sugeneruoti: " << endl;
+        cin >> student_sk;
+        cout << "Įveskite, kiek buvo namų darbų atsiskaitymų: " << endl;
+        cin >> nd_sk;
+
+        string failo_pav = "studentai" + std::to_string(student_sk) + ".txt";
+
+        ofstream fr;
+        fr.open(failo_pav);
+        fr << "Test";
+        fr.close();
+        exit(1);
+
+    }
 
     while (true) {
         cout << "Įveskite failo pavadinimą, esantį darbo aplanke, kurį norite naudoti [pavadinimas.txt]: " << endl;

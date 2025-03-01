@@ -24,6 +24,7 @@ using std::cin;
 using std::sort;
 using std::setw;
 using std::ifstream;
+using std::ofstream;
 
 struct Stud{
     string var, pav;
