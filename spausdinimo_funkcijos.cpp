@@ -36,7 +36,6 @@ void spausdinimas_kartu(vector <Stud> &grupe, bool spausdinimas, vector <Stud> &
             cout << "Spausdinimas + studentų rūšiavimas užtruko: " << std::fixed << std::setprecision(1) << elapsed.count() << "s" << endl;
             grupe.clear();
             fr.close();
-            cout << "Baigta!";
     }
     
     else {
