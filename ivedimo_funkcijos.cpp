@@ -144,6 +144,8 @@ void ivedimas_failu(vector <Stud> &grupe, Stud &laik, int &sum) {
     int spausdinimas;
     ifstream fd;
     bool generuoti;
+    int student_sk, nd_sk;
+
     cout << "Norite naudoti ęsamą failą ar sugeneruoti naują? (0 - Naudoti esamą, 1 - Generuoti naują): " << endl;
     cin >> generuoti;
 
@@ -168,10 +170,11 @@ void ivedimas_failu(vector <Stud> &grupe, Stud &laik, int &sum) {
             fr << rand() % 10 + 1 << endl;
         }
         fr.close();
-        exit(1);
-
+        fd.open(failo_pav);
     }
 
+    else {
+        student_sk = 100000;
     while (true) {
         cout << "Įveskite failo pavadinimą, esantį darbo aplanke, kurį norite naudoti [pavadinimas.txt]: " << endl;
         cin >> file_name;
@@ -184,13 +187,16 @@ void ivedimas_failu(vector <Stud> &grupe, Stud &laik, int &sum) {
     }
     else break;
     
-}
+        }
+    }
     
     cout << "Nuskaitomi duomenys iš failo..." << endl;
     auto start = std::chrono::high_resolution_clock::now(); 
-    int nd_sk = rasti_nd_skaiciu_faile(fd);
+    nd_sk = rasti_nd_skaiciu_faile(fd);
+    ofstream varg("vargseliai"+std::to_string(student_sk) + ".txt");
+    ofstream kiet("kietuoliai"+std::to_string(student_sk) + ".txt");
     
-    buferio_apdorojimas(grupe, laik, buffer_size, buffer, fd, sum, nd_sk);
+    buferio_apdorojimas(grupe, laik, buffer_size, buffer, fd, sum, nd_sk, kiet, varg);
     auto end = std::chrono::high_resolution_clock::now(); 
     std::chrono::duration<double> elapsed = end - start;
     cout << "Užtruko: " << std::fixed << std::setprecision(2) << elapsed.count() << " s" << endl;
