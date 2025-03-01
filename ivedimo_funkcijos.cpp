@@ -199,7 +199,7 @@ void ivedimas_failu(vector <Stud> &grupe, Stud &laik, int &sum) {
     buferio_apdorojimas(grupe, laik, buffer_size, buffer, fd, sum, nd_sk);
     auto end = std::chrono::high_resolution_clock::now(); 
     std::chrono::duration<double> elapsed = end - start;
-    cout << "Baigta! Duomenų nuskaitymas užtruko: " << std::fixed << std::setprecision(2) << elapsed.count() << " s" << endl;
+    cout << "Baigta! Duomenų nuskaitymas užtruko: " << std::fixed << std::setprecision(1) << elapsed.count() << " s" << endl;
 
     cout << "Pagal ką norėsite rūšiuoti duomenis? (1 - vardas, 2 - pavardė, 3 - galutinis balas pagal vidurkį, 4 - galutinis balas pagal medianą): " << endl;
     pasirink_rusiavimas(grupe);

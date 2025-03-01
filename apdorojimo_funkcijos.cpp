@@ -30,10 +30,14 @@ void pasirink_rusiavimas(vector<Stud> &grupe) {
         else break;
     }
 
+    auto start = std::chrono::high_resolution_clock::now();
     if (ivestis == 1) stable_sort(grupe.begin(), grupe.end(), lyginti_pagal_varda);
     else if (ivestis == 2) stable_sort(grupe.begin(), grupe.end(), lyginti_pagal_pavarde);
     else if (ivestis == 3) stable_sort(grupe.begin(), grupe.end(), lyginti_pagal_vidurki);
     else if (ivestis == 4) stable_sort(grupe.begin(), grupe.end(), lyginti_pagal_mediana);
+    auto end = std::chrono::high_resolution_clock::now(); 
+    std::chrono::duration<double> elapsed = end - start;
+    cout << "Rūšiavimas pagal parinktį užtruko: " << std::fixed << std::setprecision(1) << elapsed.count() << "s" << endl;
 }
 
 int rasti_nd_skaiciu_faile(ifstream& fd) {
