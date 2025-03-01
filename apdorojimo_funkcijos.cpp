@@ -67,7 +67,7 @@ void paskaiciuoti_gal(Stud& laik) {
     laik.galutinis_pagal_med = (0.4 * laik.mediana + 0.6 * laik.egz);
 }
 
-void buferio_apdorojimas(vector <Stud> &grupe, Stud& laik, size_t buffer_size, vector <char> &buffer, ifstream &fd, int &sum, int nd_sk, ofstream &kiet, ofstream &varg) {
+void buferio_apdorojimas(vector <Stud> &grupe, Stud& laik, size_t buffer_size, vector <char> &buffer, ifstream &fd, int &sum, int nd_sk) {
     string line, leftover = "", word, chunk;
     int ivestis;
     
@@ -96,8 +96,6 @@ void buferio_apdorojimas(vector <Stud> &grupe, Stud& laik, size_t buffer_size, v
             duom >> laik.egz;
             paskaiciuoti_vid_ir_med(laik, sum);
             paskaiciuoti_gal(laik);
-            if (laik.galutinis_pagal_vid >= 5.0) kiet << std::left << setw(15) << laik.var << setw(15) << laik.pav << setw(15) << laik.galutinis_pagal_vid << endl;
-            else varg << std::left << setw(15) << laik.var << setw(15) << laik.pav << setw(15) << laik.galutinis_pagal_vid << endl;
             grupe.emplace_back(std::move(laik)); 
             laik.paz.clear();
             sum = 0;

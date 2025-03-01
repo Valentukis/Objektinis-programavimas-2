@@ -144,7 +144,6 @@ void ivedimas_failu(vector <Stud> &grupe, Stud &laik, int &sum) {
     int spausdinimas;
     ifstream fd;
     bool generuoti;
-    int student_sk, nd_sk;
 
     cout << "Norite naudoti ęsamą failą ar sugeneruoti naują? (0 - Naudoti esamą, 1 - Generuoti naują): " << endl;
     cin >> generuoti;
@@ -174,7 +173,6 @@ void ivedimas_failu(vector <Stud> &grupe, Stud &laik, int &sum) {
     }
 
     else {
-        student_sk = 100000;
     while (true) {
         cout << "Įveskite failo pavadinimą, esantį darbo aplanke, kurį norite naudoti [pavadinimas.txt]: " << endl;
         cin >> file_name;
@@ -192,18 +190,20 @@ void ivedimas_failu(vector <Stud> &grupe, Stud &laik, int &sum) {
     
     cout << "Nuskaitomi duomenys iš failo..." << endl;
     auto start = std::chrono::high_resolution_clock::now(); 
-    nd_sk = rasti_nd_skaiciu_faile(fd);
-    ofstream varg("vargseliai"+std::to_string(student_sk) + ".txt");
-    ofstream kiet("kietuoliai"+std::to_string(student_sk) + ".txt");
+    int nd_sk = rasti_nd_skaiciu_faile(fd);
     
-    buferio_apdorojimas(grupe, laik, buffer_size, buffer, fd, sum, nd_sk, kiet, varg);
+    buferio_apdorojimas(grupe, laik, buffer_size, buffer, fd, sum, nd_sk);
     auto end = std::chrono::high_resolution_clock::now(); 
     std::chrono::duration<double> elapsed = end - start;
     cout << "Užtruko: " << std::fixed << std::setprecision(2) << elapsed.count() << " s" << endl;
 
     cout << "Baigta! Pagal ką norėsite rūšiuoti duomenis? (1 - vardas, 2 - pavardė, 3 - galutinis balas pagal vidurkį, 4 - galutinis balas pagal medianą): " << endl;
     pasirink_rusiavimas(grupe);
-    
+
+    ofstream varg("vargseliai"+std::to_string(grupe.size()) + ".txt");
+    ofstream kiet("kietuoliai"+std::to_string(grupe.size()) + ".txt");
+    vector<Stud> kietuoliai, vargseliai;
+
     while(true) {
     cout << "Duomenis išvesti ekrane ar į tekstinį failą? (0 - ekrane, 1 - faile): " << endl;
     cin >> spausdinimas;
@@ -214,6 +214,8 @@ void ivedimas_failu(vector <Stud> &grupe, Stud &laik, int &sum) {
     }
     else break;
     }
-    spausdinimas_kartu(grupe, spausdinimas);
+    spausdinimas_kartu(grupe, spausdinimas, kietuoliai, vargseliai);
+    for (auto n: kietuoliai) kiet << std::left << setw(15) << n.var << setw(15) << n.pav << setw(15) << std::fixed << std::setprecision(2) << n.galutinis_pagal_vid << endl;
+    for (auto n: vargseliai) varg << std::left << setw(15) << n.var << setw(15) << n.pav << setw(15) << std::fixed << std::setprecision(2) << n.galutinis_pagal_vid << endl;
     exit(0);
 }
