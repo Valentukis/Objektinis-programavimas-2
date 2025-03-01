@@ -146,14 +146,38 @@ void ivedimas_failu(vector <Stud> &grupe, Stud &laik, int &sum) {
     bool generuoti;
 
     cout << "Norite naudoti ęsamą failą ar sugeneruoti naują? (0 - Naudoti esamą, 1 - Generuoti naują): " << endl;
+    while(true) {
     cin >> generuoti;
+    if (cin.fail() || (generuoti != 0 && generuoti != 1)) {
+        cin.clear(); // Clear error state
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
+        cout << "Klaida! Prašome įvesti 0 arba 1: ";
+    }
+    else break;
+    }
 
     if(generuoti) {
         int student_sk, nd_sk;
+        
         cout << "Įveskite, kiek studentų sugeneruoti: " << endl;
-        cin >> student_sk;
+        while(true) {
+            cin >> student_sk;
+            if (cin.fail() || student_sk <= 0) {
+                cin.clear(); // Clear error state
+                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
+                cout << "Klaida! Įveskite teigiamą sveiką skaičių studentams: ";
+            } else break;
+        }
+
         cout << "Įveskite, kiek buvo namų darbų atsiskaitymų: " << endl;
-        cin >> nd_sk;
+        while(true) {
+            cin >> nd_sk;
+            if (cin.fail() || nd_sk <= 0) {
+                cin.clear(); // Clear error state
+                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
+                cout << "Klaida! Įveskite teigiamą sveiką skaičių studentams: ";
+            } else break;
+        }
 
         auto start = std::chrono::high_resolution_clock::now(); 
 
