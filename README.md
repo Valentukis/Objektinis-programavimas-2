@@ -18,7 +18,7 @@ Programos efektyvumui nustatyti buvo atlikta spartos analizė. Kiekvieną įraš
 | Duomenų nuskaitymas | < 0.1s | < 0.1s | 0.3s | 2.4s | 26.1s |
 | Studentų rūšiavimas + Rezultatų spausdinimas | < 0.1s | 0.2s | 0.4s | 3.2s | 34.7s |
 | Surūšiuotų studentų išvedimas į failą | < 0.1s | < 0.1s | 0.3s | 2.4s | 25.4 |
-| Bendras vidutinis programos veikimo laikas | 0.1s | 0.5s | 1.4s | 11.7s | 113.2s |
+| Bendras vidutinis programos veikimo laikas | < 0.1s | 0.5s | 1.4s | 11.7s | 113.2s |
 
 
 
