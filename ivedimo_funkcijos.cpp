@@ -185,8 +185,8 @@ void ivedimas_failu(vector <Stud> &grupe, Stud &laik, int &sum) {
     ofstream kiet("kietuoliai"+std::to_string(grupe.size()) + ".txt");
     vector<Stud> kietuoliai, vargseliai;
     rusiuoti_grupemis(grupe, kietuoliai, vargseliai);
-    start = std::chrono::high_resolution_clock::now();
 
+    start = std::chrono::high_resolution_clock::now();
     for (auto n: kietuoliai) kiet << std::left << setw(15) << n.var << setw(15) << n.pav << setw(15) << std::fixed << std::setprecision(2) << n.galutinis_pagal_vid << endl;
     for (auto n: vargseliai) varg << std::left << setw(15) << n.var << setw(15) << n.pav << setw(15) << std::fixed << std::setprecision(2) << n.galutinis_pagal_vid << endl;
 
