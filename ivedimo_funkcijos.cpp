@@ -138,7 +138,6 @@ void ivedimas_generuojant_viska(Stud& laik, int& sum, int lytis) {
 }
 
 void ivedimas_failu(vector <Stud> &grupe, Stud &laik, int &sum) {
-    string file_name;
     const size_t buffer_size = 8192;
     vector <char> buffer(buffer_size);
     int spausdinimas;
@@ -156,66 +155,8 @@ void ivedimas_failu(vector <Stud> &grupe, Stud &laik, int &sum) {
     else break;
     }
 
-    if(generuoti) {
-        int student_sk, nd_sk;
-        
-        cout << "Įveskite, kiek studentų sugeneruoti: " << endl;
-        while(true) {
-            cin >> student_sk;
-            if (cin.fail() || student_sk <= 0) {
-                cin.clear(); // Clear error state
-                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
-                cout << "Klaida! Įveskite teigiamą sveiką skaičių studentams: ";
-            } else break;
-        }
-
-        cout << "Įveskite, kiek buvo namų darbų atsiskaitymų: " << endl;
-        while(true) {
-            cin >> nd_sk;
-            if (cin.fail() || nd_sk <= 0) {
-                cin.clear(); // Clear error state
-                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
-                cout << "Klaida! Įveskite teigiamą sveiką skaičių studentams: ";
-            } else break;
-        }
-
-        auto start = std::chrono::high_resolution_clock::now(); 
-
-        string failo_pav = "studentai" + std::to_string(student_sk) + ".txt";
-        ofstream fr;
-        fr.open(failo_pav);
-        
-        fr << std::left << setw(20) << "Vardas" << setw(20) << std::right << "Pavarde" << setw(15);
-        for (int i = 0; i < nd_sk; i++) fr << "ND" + std::to_string(i+1) << setw(15); 
-        fr << "Egzaminas" << endl;
-
-        for (int i = 0; i < student_sk; i++) {
-            fr << std::left << setw(20) << "Vardas" + std::to_string(i+1) << std::right << setw(20) << "Pavarde" + std::to_string(i+1) << setw(15);
-            for (int j = 0; j < nd_sk; j++) fr << std::right << rand() % 10 + 1 << setw(15);
-            fr << rand() % 10 + 1 << endl;
-        }
-        fr.close();
-        auto end = std::chrono::high_resolution_clock::now(); 
-        std::chrono::duration<double> elapsed = end - start;
-        cout << "Failas sugeneruotas per " << std::fixed << std::setprecision(1) << elapsed.count() << " sekundžių!" << endl;
-        fd.open(failo_pav);
-    }
-
-    else {
-    while (true) {
-        cout << "Įveskite failo pavadinimą, esantį darbo aplanke, kurį norite naudoti [pavadinimas.txt]: " << endl;
-        cin >> file_name;
-        fd.open(file_name);
-        if (!fd || fd.peek() == ifstream::traits_type::eof()){
-             std::cerr << ("Klaida atidarant failą. Patikrinkite, ar failas direktyvoje ir bandykite įvesti vėl.\n");
-             cin.clear();
-             cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-             cout << string(80, '-') << endl;
-    }
-    else break;
-    
-        }
-    }
+    if(generuoti) failo_generavimas(fd);
+    else failo_pav_gavimas(fd);
     
     cout << "Nuskaitomi duomenys iš failo..." << endl;
     int nd_sk = rasti_nd_skaiciu_faile(fd);
