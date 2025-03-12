@@ -16,10 +16,9 @@ void spausdinimas_atskiras(vector <Stud> &grupe) {
     for (auto n: grupe) {
         cout << std::left << setw(20) << n.pav << setw(20) << n.var << setw(20) << std::fixed << std::setprecision(2) << ((pasirinkimas == 'V') ? (n.galutinis_pagal_vid) : (n.galutinis_pagal_med)) << endl;
         }
-        grupe.clear();
 }
 
-void spausdinimas_kartu(vector <Stud> &grupe, bool spausdinimas, vector <Stud> &kietuoliai, vector <Stud> &vargseliai) {
+void spausdinimas_kartu(vector <Stud> &grupe, bool spausdinimas) {
     if (spausdinimas) {
         std::ofstream fr("rez.txt");
         cout << "Įrašoma į failą..." << endl;
@@ -28,13 +27,10 @@ void spausdinimas_kartu(vector <Stud> &grupe, bool spausdinimas, vector <Stud> &
         auto start = std::chrono::high_resolution_clock::now();
         for (auto n: grupe) {
             fr << std::left << setw(20) << n.pav << setw(20) << n.var << setw(20) << std::fixed << std::setprecision(2) << (0.4 * n.vidurkis + 0.6 * n.egz) << setw(20) << (0.4 * n.mediana + 0.6 * n.egz) << endl;
-            if (n.galutinis_pagal_vid >= 5.0) kietuoliai.emplace_back(std::move(n));
-            else vargseliai.emplace_back(std::move(n));
             }
             auto end = std::chrono::high_resolution_clock::now(); 
             std::chrono::duration<double> elapsed = end - start;
-            cout << "Spausdinimas + studentų rūšiavimas užtruko: " << std::fixed << std::setprecision(1) << elapsed.count() << "s" << endl;
-            grupe.clear();
+            cout << "Spausdinimas užtruko: " << std::fixed << std::setprecision(1) << elapsed.count() << "s" << endl;
             fr.close();
     }
     
@@ -45,14 +41,11 @@ void spausdinimas_kartu(vector <Stud> &grupe, bool spausdinimas, vector <Stud> &
     auto start = std::chrono::high_resolution_clock::now(); 
     for (auto n: grupe) {
         output << std::left << setw(20) << n.pav << setw(20) << n.var << setw(20) << std::fixed << std::setprecision(2) << (0.4 * n.vidurkis + 0.6 * n.egz) << setw(20) << (0.4 * n.mediana + 0.6 * n.egz) << endl;
-        if (n.galutinis_pagal_vid >= 5.0) kietuoliai.emplace_back(std::move(n));
-        else vargseliai.emplace_back(std::move(n));
         }
-        grupe.clear();
         cout << output.str();
         auto end = std::chrono::high_resolution_clock::now(); 
         std::chrono::duration<double> elapsed = end - start;
-        cout << "Spausdinimas + studentų rūšiavimas užtruko: " << std::fixed << std::setprecision(1) << elapsed.count() << "s" << endl;
+        cout << "Spausdinimas užtruko: " << std::fixed << std::setprecision(1) << elapsed.count() << "s" << endl;
     }
 }
 

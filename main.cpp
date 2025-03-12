@@ -2,8 +2,8 @@
 #include "ivedimo_funkcijos.h"
 #include "spausdinimo_funkcijos.h"
 #include "apdorojimo_funkcijos.h"
-
 int main(){
+
     auto prog_prad = std::chrono::high_resolution_clock::now(); 
     std::chrono::time_point<std::chrono::high_resolution_clock> prog_pab;
     std::chrono::duration<double> prog_laik;

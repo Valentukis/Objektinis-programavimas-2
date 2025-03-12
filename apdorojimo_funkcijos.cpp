@@ -124,3 +124,16 @@ void buferio_apdorojimas(vector <Stud> &grupe, Stud& laik, size_t buffer_size, v
     }
     fd.close();
 }
+
+void rusiuoti_grupemis(vector<Stud> &grupe, vector<Stud> &kietuoliai, vector<Stud> &vargseliai) {
+    auto start = std::chrono::high_resolution_clock::now(); 
+
+    for (auto n: grupe) {
+        if (n.galutinis_pagal_vid >= 5.0) kietuoliai.emplace_back(std::move(n));
+        else vargseliai.emplace_back(std::move(n));
+    }
+
+    auto end = std::chrono::high_resolution_clock::now(); 
+    std::chrono::duration<double> elapsed = end - start;
+    cout << "Rūšiavimas į kietuolius/vargšelius užtruko: " << std::fixed << std::setprecision(1) << elapsed.count() << "s" << endl;
+}
