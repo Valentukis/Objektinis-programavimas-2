@@ -15,7 +15,7 @@ bool lyginti_pagal_vidurki(const Stud &a, const Stud &b) {
 bool lyginti_pagal_mediana(const Stud &a, const Stud &b) {
     return a.galutinis_pagal_med > b.galutinis_pagal_med;
 }
-void pasirink_rusiavimas(vector<Stud> &grupe) {
+void pasirink_rusiavimas(list<Stud> &grupe) {
 
     int ivestis;
 
@@ -71,7 +71,7 @@ void paskaiciuoti_gal(Stud& laik) {
     laik.galutinis_pagal_med = (0.4 * laik.mediana + 0.6 * laik.egz);
 }
 
-void buferio_apdorojimas(vector <Stud> &grupe, Stud& laik, size_t buffer_size, vector <char> &buffer, ifstream &fd, int &sum, int nd_sk) {
+void buferio_apdorojimas(list <Stud> &grupe, Stud& laik, size_t buffer_size, vector <char> &buffer, ifstream &fd, int &sum, int nd_sk) {
     string line, leftover = "", word, chunk;
     int ivestis;
     
@@ -125,7 +125,7 @@ void buferio_apdorojimas(vector <Stud> &grupe, Stud& laik, size_t buffer_size, v
     fd.close();
 }
 
-void rusiuoti_grupemis(vector<Stud> &grupe, vector<Stud> &kietuoliai, vector<Stud> &vargseliai) {
+void rusiuoti_grupemis(list<Stud> &grupe, list<Stud> &kietuoliai, list<Stud> &vargseliai) {
     auto start = std::chrono::high_resolution_clock::now(); 
 
     for (auto n: grupe) {

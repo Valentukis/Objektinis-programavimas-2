@@ -13,22 +13,24 @@
 #include <chrono>
 #include <limits>
 #include <exception>
+#include <vector>
 
 using std::istringstream;
 using std::string;
 using std::cout;
 using std::endl;
-using std::list;
+using std::vector;
 using std::endl;
 using std::cin;
 using std::sort;
 using std::setw;
 using std::ifstream;
 using std::ofstream;
+using std::list;
 
 struct Stud{
     string var, pav;
-    list<int> paz;
+    vector<int> paz;
     int egz;
     double vidurkis;
     double mediana;

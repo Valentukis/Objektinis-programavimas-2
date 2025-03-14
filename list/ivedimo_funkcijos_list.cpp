@@ -137,7 +137,7 @@ void ivedimas_generuojant_viska(Stud& laik, int& sum, int lytis) {
     cout << "Egzamino įvertinimas: " << laik.egz << endl;
 }
 
-void ivedimas_failu(vector <Stud> &grupe, Stud &laik, int &sum) {
+void ivedimas_failu(list <Stud> &grupe, Stud &laik, int &sum) {
     const size_t buffer_size = 8192;
     vector <char> buffer(buffer_size);
     int spausdinimas;
@@ -183,7 +183,7 @@ void ivedimas_failu(vector <Stud> &grupe, Stud &laik, int &sum) {
 
     ofstream varg("vargseliai"+std::to_string(grupe.size()) + ".txt");
     ofstream kiet("kietuoliai"+std::to_string(grupe.size()) + ".txt");
-    vector<Stud> kietuoliai, vargseliai;
+    list<Stud> kietuoliai, vargseliai;
     rusiuoti_grupemis(grupe, kietuoliai, vargseliai);
 
     start = std::chrono::high_resolution_clock::now();

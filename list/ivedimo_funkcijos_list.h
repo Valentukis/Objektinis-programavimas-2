@@ -9,5 +9,5 @@ string sugeneruoti_pavarde(int lytis);
 void ivedimas_ranka(Stud& laik, int& sum);
 void ivedimas_pazymiu_generavimu(Stud& laik, int& sum);
 void ivedimas_generuojant_viska(Stud& laik, int& sum, int lytis);
-void ivedimas_failu(vector <Stud> &grupe, Stud &laik, int &sum);
+void ivedimas_failu(list <Stud> &grupe, Stud &laik, int &sum);
 #endif

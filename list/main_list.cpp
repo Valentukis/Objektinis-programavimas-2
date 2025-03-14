@@ -9,7 +9,7 @@ int main(){
     std::chrono::duration<double> prog_laik;
 
     srand(time(NULL));
-    vector <Stud> grupe;
+    list<Stud> grupe;
     int eiga, lytis;
     bool testi = true;
     cout << "Sveiki! Padėsiu jums paskaičiuoti galutinius Jūsų studentų balus!" << endl;
