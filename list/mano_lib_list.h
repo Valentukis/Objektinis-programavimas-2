@@ -1,7 +1,7 @@
 #ifndef MANO_BIBLIOTEKA
 #define MANO_BIBLIOTEKA
 #include <iostream>
-#include <vector>
+#include <list>
 #include <algorithm>
 #include <cmath>
 #include <iomanip>
@@ -18,7 +18,7 @@ using std::istringstream;
 using std::string;
 using std::cout;
 using std::endl;
-using std::vector;
+using std::list;
 using std::endl;
 using std::cin;
 using std::sort;
@@ -28,7 +28,7 @@ using std::ofstream;
 
 struct Stud{
     string var, pav;
-    vector<int> paz;
+    list<int> paz;
     int egz;
     double vidurkis;
     double mediana;
