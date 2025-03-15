@@ -14,18 +14,20 @@ Programos efektyvumui nustatyti buvo atlikta spartos analizė. Kiekvieną įraš
 
 | Testas | 1000 įrašų | 10000 įrašų | 100000 įrašų | 1000000 įrašų | 10000000 įrašų | 
 | ------ | ---------- | ----------- | ------------ | ------------- | -------------- |
-| Failo generavimas | < 0.1s | 0.1s | 0.4s | 3.7s | 27.0s |
-| Duomenų nuskaitymas | < 0.1s | < 0.1s | 0.3s | 2.4s | 26.1s |
-| Studentų rūšiavimas + Rezultatų spausdinimas | < 0.1s | 0.2s | 0.4s | 3.2s | 34.7s |
-| Surūšiuotų studentų išvedimas į failą | < 0.1s | < 0.1s | 0.3s | 2.4s | 25.4 |
-| Bendras vidutinis programos veikimo laikas | < 0.1s | 0.5s | 1.4s | 11.7s | 113.2s |
+| Failo generavimas | < 0.1s | < 0.1s | 0.4s | 3.7s | 27.0s |
+| Duomenų nuskaitymas | < 0.1s | < 0.1s | 0.2s | 1.3s | 13.4s |
+| Rūšiavimas pagal parinktį | < 0.1s | < 0.1s | < 0.1s | 0.3s | 3.5s |
+| Rezultatų spausdinimas | < 0.1s | < 0.1s | 0.3s | 3.4s | 29.9s |
+| Studentų rūšiavimas į 2 grupes | < 0.1s | < 0.1s | < 0.1s | 0.3s | 2.7s |
+| Surūšiuotų studentų išvedimas į failą | < 0.1s | < 0.1s | 0.3s | 2.8s | 25.0s |
+| Bendras vidutinis programos veikimo laikas | < 0.1s | 0.1s | 0.8s | 8.1s | 74.4s |
 
 
 
 **Programos veikimo pavyzdžiai**
 
 Programos eiga:
-![image](https://github.com/user-attachments/assets/e4e0503c-1cc8-41cd-a4f3-2cf71f096938)
+![image](https://github.com/user-attachments/assets/ab721bc3-24ff-43f4-8ec0-7079ff88bb1f)
 Sugeneruotas studentų failas:
 ![image](https://github.com/user-attachments/assets/4dcdb3a0-c2ba-4f71-b03c-d8c6e0d37e56)
 Surūšiuotų studentų failas:
