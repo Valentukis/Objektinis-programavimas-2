@@ -10,8 +10,18 @@ Jūsų patogumui, buvo sukurtas Makefile. Atsidarę mėgstamiausią terminalą, 
 
 **Spartos analizė**
 
-Programos efektyvumui nustatyti buvo atlikta spartos analizė. Kiekvieną įrašą sudaro 5 bandymų vidurkis. 
+Programos efektyvumui nustatyti buvo atlikta spartos analizė. Nuo v1.0 taip pat atlikta list ir deque analizė, palyginimui matuojamas duomenų nuskaitymo, rūšiavimo mažėjimo tvarka beiskirstymo į kategorijas laikai. Kiekvieną įrašą sudaro 5 bandymų vidurkis naudojant tuos pačius failus. Optimizavimui naudojamas 'O3' flag'as. Naudojamo kompiuterio specifikacijos:
 
+CPU: AMD Ryzen 7840hs
+
+Memory: 16GB LPDDR5 6400Mhz RAM
+
+Storage: PCIe 4.0 NVMe M.2 1TB SSD
+
+**Analizės rezultatai**
+</br> 
+
+"Vector" realizacija
 | Testas | 1000 įrašų | 10000 įrašų | 100000 įrašų | 1000000 įrašų | 10000000 įrašų | 
 | ------ | ---------- | ----------- | ------------ | ------------- | -------------- |
 | Failo generavimas | < 0.1s | < 0.1s | 0.4s | 3.7s | 27.0s |
@@ -22,7 +32,21 @@ Programos efektyvumui nustatyti buvo atlikta spartos analizė. Kiekvieną įraš
 | Surūšiuotų studentų išvedimas į failą | < 0.1s | < 0.1s | 0.3s | 2.8s | 25.0s |
 | Bendras vidutinis programos veikimo laikas | < 0.1s | 0.1s | 0.8s | 8.1s | 74.4s |
 
+"List" realizacija
+| Testas | 1000 įrašų | 10000 įrašų | 100000 įrašų | 1000000 įrašų | 10000000 įrašų | 
+| ------ | ---------- | ----------- | ------------ | ------------- | -------------- |
+| Duomenų nuskaitymas | < 0.1s | < 0.1s | 0.2s | 1.4s | 16.6s |
+| Rūšiavimas pagal parinktį | < 0.1s | < 0.1s | < 0.1s | 0.6s | 14.2s |
+| Studentų rūšiavimas į 2 grupes | < 0.1s | < 0.1s | < 0.1s | 0.5s | 7.4s |
 
+"Deque" realizacija
+| Testas | 1000 įrašų | 10000 įrašų | 100000 įrašų | 1000000 įrašų | 10000000 įrašų | 
+| ------ | ---------- | ----------- | ------------ | ------------- | -------------- |
+| Duomenų nuskaitymas | < 0.1s | < 0.1s | 0.2s | 1.4s | 17.2s |
+| Rūšiavimas pagal parinktį | < 0.1s | < 0.1s | < 0.1s | 0.7s | 7.8s |
+| Studentų rūšiavimas į 2 grupes | < 0.1s | < 0.1s | < 0.1s | 0.4s | 3.0s |
+
+Atlikus analizę galima teigti, kad sparčiausiai programa veikia, naudojant vektoriaus tipo konteinerius duomenims laikyti. Su mažesniais failais skirtumas minimalus, tačiau su dideliais failais (>10000000 įrašų) vektoriai veikia ženkliai greičiau už kitus, o deque yra šiek tiek greitiesnis už list'ą. 
 
 **Programos veikimo pavyzdžiai**
 
