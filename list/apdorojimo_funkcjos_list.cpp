@@ -31,10 +31,10 @@ void pasirink_rusiavimas(list<Stud> &grupe) {
     }
 
     auto start = std::chrono::high_resolution_clock::now();
-    if (ivestis == 1) stable_sort(grupe.begin(), grupe.end(), lyginti_pagal_varda);
-    else if (ivestis == 2) stable_sort(grupe.begin(), grupe.end(), lyginti_pagal_pavarde);
-    else if (ivestis == 3) stable_sort(grupe.begin(), grupe.end(), lyginti_pagal_vidurki);
-    else if (ivestis == 4) stable_sort(grupe.begin(), grupe.end(), lyginti_pagal_mediana);
+    if (ivestis == 1) grupe.sort(lyginti_pagal_varda);
+    else if (ivestis == 2) grupe.sort(lyginti_pagal_pavarde);
+    else if (ivestis == 3) grupe.sort(lyginti_pagal_vidurki);
+    else if (ivestis == 4) grupe.sort(lyginti_pagal_mediana);
     auto end = std::chrono::high_resolution_clock::now(); 
     std::chrono::duration<double> elapsed = end - start;
     cout << "Rūšiavimas pagal parinktį užtruko: " << std::fixed << std::setprecision(1) << elapsed.count() << "s" << endl;
