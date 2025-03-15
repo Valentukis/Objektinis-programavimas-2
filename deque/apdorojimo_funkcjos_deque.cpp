@@ -30,6 +30,7 @@ void pasirink_rusiavimas(deque<Stud> &grupe) {
         else break;
     }
 
+    cout << "Duomenys rūšiuojami..." << endl;
     auto start = std::chrono::high_resolution_clock::now();
     if (ivestis == 1) stable_sort(grupe.begin(), grupe.end(), lyginti_pagal_varda);
     else if (ivestis == 2) stable_sort(grupe.begin(), grupe.end(), lyginti_pagal_pavarde);
