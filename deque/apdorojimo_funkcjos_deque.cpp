@@ -139,6 +139,36 @@ void rusiuoti_grupemis(deque<Stud> &grupe, deque<Stud> &kietuoliai, deque<Stud> 
     cout << "Rūšiavimas į kietuolius/vargšelius užtruko: " << std::fixed << std::setprecision(1) << elapsed.count() << "s" << endl;
 }
 
+void rusiuoti_grupemis2(deque<Stud> &grupe, deque<Stud> &kietuoliai, deque<Stud> &vargseliai) {
+    auto start = std::chrono::high_resolution_clock::now(); 
+
+    for (auto n: grupe) {
+        if (n.galutinis_pagal_vid >= 5.0) kietuoliai.push_back(n);
+        else vargseliai.push_back(n);
+    }
+
+    auto end = std::chrono::high_resolution_clock::now(); 
+    std::chrono::duration<double> elapsed = end - start;
+    cout << "Rūšiavimas į kietuolius/vargšelius užtruko: " << std::fixed << std::setprecision(1) << elapsed.count() << "s" << endl;
+}
+
+void rusiuoti_grupemis3(deque<Stud> &grupe, deque<Stud> &vargseliai) {
+    auto start = std::chrono::high_resolution_clock::now();
+
+    for (auto it = grupe.begin(); it != grupe.end();) {
+        if (it->galutinis_pagal_vid < 5.0) {
+            vargseliai.push_back(*it);
+            it = grupe.erase(it);  
+        } else {
+            ++it;  
+        }
+    }
+
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> elapsed = end - start;
+    std::cout << "Rūšiavimas užtruko: " << std::fixed << std::setprecision(1) << elapsed.count() << "s\n";
+}
+
 void failo_generavimas(ifstream &fd){
 
     int student_sk, nd_sk;
