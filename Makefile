@@ -1,25 +1,14 @@
-# Compiler and flags
 CXX = g++
-CXXFLAGS = -Wall -Wextra -std=c++17 -g -O3
+CXXFLAGS = -O3 -Wall -std=c++17
 
-# Executable name
-EXEC = main
+vector: vector/*.cpp
+	$(CXX) $(CXXFLAGS) -o vector_program vector/*.cpp
 
-# Source files (add your files here)
-SRC = main.cpp ivedimo_funkcijos.cpp apdorojimo_funkcijos.cpp spausdinimo_funkcijos.cpp
-OBJ = $(SRC:.cpp=.o)
+deque: deque/*.cpp
+	$(CXX) $(CXXFLAGS) -o deque_program deque/*.cpp
 
-# Default rule to build the executable
-all: $(EXEC)
+list: list/*.cpp
+	$(CXX) $(CXXFLAGS) -o list_program list/*.cpp
 
-# Linking step
-$(EXEC): $(OBJ)
-	$(CXX) $(CXXFLAGS) -o $(EXEC) $(OBJ)
-
-# Compiling each .cpp file into an .o file
-%.o: %.cpp
-	$(CXX) $(CXXFLAGS) -c $< -o $@
-
-# Clean rule to remove compiled files
 clean:
-	rm -f $(EXEC) $(OBJ)
+	rm -f vector_program deque_program list_program
