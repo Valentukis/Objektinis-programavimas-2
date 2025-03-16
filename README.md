@@ -1,12 +1,39 @@
 Objektinio programavimo praktikos projektinis darbas, skirtas kaip pagalbinė priemonė destytojams vertinant studentus. Realizuota galimybė įvesti duomenis ranka, juos generuoti atsitktinai arba nuskaityti iš duomenų failo. Programa buvo kuriama per kelias versijas, palaipsniui papildant funkcionalumą ir optimizuojant veikimą.
 
-**Kompiliavimas ir paleidimas**
+Programos pasikeitimai tarp versijų:  
+-v0.1: Pradinė programos versija, leidžianti ranka įvesti duomenis ir juos sūrušiuoti bei išvesti ekrane.  
+-v0.2: Pridėta galimybė nuskaityti duomenis iš tekstinio failo.  
+-v0.3: Pilnas refactoringas, pritaikomas geros programavimo praktikos.  
+-v0.4: Įgyvendinta failo generavimo bei studentų skirstymo į grupes pagal pažymius funkcijos.  
+-v1.0: Pilna programos versija, sutvarkytos direktyvos, patobulinta išvestis, sukurtas Makefile, realizuotos kelios versijos naudojant skirtingus konteinerius, optimizuotos senos funkcijos.  
+
+**Įdiegimo instrukcija**
 
 Jūsų patogumui, buvo sukurtas Makefile. Atsidarę mėgstamiausią terminalą, galite naudoti šias komandas:
-1. Kompiliavimas ir Link'inimas su Makefile - "make"
-2. Paleidimas - "./main
-3. Programos valymas (ištrina sugeneruotus .o failus ir vykdomąjį failą) - "make clean"
-![image](https://github.com/user-attachments/assets/62828da6-0882-4aa0-ad46-5a02e9534382)
+1. Paleidžiamojo failo kūrimas   
+  1.1 Vector realziacija - "make vector" (arba "make")   
+  1.2 List realizacija - "make list"   
+  1.3 Deque realizacija - "make deque"   
+2. Paleidimas  
+  2.1 Vector realziacija - "./vector_program"   
+  2.2 List realizacija - "./list_program"   
+  2.3 Deque realizacija - "./deque_program"   
+3. Programos valymas (ištrina sugeneruotus vykdomuosius failus) - "make clean"
+
+![image](https://github.com/user-attachments/assets/3dd5d1c4-d354-4ee9-97e0-7e0a875af4ed)
+
+**Naudojimosi instrukcija**
+Programa sukurta intuityviai ir aiškiai. Atsidarius programą, Jūsų bus paprašoma pasirinkti norimą įvedimo būdą. Atitinkamai po to būsite prašomi įvesti studentų informaciją arba failo, laikančius šiuos duomenis, pavadinimą. Jūsų patogumui, bus galima pasirinkti rūšiavimo ir spausdinimo būdus. Pasirinkus įvedimą failu, studentai bus skirstomi į papildomus 2 failus pagal jų vidurkį, rezultatus rasite projekto direktyvoje
+
+**Programos veikimo pavyzdžiai**
+
+Programos eiga:
+![image](https://github.com/user-attachments/assets/ab721bc3-24ff-43f4-8ec0-7079ff88bb1f)
+Sugeneruotas studentų failas:
+![image](https://github.com/user-attachments/assets/4dcdb3a0-c2ba-4f71-b03c-d8c6e0d37e56)
+Surūšiuotų studentų failas:
+![image](https://github.com/user-attachments/assets/39f13c60-4014-4706-8914-c793d66fbf98)
+
 
 **Spartos analizė**
 
@@ -128,16 +155,5 @@ Taigi, iš pateiktų strategijų, 3 buvo geriausia dėl žymiai efektyvesnio ru�
 | Studentų rūšiavimas į 2 grupes | < 0.1s | 0.1s | 1.1s |
 
 Ši optimizacija geriausiai veikia su vector konteineriais dėl jo savybių, tačiau šiek tiek praverčia ir deque. Pažymėtina, kad list geriau veikia su 3 strategija, nes std::partition nėra efektyvus be random access galimybių.
-
-**Programos veikimo pavyzdžiai**
-
-Programos eiga:
-![image](https://github.com/user-attachments/assets/ab721bc3-24ff-43f4-8ec0-7079ff88bb1f)
-Sugeneruotas studentų failas:
-![image](https://github.com/user-attachments/assets/4dcdb3a0-c2ba-4f71-b03c-d8c6e0d37e56)
-Surūšiuotų studentų failas:
-![image](https://github.com/user-attachments/assets/39f13c60-4014-4706-8914-c793d66fbf98)
-
-
 
 Kilus klausimams ar pastaboms, susisiekti el. paštu: valentinas.samatovicius@mif.stud.vu.lt
