@@ -1,6 +1,8 @@
 #ifndef APDOROJIMO_H
 #define APDOROJIMO_H
 
+#include <windows.h>
+#include <psapi.h>
 #include "mano_lib_deque.h"
 bool lyginti_pagal_varda(const Stud &a, const Stud &b);
 bool lyginti_pagal_pavarda(const Stud &a, const Stud &b);
@@ -14,4 +16,5 @@ void buferio_apdorojimas(deque <Stud> &grupe, Stud& laik, size_t buffer_size, ve
 void rusiuoti_grupemis(deque<Stud> &grupe, deque<Stud> &kietuoliai, deque<Stud> &vargseliai);
 void failo_generavimas(ifstream &fd);
 void failo_pav_gavimas(ifstream &fd);
+SIZE_T getMemoryUsage()
 #endif
