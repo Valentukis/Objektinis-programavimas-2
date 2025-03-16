@@ -12,6 +12,8 @@ void paskaiciuoti_vid_ir_med(Stud& laik, int sum);
 void paskaiciuoti_gal(Stud& laik);
 void buferio_apdorojimas(list <Stud> &grupe, Stud& laik, size_t buffer_size, vector <char> &buffer, ifstream &fd, int &sum, int nd_sk);
 void rusiuoti_grupemis(list<Stud> &grupe, list<Stud> &kietuoliai, list<Stud> &vargseliai);
+void rusiuoti_grupemis2(list<Stud> &grupe, list<Stud> &kietuoliai, list<Stud> &vargseliai);
+void rusiuoti_grupemis3(list<Stud> &grupe, list<Stud> &vargseliai);
 void failo_generavimas(ifstream &fd);
 void failo_pav_gavimas(ifstream &fd);
 #endif
