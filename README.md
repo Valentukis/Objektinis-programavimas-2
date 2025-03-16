@@ -25,12 +25,12 @@ Storage: PCIe 4.0 NVMe M.2 1TB SSD
 | Testas | 1000 įrašų | 10000 įrašų | 100000 įrašų | 1000000 įrašų | 10000000 įrašų | 
 | ------ | ---------- | ----------- | ------------ | ------------- | -------------- |
 | Failo generavimas | < 0.1s | < 0.1s | 0.4s | 3.7s | 27.0s |
-| Duomenų nuskaitymas | < 0.1s | < 0.1s | 0.2s | 1.3s | 13.4s |
-| Rūšiavimas pagal parinktį | < 0.1s | < 0.1s | < 0.1s | 0.3s | 3.5s |
-| Rezultatų spausdinimas | < 0.1s | < 0.1s | 0.3s | 3.4s | 29.9s |
+| Duomenų nuskaitymas | < 0.1s | < 0.1s | 0.2s | 1.3s | 16.7s |
+| Rūšiavimas pagal parinktį | < 0.1s | < 0.1s | < 0.1s | 0.3s | 3.9s |
+| Rezultatų spausdinimas | < 0.1s | < 0.1s | 0.3s | 3.4s | 37.0s |
 | Studentų rūšiavimas į 2 grupes | < 0.1s | < 0.1s | < 0.1s | 0.3s | 2.7s |
-| Surūšiuotų studentų išvedimas į failą | < 0.1s | < 0.1s | 0.3s | 2.8s | 25.0s |
-| Bendras vidutinis programos veikimo laikas | < 0.1s | 0.1s | 0.8s | 8.1s | 74.4s |
+| Surūšiuotų studentų išvedimas į failą | < 0.1s | < 0.1s | 0.3s | 2.8s | 31.3s |
+| Bendras vidutinis programos veikimo laikas | < 0.1s | 0.1s | 0.8s | 8.1s | 92.2s |
 
 "List" realizacija
 | Testas | 1000 įrašų | 10000 įrašų | 100000 įrašų | 1000000 įrašų | 10000000 įrašų | 
