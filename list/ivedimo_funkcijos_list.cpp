@@ -144,6 +144,7 @@ void ivedimas_failu(list <Stud> &grupe, Stud &laik, int &sum) {
     ifstream fd;
     bool generuoti;
 
+    cout << string(80, '-') << endl;
     cout << "Norite naudoti ęsamą failą ar sugeneruoti naują? (0 - Naudoti esamą, 1 - Generuoti naują): " << endl;
     while(true) {
     cin >> generuoti;
@@ -165,10 +166,12 @@ void ivedimas_failu(list <Stud> &grupe, Stud &laik, int &sum) {
     auto end = std::chrono::high_resolution_clock::now(); 
     std::chrono::duration<double> elapsed = end - start;
     cout << "Baigta! Duomenų nuskaitymas užtruko: " << std::fixed << std::setprecision(1) << elapsed.count() << " s" << endl;
+    cout << string(80, '-') << endl;
 
     cout << "Pagal ką norėsite rūšiuoti duomenis? (1 - vardas, 2 - pavardė, 3 - galutinis balas pagal vidurkį, 4 - galutinis balas pagal medianą): " << endl;
     pasirink_rusiavimas(grupe);
 
+    cout << string(80, '-') << endl;
     while(true) {
     cout << "Duomenis išvesti ekrane ar į tekstinį failą? (0 - ekrane, 1 - faile): " << endl;
     cin >> spausdinimas;
@@ -181,11 +184,14 @@ void ivedimas_failu(list <Stud> &grupe, Stud &laik, int &sum) {
     }
     spausdinimas_kartu(grupe, spausdinimas);
 
+    cout << string(80, '-') << endl;
+    cout << "Rūšiuojama į kietuolius ir varšelius..." << endl;
     ofstream varg("vargseliai"+std::to_string(grupe.size()) + ".txt");
     ofstream kiet("kietuoliai"+std::to_string(grupe.size()) + ".txt");
     list<Stud> kietuoliai, vargseliai;
     rusiuoti_grupemis4(grupe, vargseliai);
 
+    cout << "Išvedama į failą..." << endl;
     start = std::chrono::high_resolution_clock::now();
     for (auto n: grupe) kiet << std::left << setw(15) << n.var << setw(15) << n.pav << setw(15) << std::fixed << std::setprecision(2) << n.galutinis_pagal_vid << endl;
     for (auto n: vargseliai) varg << std::left << setw(15) << n.var << setw(15) << n.pav << setw(15) << std::fixed << std::setprecision(2) << n.galutinis_pagal_vid << endl;
@@ -193,5 +199,5 @@ void ivedimas_failu(list <Stud> &grupe, Stud &laik, int &sum) {
     end = std::chrono::high_resolution_clock::now(); 
     elapsed = end - start;
     cout << "Sūrušiuotų studentų išvedimas į failą užtruko: " << std::fixed << std::setprecision(1) << elapsed.count() << "s" << endl;
-
+    cout << string(80, '-') << endl;
 }
