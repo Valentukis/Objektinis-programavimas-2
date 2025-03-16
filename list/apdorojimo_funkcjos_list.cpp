@@ -129,7 +129,7 @@ void buferio_apdorojimas(list <Stud> &grupe, Stud& laik, size_t buffer_size, vec
 void rusiuoti_grupemis(list<Stud> &grupe, list<Stud> &kietuoliai, list<Stud> &vargseliai) {
     auto start = std::chrono::high_resolution_clock::now(); 
 
-    for (auto n: grupe) {
+    for (auto& n: grupe) {
         if (n.galutinis_pagal_vid >= 5.0) kietuoliai.emplace_back(std::move(n));
         else vargseliai.emplace_back(std::move(n));
     }
@@ -166,8 +166,24 @@ void rusiuoti_grupemis3(list<Stud> &grupe, list<Stud> &vargseliai) {
 
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> elapsed = end - start;
-    std::cout << "Rūšiavimas užtruko: " << std::fixed << std::setprecision(1) << elapsed.count() << "s\n";
+    std::cout << "Rūšiavimas į kietuolius/vargšelius užtruko užtruko: " << std::fixed << std::setprecision(1) << elapsed.count() << "s\n";
 }
+
+void rusiuoti_grupemis4(list<Stud> &grupe, list<Stud> &vargseliai) {
+    auto start = std::chrono::high_resolution_clock::now(); 
+
+    auto it = std::partition(grupe.begin(), grupe.end(), [](const Stud &s) {
+        return s.galutinis_pagal_vid >= 5.0;
+    });
+
+    vargseliai.assign(std::make_move_iterator(it), std::make_move_iterator(grupe.end()));
+    grupe.erase(it, grupe.end());
+
+    auto end = std::chrono::high_resolution_clock::now(); 
+    std::chrono::duration<double> elapsed = end - start;
+    cout << "Rūšiavimas į kietuolius/vargšelius užtruko: " << std::fixed << std::setprecision(1) << elapsed.count() << "s" << endl;
+}
+
 
 void failo_generavimas(ifstream &fd){
 

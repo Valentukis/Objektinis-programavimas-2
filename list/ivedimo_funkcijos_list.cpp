@@ -184,10 +184,10 @@ void ivedimas_failu(list <Stud> &grupe, Stud &laik, int &sum) {
     ofstream varg("vargseliai"+std::to_string(grupe.size()) + ".txt");
     ofstream kiet("kietuoliai"+std::to_string(grupe.size()) + ".txt");
     list<Stud> kietuoliai, vargseliai;
-    rusiuoti_grupemis(grupe, kietuoliai, vargseliai);
+    rusiuoti_grupemis4(grupe, vargseliai);
 
     start = std::chrono::high_resolution_clock::now();
-    for (auto n: kietuoliai) kiet << std::left << setw(15) << n.var << setw(15) << n.pav << setw(15) << std::fixed << std::setprecision(2) << n.galutinis_pagal_vid << endl;
+    for (auto n: grupe) kiet << std::left << setw(15) << n.var << setw(15) << n.pav << setw(15) << std::fixed << std::setprecision(2) << n.galutinis_pagal_vid << endl;
     for (auto n: vargseliai) varg << std::left << setw(15) << n.var << setw(15) << n.pav << setw(15) << std::fixed << std::setprecision(2) << n.galutinis_pagal_vid << endl;
 
     end = std::chrono::high_resolution_clock::now(); 
