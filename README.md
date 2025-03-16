@@ -109,6 +109,26 @@ Pastebime, kad dabartinė strategijos implementacija labai lėta, nes naudojami 
 
 Taigi, iš pateiktų strategijų, 3 buvo geriausia dėl žymiai efektyvesnio rušiavimo vector ir deque konteineriuose. 
 
+**4 Strategija (realizacija iki v1.0)**
+Įdėja yra sujungti originalų sprendimą su std::move ir 2 strategiją su tik vienu nauju konteineriu, pridedant efektyvius algoritmus kaip std::partition
+
+"Vector" realizacija
+| Testas | 100000 įrašų | 1000000 įrašų | 10000000 įrašų | 
+| ------ | ------------ | ------------- | -------------- |
+| Studentų rūšiavimas į 2 grupes | < 0.1s | 0.1s | 0.3s |
+
+"List" realizacija
+| Testas | 100000 įrašų | 1000000 įrašų | 10000000 įrašų | 
+| ------ | ------------ | ------------- | -------------- |
+| Studentų rūšiavimas į 2 grupes | < 0.1s | 0.4s | 3.5s |
+
+"Deque" realizacija
+| Testas | 100000 įrašų | 1000000 įrašų | 10000000 įrašų | 
+| ------ | ------------ | ------------- | -------------- |
+| Studentų rūšiavimas į 2 grupes | < 0.1s | 0.1s | 1.1s |
+
+Ši optimizacija geriausiai veikia su vector konteineriais dėl jo savybių, tačiau šiek tiek praverčia ir deque. Pažymėtina, kad list geriau veikia su 3 strategija, nes std::partition nėra efektyvus be random access galimybių.
+
 **Programos veikimo pavyzdžiai**
 
 Programos eiga:
