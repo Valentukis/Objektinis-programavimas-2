@@ -28,7 +28,7 @@ Storage: PCIe 4.0 NVMe M.2 1TB SSD
 | Duomenų nuskaitymas | < 0.1s | < 0.1s | 0.2s | 1.3s | 16.7s |
 | Rūšiavimas pagal parinktį | < 0.1s | < 0.1s | < 0.1s | 0.3s | 3.9s |
 | Rezultatų spausdinimas | < 0.1s | < 0.1s | 0.3s | 3.4s | 37.0s |
-| Studentų rūšiavimas į 2 grupes | < 0.1s | < 0.1s | < 0.1s | 0.3s | 2.7s |
+| Studentų rūšiavimas į 2 grupes | < 0.1s | < 0.1s | < 0.1s | 0.1s | 1.1s |
 | Surūšiuotų studentų išvedimas į failą | < 0.1s | < 0.1s | 0.3s | 2.8s | 31.3s |
 | Bendras vidutinis programos veikimo laikas | < 0.1s | 0.1s | 0.8s | 8.1s | 92.2s |
 
@@ -37,14 +37,14 @@ Storage: PCIe 4.0 NVMe M.2 1TB SSD
 | ------ | ---------- | ----------- | ------------ | ------------- | -------------- |
 | Duomenų nuskaitymas | < 0.1s | < 0.1s | 0.2s | 1.4s | 16.6s |
 | Rūšiavimas pagal parinktį | < 0.1s | < 0.1s | < 0.1s | 0.6s | 14.2s |
-| Studentų rūšiavimas į 2 grupes | < 0.1s | < 0.1s | < 0.1s | 0.5s | 7.4s |
+| Studentų rūšiavimas į 2 grupes | < 0.1s | < 0.1s | < 0.1s | 0.2s | 2.8s |
 
 "Deque" realizacija
 | Testas | 1000 įrašų | 10000 įrašų | 100000 įrašų | 1000000 įrašų | 10000000 įrašų | 
 | ------ | ---------- | ----------- | ------------ | ------------- | -------------- |
 | Duomenų nuskaitymas | < 0.1s | < 0.1s | 0.2s | 1.4s | 17.2s |
 | Rūšiavimas pagal parinktį | < 0.1s | < 0.1s | < 0.1s | 0.7s | 7.8s |
-| Studentų rūšiavimas į 2 grupes | < 0.1s | < 0.1s | < 0.1s | 0.4s | 3.5s |
+| Studentų rūšiavimas į 2 grupes | < 0.1s | < 0.1s | < 0.1s | 0.1s | 1.4s |
 
 Atlikus analizę galima teigti, kad sparčiausiai programa veikia, naudojant vektoriaus tipo konteinerius duomenims laikyti. Su mažesniais failais skirtumas minimalus, tačiau su dideliais failais (>10000000 įrašų) vektoriai veikia greičiau už kitus, o deque yra šiek tiek greitiesnis už list'ą. 
 
@@ -67,6 +67,47 @@ Bendro studentai konteinerio (vector, list ir deque tipų) skaidymas (rūšiavim
 | Testas | 100000 įrašų | 1000000 įrašų | 10000000 įrašų | 
 | ------ | ------------ | ------------- | -------------- |
 | Studentų rūšiavimas į 2 grupes | < 0.1s | 0.3s | 4.1s |
+
+Pastebama, kad ši strategija neoptimali, atsižvelgiant į naudojamos atminties dydį
+![image](https://github.com/user-attachments/assets/56c74d1f-2a2e-41e3-8ed7-c3b029b0ee8d)
+
+**2 Strategija**
+"Vector" realizacija
+| Testas | 100000 įrašų | 1000000 įrašų | 10000000 įrašų | 
+| ------ | ------------ | ------------- | -------------- |
+| Studentų rūšiavimas į 2 grupes | 4.2s | > 5min | > 5min |
+
+"List" realizacija
+| Testas | 100000 įrašų | 1000000 įrašų | 10000000 įrašų | 
+| ------ | ------------ | ------------- | -------------- |
+| Studentų rūšiavimas į 2 grupes | 0.3s| 0.2s | 2.8s |
+
+"Deque" realizacija
+| Testas | 100000 įrašų | 1000000 įrašų | 10000000 įrašų | 
+| ------ | ------------ | ------------- | -------------- |
+| Studentų rūšiavimas į 2 grupes | 8.1s | > 5min | > 5min |
+
+Pastebime, kad dabartinė strategijos implementacija labai lėta, nes naudojami metodai yra neefektyvus naudojant deque ir vector, palyginus su list. 
+
+**3 Strategija (realizacija iki v1.0)**
+Šioje strategijoje mes einame pro esamą konteinerį, ir iš jo keliame į naujus naudodami std::move. Taip yra sutaupoma atmintis ir move yra "pigesnė" operacija už kopijavimą.
+
+"Vector" realizacija
+| Testas | 100000 įrašų | 1000000 įrašų | 10000000 įrašų | 
+| ------ | ------------ | ------------- | -------------- |
+| Studentų rūšiavimas į 2 grupes | < 0.1s | 0.1s | 1.1s |
+
+"List" realizacija
+| Testas | 100000 įrašų | 1000000 įrašų | 10000000 įrašų | 
+| ------ | ------------ | ------------- | -------------- |
+| Studentų rūšiavimas į 2 grupes | < 0.1s | 0.2s | 2.8s |
+
+"Deque" realizacija
+| Testas | 100000 įrašų | 1000000 įrašų | 10000000 įrašų | 
+| ------ | ------------ | ------------- | -------------- |
+| Studentų rūšiavimas į 2 grupes | < 0.1s | 0.1s | 1.4s |
+
+Taigi, iš pateiktų strategijų, 3 buvo geriausia dėl žymiai efektyvesnio rušiavimo vector ir deque konteineriuose. 
 
 **Programos veikimo pavyzdžiai**
 
