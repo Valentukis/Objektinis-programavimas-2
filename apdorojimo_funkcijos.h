@@ -15,6 +15,7 @@ void buferio_apdorojimas(vector <Stud> &grupe, Stud& laik, size_t buffer_size, v
 void rusiuoti_grupemis(vector<Stud> &grupe, vector<Stud> &kietuoliai, vector<Stud> &vargseliai);
 void rusiuoti_grupemis2(vector<Stud> &grupe, vector<Stud> &kietuoliai, vector<Stud> &vargseliai);
 void rusiuoti_grupemis3(vector<Stud> &grupe, vector<Stud> &vargseliai);
+void rusiuoti_grupemis4(vector<Stud> &grupe, vector<Stud> &vargseliai);
 void failo_generavimas(ifstream &fd);
 void failo_pav_gavimas(ifstream &fd);
 #endif

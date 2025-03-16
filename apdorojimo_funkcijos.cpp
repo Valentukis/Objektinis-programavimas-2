@@ -168,6 +168,23 @@ void rusiuoti_grupemis3(std::vector<Stud> &grupe, std::vector<Stud> &vargseliai)
     std::cout << "Rūšiavimas užtruko: " << std::fixed << std::setprecision(1) << elapsed.count() << "s\n";
 }
 
+
+void rusiuoti_grupemis4(std::vector<Stud> &grupe, std::vector<Stud> &vargseliai) {
+    auto start = std::chrono::high_resolution_clock::now(); 
+
+    for (auto &n: grupe) {
+        if (n.galutinis_pagal_vid < 5.0) vargseliai.emplace_back(std::move(n));
+    }
+
+    grupe.erase(std::remove_if(grupe.begin(), grupe.end(), [](const Stud &n) {
+        return n.var.empty();
+    }), grupe.end());
+
+    auto end = std::chrono::high_resolution_clock::now(); 
+    std::chrono::duration<double> elapsed = end - start;
+    cout << "Rūšiavimas į kietuolius/vargšelius užtruko: " << std::fixed << std::setprecision(1) << elapsed.count() << "s" << endl;
+}
+
 void failo_generavimas(ifstream &fd){
 
     int student_sk, nd_sk;
