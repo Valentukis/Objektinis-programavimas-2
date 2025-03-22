@@ -24,6 +24,7 @@ string sugeneruoti_pavarde(int lytis) {
     if (lytis == 1) return vyru_pavardes[pasirinkimas];
     else return moteru_pavardes[pasirinkimas];
 }
+
 void ivedimas_ranka(Stud& laik, int& sum) {
     int i = 0;
     int atsisk_paz;
@@ -188,7 +189,7 @@ void ivedimas_failu(vector <Stud> &grupe, Stud &laik, int &sum) {
     ofstream varg("vargseliai"+std::to_string(grupe.size()) + ".txt");
     ofstream kiet("kietuoliai"+std::to_string(grupe.size()) + ".txt");
     vector<Stud> kietuoliai, vargseliai;
-    rusiuoti_grupemis4(grupe, vargseliai);
+    rusiuoti_grupemis(grupe, vargseliai);
 
     cout << "Išvedama į failą..." << endl;
     start = std::chrono::high_resolution_clock::now();

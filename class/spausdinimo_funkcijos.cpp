@@ -26,7 +26,7 @@ void spausdinimas_kartu(vector <Stud> &grupe, bool spausdinimas) {
         fr << string(76, '-') << endl;
         auto start = std::chrono::high_resolution_clock::now();
         for (auto n: grupe) {
-            fr << std::left << setw(20) << n.pav << setw(20) << n.var << setw(20) << std::fixed << std::setprecision(2) << (0.4 * n.vidurkis + 0.6 * n.egz) << setw(20) << (0.4 * n.mediana + 0.6 * n.egz) << endl;
+            fr << std::left << setw(20) << n.pav << setw(20) << n.var << setw(20) << std::fixed << std::setprecision(2) << (n.galutinis_pagal_vid) << setw(20) << (n.galutinis_pagal_med) << endl;
             }
             auto end = std::chrono::high_resolution_clock::now(); 
             std::chrono::duration<double> elapsed = end - start;
@@ -40,7 +40,7 @@ void spausdinimas_kartu(vector <Stud> &grupe, bool spausdinimas) {
     output << string(76, '-') << endl;
     auto start = std::chrono::high_resolution_clock::now(); 
     for (auto n: grupe) {
-        output << std::left << setw(20) << n.pav << setw(20) << n.var << setw(20) << std::fixed << std::setprecision(2) << (0.4 * n.vidurkis + 0.6 * n.egz) << setw(20) << (0.4 * n.mediana + 0.6 * n.egz) << endl;
+        output << std::left << setw(20) << n.pav << setw(20) << n.var << setw(20) << std::fixed << std::setprecision(2) << (n.galutinis_pagal_vid) << setw(20) << (n.galutinis_pagal_med) << endl;
         }
         cout << output.str();
         auto end = std::chrono::high_resolution_clock::now(); 

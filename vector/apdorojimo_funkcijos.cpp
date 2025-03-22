@@ -125,61 +125,14 @@ void buferio_apdorojimas(vector <Stud> &grupe, Stud& laik, size_t buffer_size, v
     fd.close();
 }
 
-void rusiuoti_grupemis(vector<Stud> &grupe, vector<Stud> &kietuoliai, vector<Stud> &vargseliai) {
-    auto start = std::chrono::high_resolution_clock::now(); 
-
-    for (auto &n: grupe) {
-        if (n.galutinis_pagal_vid >= 5.0) kietuoliai.emplace_back(std::move(n));
-        else vargseliai.emplace_back(std::move(n));
-    }
-
-    auto end = std::chrono::high_resolution_clock::now(); 
-    std::chrono::duration<double> elapsed = end - start;
-    cout << "Rūšiavimas į kietuolius/vargšelius užtruko: " << std::fixed << std::setprecision(1) << elapsed.count() << "s" << endl;
-}
-
-void rusiuoti_grupemis2(vector<Stud> &grupe, vector<Stud> &kietuoliai, vector<Stud> &vargseliai) {
-    auto start = std::chrono::high_resolution_clock::now(); 
-
-    for (auto n: grupe) {
-        if (n.galutinis_pagal_vid >= 5.0) kietuoliai.push_back(n);
-        else vargseliai.push_back(n);
-    }
-
-    auto end = std::chrono::high_resolution_clock::now(); 
-    std::chrono::duration<double> elapsed = end - start;
-    cout << "Rūšiavimas į kietuolius/vargšelius užtruko: " << std::fixed << std::setprecision(1) << elapsed.count() << "s" << endl;
-}
-
-void rusiuoti_grupemis3(vector<Stud> &grupe, vector<Stud> &vargseliai) {
-    auto start = std::chrono::high_resolution_clock::now();
-
-    for (auto it = grupe.begin(); it != grupe.end();) {
-        if (it->galutinis_pagal_vid < 5.0) {
-            vargseliai.push_back(*it);
-            it = grupe.erase(it);  
-        } else {
-            ++it;  
-        }
-    }
-
-    auto end = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> elapsed = end - start;
-    std::cout << "Rūšiavimas į kietuolius/vargšelius užtruko užtruko: " << std::fixed << std::setprecision(1) << elapsed.count() << "s\n";
-}
-
-
-void rusiuoti_grupemis4(std::vector<Stud> &grupe, std::vector<Stud> &vargseliai) {
+void rusiuoti_grupemis(std::vector<Stud> &grupe, std::vector<Stud> &vargseliai) {
     auto start = std::chrono::high_resolution_clock::now(); 
 
     auto it = std::partition(grupe.begin(), grupe.end(), [](const Stud &s) {
         return s.galutinis_pagal_vid >= 5.0;
     });
 
-    // Move failing students to `vargseliai` in one go
     vargseliai.assign(std::make_move_iterator(it), std::make_move_iterator(grupe.end()));
-
-    // Remove moved elements from `grupe`
     grupe.erase(it, grupe.end());
 
     auto end = std::chrono::high_resolution_clock::now(); 
