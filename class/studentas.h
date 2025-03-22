@@ -1,9 +1,12 @@
+#ifndef student_H
+#define student_H
+
 #include "mano_lib.h"
 
 class Studentas {
     private:
         string var_, pav_;
-        int lytis;
+        int lytis_;
         vector<int> paz_;
         int egz_;
         double vidurkis_;
@@ -22,10 +25,13 @@ class Studentas {
         void paskaiciuoti_vid_ir_med();
         void paskaiciuoti_gal();
         void sugeneruoti_lyti();
+        void sugeneruoti_varda();
+        void sugeneruoti_pavarde();
 
         string vardas() const { return var_; }
         string pavarde() const { return pav_; }
-        double galutinisVidurkis() const { return galutinis_pagal_vid_; }
-        double galutinisMediana() const { return galutinis_pagal_med_; }
+        double galutinis_vidurkis() const { return galutinis_pagal_vid_; }
+        double galutinis_mediana() const { return galutinis_pagal_med_; }
         
 };
+#endif

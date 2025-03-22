@@ -13,6 +13,7 @@
 #include <chrono>
 #include <limits>
 #include <exception>
+#include <numeric>
 
 using std::istringstream;
 using std::string;

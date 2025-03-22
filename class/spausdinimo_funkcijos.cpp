@@ -1,6 +1,6 @@
 #include "spausdinimo_funkcijos.h"
 
-void spausdinimas_atskiras(vector <Stud> &grupe) {
+void spausdinimas_atskiras(vector <Studentas> &grupe) {
     char pasirinkimas;
     
     while(true) {
@@ -14,11 +14,11 @@ void spausdinimas_atskiras(vector <Stud> &grupe) {
     cout << std::left << setw(20) << "Pavardė" << setw(20) << " Vardas" << setw(20) << ( (pasirinkimas == 'V') ? " Galutinis (Vid.)" : " Galutinis (Med.)" ) << endl;
     cout << string(56, '-') << endl;
     for (auto n: grupe) {
-        cout << std::left << setw(20) << n.pav << setw(20) << n.var << setw(20) << std::fixed << std::setprecision(2) << ((pasirinkimas == 'V') ? (n.galutinis_pagal_vid) : (n.galutinis_pagal_med)) << endl;
+        cout << std::left << setw(20) << n.vardas() << setw(20) << n.pavarde() << setw(20) << std::fixed << std::setprecision(2) << ((pasirinkimas == 'V') ? (n.galutinis_vidurkis()) : (n.galutinis_mediana())) << endl;
         }
 }
 
-void spausdinimas_kartu(vector <Stud> &grupe, bool spausdinimas) {
+void spausdinimas_kartu(vector <Studentas> &grupe, bool spausdinimas) {
     if (spausdinimas) {
         std::ofstream fr("rez.txt");
         cout << "Įrašoma į failą..." << endl;
@@ -26,7 +26,7 @@ void spausdinimas_kartu(vector <Stud> &grupe, bool spausdinimas) {
         fr << string(76, '-') << endl;
         auto start = std::chrono::high_resolution_clock::now();
         for (auto n: grupe) {
-            fr << std::left << setw(20) << n.pav << setw(20) << n.var << setw(20) << std::fixed << std::setprecision(2) << (n.galutinis_pagal_vid) << setw(20) << (n.galutinis_pagal_med) << endl;
+            fr << std::left << setw(20) << n.vardas() << setw(20) << n.pavarde() << setw(20) << std::fixed << std::setprecision(2) << (n.galutinis_vidurkis()) << setw(20) << (n.galutinis_mediana()) << endl;
             }
             auto end = std::chrono::high_resolution_clock::now(); 
             std::chrono::duration<double> elapsed = end - start;
@@ -40,7 +40,7 @@ void spausdinimas_kartu(vector <Stud> &grupe, bool spausdinimas) {
     output << string(76, '-') << endl;
     auto start = std::chrono::high_resolution_clock::now(); 
     for (auto n: grupe) {
-        output << std::left << setw(20) << n.pav << setw(20) << n.var << setw(20) << std::fixed << std::setprecision(2) << (n.galutinis_pagal_vid) << setw(20) << (n.galutinis_pagal_med) << endl;
+        output << std::left << setw(20) << n.vardas() << setw(20) << n.pavarde() << setw(20) << std::fixed << std::setprecision(2) << (n.galutinis_vidurkis()) << setw(20) << (n.galutinis_mediana()) << endl;
         }
         cout << output.str();
         auto end = std::chrono::high_resolution_clock::now(); 
