@@ -18,6 +18,7 @@ class Studentas {
         Studentas();
         Studentas(const string& vardas, const string& pavarde, const vector<int>& paz, int egzaminas);
         Studentas(std::istream& is, int sk);
+        ~Studentas();
         
         void ivedimas_ranka();
         void ivedimas_pazymiu_generavimu();

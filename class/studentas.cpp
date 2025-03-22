@@ -17,6 +17,17 @@ Studentas::Studentas(std::istream& is, int sk) {
     paskaiciuoti_gal();
 }
 
+Studentas::~Studentas() {
+    paz_.clear();
+    var_ = "";
+    pav_ = "";
+    egz_ = 0;
+    vidurkis_ = 0;
+    mediana_ = 0;
+    galutinis_pagal_med_ = 0;
+    galutinis_pagal_vid_ = 0;
+}
+
 void Studentas::sugeneruoti_lyti() {
     lytis_ = rand() % 2;  //0 - moteris, 1 - vyras;
 }
