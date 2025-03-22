@@ -6,21 +6,25 @@ Programos pasikeitimai tarp versijų:
 -v0.3: Pilnas refactoringas, pritaikomas geros programavimo praktikos.  
 -v0.4: Įgyvendinta failo generavimo bei studentų skirstymo į grupes pagal pažymius funkcijos.  
 -v1.0: Pilna programos versija, sutvarkytos direktyvos, patobulinta išvestis, sukurtas Makefile, realizuotos kelios versijos naudojant skirtingus konteinerius, optimizuotos senos funkcijos.  
+-v1.1: Perdaryta programa naudojant klases, taip užtikrinant patogų programos naudojimą, duomenų saugumą, patikimumą. Sutvarkyta programos strukūra, paliekant tik efektyviausius metodus
 
 **Įdiegimo instrukcija**
 
 Jūsų patogumui, buvo sukurtas Makefile. Atsidarę mėgstamiausią terminalą, galite naudoti šias komandas:
 1. Paleidžiamojo failo kūrimas   
-  1.1 Vector realziacija - "make vector" (arba "make")   
+  1.1 Vector realziacija - "make vector" 
   1.2 List realizacija - "make list"   
-  1.3 Deque realizacija - "make deque"   
-2. Paleidimas  
+  1.3 Deque realizacija - "make deque"
+  1.4 Class+Vector realizacija - "make main" (arba "make")
+3. Paleidimas  
   2.1 Vector realziacija - "./vector_program"   
   2.2 List realizacija - "./list_program"   
   2.3 Deque realizacija - "./deque_program"   
-3. Programos valymas (ištrina sugeneruotus vykdomuosius failus) - "make clean"
+  2.4 Class realizacija - "./main"
+5. Programos valymas (ištrina sugeneruotus vykdomuosius failus) - "make clean"
 
-![image](https://github.com/user-attachments/assets/3dd5d1c4-d354-4ee9-97e0-7e0a875af4ed)
+![image](https://github.com/user-attachments/assets/cb8a2436-d262-4c9d-bc6d-33f241aac815)
+
 
 **Naudojimosi instrukcija**
 Programa sukurta intuityviai ir aiškiai. Atsidarius programą, Jūsų bus paprašoma pasirinkti norimą įvedimo būdą. Atitinkamai po to būsite prašomi įvesti studentų informaciją arba failo, laikančius šiuos duomenis, pavadinimą. Jūsų patogumui, bus galima pasirinkti rūšiavimo ir spausdinimo būdus. Pasirinkus įvedimą failu, studentai bus skirstomi į papildomus 2 failus pagal jų vidurkį, rezultatus rasite projekto direktyvoje
@@ -155,5 +159,43 @@ Taigi, iš pateiktų strategijų, 3 buvo geriausia dėl žymiai efektyvesnio ru�
 | Studentų rūšiavimas į 2 grupes | < 0.1s | 0.1s | 1.1s |
 
 Ši optimizacija geriausiai veikia su vector konteineriais dėl jo savybių, tačiau šiek tiek praverčia ir deque. Pažymėtina, kad list geriau veikia su 3 strategija, nes std::partition nėra efektyvus be random access galimybių.
+
+*v1.1*
+
+Nuo šios versijos buvo paliktos tik efektyviausios strategijos, remiantis viršuje nurodyta analize. Nuo šios versijos buvo atlikta realizacija su klasėmis, apačioje bus aprašta analizė, lyginanti struktūros ir klasės veikimo laiku skirtumus, taikant "vector" konteinerį. Taip pat bus atliekamas flag'ų optimizacijos tyrimas.
+
+"Struct" realizacija
+| Testas | 100000 įrašų | 1000000 įrašų |
+| ------ | ------------ | ------------- |
+| Duomenų nuskaitymas | 0.2s | 1.3s |
+| Rūšiavimas pagal parinktį | < 0.1s | 0.3s |
+| Rezultatų spausdinimas | 0.5s | 5.1s |
+| Studentų rūšiavimas į 2 grupes | < 0.1s | 0.1s |
+| Surūšiuotų studentų išvedimas į failą | 0.4s | 3.9s |
+| Bendras vidutinis programos veikimo laikas | 1.1s | 10.8s |
+
+
+"Class" realizacija
+| Testas | 100000 įrašų | 1000000 įrašų |
+| ------ | ------------ | ------------- |
+| Duomenų nuskaitymas | 0.2s | 1.3s |
+| Rūšiavimas pagal parinktį | < 0.1s | 0.3s |
+| Rezultatų spausdinimas | 0.5s | 5.0s |
+| Studentų rūšiavimas į 2 grupes | < 0.1s | 0.1s |
+| Surūšiuotų studentų išvedimas į failą | 0.4s | 3.9s |
+| Bendras vidutinis programos veikimo laikas | 1.1s | 10.7s |
+
+Taigi, spartos skirtumo tarp strukūros ir klasių implementacijų nėra.
+
+*Flag'ų testavimas*   
+Testavimui bus naudojamas 1000000 įrašų failas, balansuojant didelę duomenų apimtį ir rezultatų patikimumą.
+
+
+| Testas | O1 | O2 | O3 | Be "flag" |
+| ------ | ------------ | ------------- | -------------- | ---------|
+| Bendras vidutinis programos veikimo laikas | 11.5s | 11.8s | 11.2s| 16.0s |
+| .exe failo dydis | 249KB | 249KB | 288KB| 401KB |   
+
+Taigi, matoma, kad optimizavimo flag'ai yra efektyvus būdas pagerinti programos spartą ir dydį.     
 
 Kilus klausimams ar pastaboms, susisiekti el. paštu: valentinas.samatovicius@mif.stud.vu.lt
