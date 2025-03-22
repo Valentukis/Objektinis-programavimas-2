@@ -3,6 +3,7 @@
 class Studentas {
     private:
         string var_, pav_;
+        int lytis;
         vector<int> paz_;
         int egz_;
         double vidurkis_;
@@ -12,24 +13,19 @@ class Studentas {
         
     public:
         Studentas();
+        Studentas(const string& vardas, const string& pavarde, const vector<int>& paz, int egzaminas);
+        Studentas(std::istream& is, int sk);
+        
+        void ivedimas_ranka();
+        void ivedimas_pazymiu_generavimu();
+        void ivedimas_generuojant_viska();
+        void paskaiciuoti_vid_ir_med();
+        void paskaiciuoti_gal();
+        void sugeneruoti_lyti();
 
-        Studentas(const std::string& vardas, const std::string& pavarde, 
-            const std::vector<int>& paz, int egzaminas);
-        
-        Studentas(std::istream& is);
-        
-        /*FUNKCIJOS KURIAS REIKIA PAVERSTI I METHODUS:
-        IS MAIN/IVEDIMO:
-        IVEDIMO FUNKCIJOS APART FAILO
-        
-        void ivedimas_ranka(int& sum);
-        void ivedimas_pazymiu_generavimu(int& sum);
-        void ivedimas_generuojant_viska(int& sum, int lytis);
-        
-        void paskaiciuoti_vid_ir_med(Stud& laik, int sum);
-        void paskaiciuoti_gal(Stud& laik);
-        
-        */
-
+        string vardas() const { return var_; }
+        string pavarde() const { return pav_; }
+        double galutinisVidurkis() const { return galutinis_pagal_vid_; }
+        double galutinisMediana() const { return galutinis_pagal_med_; }
         
 };
