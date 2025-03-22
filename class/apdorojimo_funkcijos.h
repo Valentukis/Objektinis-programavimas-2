@@ -12,7 +12,7 @@ void pasirink_rusiavimas(vector<Studentas> &grupe);
 int rasti_nd_skaiciu_faile(ifstream& fd);
 void paskaiciuoti_vid_ir_med(Studentas& laik, int sum);
 void paskaiciuoti_gal(Studentas& laik);
-void buferio_apdorojimas(vector <Studentas> &grupe, Studentas& laik, size_t buffer_size, vector <char> &buffer, ifstream &fd, int &sum, int nd_sk);
+void buferio_apdorojimas(vector <Studentas> &grupe, size_t buffer_size, vector <char> &buffer, ifstream &fd, int nd_sk);
 void rusiuoti_grupemis(vector<Studentas> &grupe, vector<Studentas> &vargseliai);
 void failo_generavimas(ifstream &fd);
 void failo_pav_gavimas(ifstream &fd);

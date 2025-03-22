@@ -17,9 +17,6 @@ int main(){
 
    while(testi) {
         Studentas laik;
-        lytis = rand() % 2;
-        int sum = 0;
-
         eiga = eigos_parinktis();
 
         switch(eiga) {
@@ -36,7 +33,7 @@ int main(){
             break;
 
             case 4:
-            //ivedimas_failu(grupe, laik, sum);
+            ivedimas_failu(grupe);
             prog_pab = std::chrono::high_resolution_clock::now(); 
             prog_laik = prog_pab - prog_prad;
             cout << "Visa programa veikė: " << std::fixed << std::setprecision(1) << prog_laik.count() << "s" << endl;

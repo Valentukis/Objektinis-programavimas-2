@@ -27,13 +27,4 @@ using std::setw;
 using std::ifstream;
 using std::ofstream;
 
-struct Stud{
-    string var, pav;
-    vector<int> paz;
-    int egz;
-    double vidurkis;
-    double mediana;
-    double galutinis_pagal_vid;
-    double galutinis_pagal_med;
-};
 #endif
