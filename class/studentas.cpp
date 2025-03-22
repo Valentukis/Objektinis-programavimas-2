@@ -162,3 +162,33 @@ void Studentas::ivedimas_generuojant_viska() {
     paskaiciuoti_vid_ir_med();
     paskaiciuoti_gal();
 }
+
+void Studentas::paskaiciuoti_vid_ir_med() {
+    if (paz_.empty()) {
+        vidurkis_ = 0;
+        mediana_ = 0;
+        return;
+    }
+    int sum = std::accumulate(paz_.begin(), paz_.end(), 0);
+    int medianos_poz;
+    
+    vidurkis_ = double(sum) / paz_.size();
+    sort(paz_.begin(), paz_.end());
+
+    if (paz_.size() % 2 == 0) {
+        medianos_poz = paz_.size() / 2;
+        mediana_ = ( paz_.at(medianos_poz) + paz_.at(medianos_poz - 1) ) / 2.0;
+    }
+    else {
+        medianos_poz = paz_.size() / 2;
+        mediana_ = paz_.at(medianos_poz);
+    }   
+
+}
+
+void Studentas::paskaiciuoti_gal() {
+    galutinis_pagal_vid_ = (0.4 * vidurkis_ + 0.6 * egz_);
+    galutinis_pagal_med_ = (0.4 * mediana_ + 0.6 * egz_);
+}
+
+
