@@ -11,7 +11,7 @@ int main(){
 
     srand(time(NULL));
     vector <Studentas> grupe;
-    int eiga, lytis;
+    int eiga;
     bool testi = true;
     cout << "Sveiki! Padėsiu jums paskaičiuoti galutinius Jūsų studentų balus!" << endl;
 

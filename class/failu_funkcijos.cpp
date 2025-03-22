@@ -111,7 +111,7 @@ void ivedimas_failu(vector <Studentas> &grupe) {
 
     const size_t buffer_size = 8192;
     vector <char> buffer(buffer_size);
-    int spausdinimas, sum = 0;
+    int spausdinimas;
     ifstream fd;
     bool generuoti;
 
