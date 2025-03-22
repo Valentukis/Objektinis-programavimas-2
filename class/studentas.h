@@ -34,4 +34,11 @@ class Studentas {
         double galutinis_mediana() const { return galutinis_pagal_med_; }
         
 };
+
+bool lyginti_pagal_varda(const Studentas &a, const Studentas &b);
+bool lyginti_pagal_pavarda(const Studentas &a, const Studentas &b);
+bool lyginti_pagal_vidurki(const Studentas &a, const Studentas &b);
+bool lyginti_pagal_mediana(const Studentas &a, const Studentas &b);
+void pasirink_rusiavimas(vector<Studentas> &grupe);
+void rusiuoti_grupemis(vector<Studentas> &grupe, vector<Studentas> &vargseliai);
 #endif

@@ -191,4 +191,58 @@ void Studentas::paskaiciuoti_gal() {
     galutinis_pagal_med_ = (0.4 * mediana_ + 0.6 * egz_);
 }
 
+bool lyginti_pagal_varda(const Studentas &a, const Studentas &b) {
+    return a.vardas() < b.vardas();
+}
+
+bool lyginti_pagal_pavarde(const Studentas &a, const Studentas &b) {
+    return a.pavarde() < b.pavarde();
+}
+
+bool lyginti_pagal_vidurki(const Studentas &a, const Studentas &b) {
+    return a.galutinis_vidurkis() > b.galutinis_vidurkis();
+}
+
+bool lyginti_pagal_mediana(const Studentas &a, const Studentas &b) {
+    return a.galutinis_mediana() > b.galutinis_mediana();
+}
+void pasirink_rusiavimas(vector<Studentas> &grupe) {
+
+    int ivestis;
+
+    while(true) {
+        cin >> ivestis;
+        if (cin.fail() || ivestis > 4 || ivestis < 1) {
+            std::cerr << "Bloga įvestis! Bandykite vėl." << endl;
+            cout << "Pagal ką norėsite rūšiuoti duomenis? (1 - vardas, 2 - pavardė, 3 - galutinis balas pagal vidurkį, 4 - galutinis balas pagal medianą):" << endl; 
+            cin.clear();  
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
+        }
+        else break;
+    }
+
+    auto start = std::chrono::high_resolution_clock::now();
+    if (ivestis == 1) stable_sort(grupe.begin(), grupe.end(), lyginti_pagal_varda);
+    else if (ivestis == 2) stable_sort(grupe.begin(), grupe.end(), lyginti_pagal_pavarde);
+    else if (ivestis == 3) stable_sort(grupe.begin(), grupe.end(), lyginti_pagal_vidurki);
+    else if (ivestis == 4) stable_sort(grupe.begin(), grupe.end(), lyginti_pagal_mediana);
+    auto end = std::chrono::high_resolution_clock::now(); 
+    std::chrono::duration<double> elapsed = end - start;
+    cout << "Rūšiavimas pagal parinktį užtruko: " << std::fixed << std::setprecision(1) << elapsed.count() << "s" << endl;
+}
+
+void rusiuoti_grupemis(std::vector<Studentas> &grupe, std::vector<Studentas> &vargseliai) {
+    auto start = std::chrono::high_resolution_clock::now(); 
+
+    auto it = std::partition(grupe.begin(), grupe.end(), [](const Studentas &s) {
+        return s.galutinis_vidurkis() >= 5.0;
+    });
+
+    vargseliai.assign(std::make_move_iterator(it), std::make_move_iterator(grupe.end()));
+    grupe.erase(it, grupe.end());
+    
+    auto end = std::chrono::high_resolution_clock::now(); 
+    std::chrono::duration<double> elapsed = end - start;
+    cout << "Rūšiavimas į kietuolius/vargšelius užtruko: " << std::fixed << std::setprecision(1) << elapsed.count() << "s" << endl;
+}
 

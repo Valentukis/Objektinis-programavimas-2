@@ -1,8 +1,8 @@
 #include "mano_lib.h"
-#include "ivedimo_funkcijos.h"
 #include "spausdinimo_funkcijos.h"
-#include "apdorojimo_funkcijos.h"
+#include "failu_funkcijos.h"
 #include "studentas.h"
+
 int main(){
 
     auto prog_prad = std::chrono::high_resolution_clock::now(); 
