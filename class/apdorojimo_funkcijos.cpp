@@ -1,21 +1,21 @@
 #include "apdorojimo_funkcijos.h"
 
-bool lyginti_pagal_varda(const Stud &a, const Stud &b) {
-    return a.var < b.var;
+bool lyginti_pagal_varda(const Studentas &a, const Studentas &b) {
+    return a.vardas() < b.vardas();
 }
 
-bool lyginti_pagal_pavarde(const Stud &a, const Stud &b) {
-    return a.pav < b.pav;
+bool lyginti_pagal_pavarde(const Studentas &a, const Studentas &b) {
+    return a.pavarde() < b.pavarde();
 }
 
-bool lyginti_pagal_vidurki(const Stud &a, const Stud &b) {
-    return a.galutinis_pagal_vid > b.galutinis_pagal_vid;
+bool lyginti_pagal_vidurki(const Studentas &a, const Studentas &b) {
+    return a.galutinis_vidurkis() > b.galutinis_vidurkis();
 }
 
-bool lyginti_pagal_mediana(const Stud &a, const Stud &b) {
-    return a.galutinis_pagal_med > b.galutinis_pagal_med;
+bool lyginti_pagal_mediana(const Studentas &a, const Studentas &b) {
+    return a.galutinis_mediana() > b.galutinis_mediana();
 }
-void pasirink_rusiavimas(vector<Stud> &grupe) {
+void pasirink_rusiavimas(vector<Studentas> &grupe) {
 
     int ivestis;
 
@@ -51,29 +51,8 @@ int rasti_nd_skaiciu_faile(ifstream& fd) {
     return nd_sk;
 }
 
-void paskaiciuoti_vid_ir_med(Stud& laik, int sum) {
-    int medianos_poz;
-    laik.vidurkis = double(sum) / laik.paz.size();
-    sort(laik.paz.begin(), laik.paz.end());
-
-    if (laik.paz.size() % 2 == 0) {
-        medianos_poz = laik.paz.size() / 2;
-        laik.mediana = ( laik.paz.at(medianos_poz) + laik.paz.at(medianos_poz - 1) ) / 2.0;
-    }
-    else {
-        medianos_poz = floor(laik.paz.size() / 2);
-        laik.mediana = laik.paz.at(medianos_poz);
-    }   
-}
-
-void paskaiciuoti_gal(Stud& laik) {
-    laik.galutinis_pagal_vid = (0.4 * laik.vidurkis + 0.6 * laik.egz);
-    laik.galutinis_pagal_med = (0.4 * laik.mediana + 0.6 * laik.egz);
-}
-
-void buferio_apdorojimas(vector <Stud> &grupe, Stud& laik, size_t buffer_size, vector <char> &buffer, ifstream &fd, int &sum, int nd_sk) {
-    string line, leftover = "", word, chunk;
-    int ivestis;
+void buferio_apdorojimas(vector <Studentas> &grupe, size_t buffer_size, vector <char> &buffer, ifstream &fd, int nd_sk) {
+    string line, leftover = "", chunk;
     
     while(fd.read(buffer.data(), buffer_size) || fd.gcount() ) {
         chunk = leftover + string(buffer.data(), fd.gcount());
@@ -90,46 +69,25 @@ void buferio_apdorojimas(vector <Stud> &grupe, Stud& laik, size_t buffer_size, v
 
         while (std::getline(stream, line)) {
             istringstream duom(line);
-            duom >> laik.var >> laik.pav;
-            for (int i = 0; i < nd_sk; i++) {
-                duom >> ivestis;
-                sum += ivestis; 
-                laik.paz.push_back(ivestis);
-
-            }
-            duom >> laik.egz;
-            paskaiciuoti_vid_ir_med(laik, sum);
-            paskaiciuoti_gal(laik);
+            Studentas laik(duom, nd_sk);
             grupe.emplace_back(std::move(laik)); 
-            laik.paz.clear();
-            sum = 0;
         }
         
     }
 
     if (!leftover.empty()) {
         istringstream duom(leftover);
-        duom >> laik.var >> laik.pav;
-    
-        for (int i = 0; i < nd_sk; i++) {
-            duom >> ivestis;
-            sum += ivestis;
-            laik.paz.push_back(ivestis);
-        }
-        duom >> laik.egz;
-    
-        paskaiciuoti_vid_ir_med(laik, sum);
-        paskaiciuoti_gal(laik);
-        grupe.emplace_back(std::move(laik));
+        Studentas laik(duom, nd_sk);
+        grupe.emplace_back(std::move(laik)); 
     }
     fd.close();
 }
 
-void rusiuoti_grupemis(std::vector<Stud> &grupe, std::vector<Stud> &vargseliai) {
+void rusiuoti_grupemis(std::vector<Studentas> &grupe, std::vector<Studentas> &vargseliai) {
     auto start = std::chrono::high_resolution_clock::now(); 
 
-    auto it = std::partition(grupe.begin(), grupe.end(), [](const Stud &s) {
-        return s.galutinis_pagal_vid >= 5.0;
+    auto it = std::partition(grupe.begin(), grupe.end(), [](const Studentas &s) {
+        return s.galutinis_vidurkis() >= 5.0;
     });
 
     vargseliai.assign(std::make_move_iterator(it), std::make_move_iterator(grupe.end()));
@@ -142,15 +100,15 @@ void rusiuoti_grupemis(std::vector<Stud> &grupe, std::vector<Stud> &vargseliai) 
 
 void failo_generavimas(ifstream &fd){
 
-    int student_sk, nd_sk;
+    int Studentasent_sk, nd_sk;
         
-        cout << "Įveskite, kiek studentų sugeneruoti: " << endl;
+        cout << "Įveskite, kiek Studentasentų sugeneruoti: " << endl;
         while(true) {
-            cin >> student_sk;
-            if (cin.fail() || student_sk <= 0) {
+            cin >> Studentasent_sk;
+            if (cin.fail() || Studentasent_sk <= 0) {
                 cin.clear(); // Clear error state
                 cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
-                cout << "Klaida! Įveskite teigiamą sveiką skaičių studentams: ";
+                cout << "Klaida! Įveskite teigiamą sveiką skaičių Studentasentams: ";
             } else break;
         }
 
@@ -160,13 +118,13 @@ void failo_generavimas(ifstream &fd){
             if (cin.fail() || nd_sk <= 0) {
                 cin.clear(); // Clear error state
                 cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
-                cout << "Klaida! Įveskite teigiamą sveiką skaičių studentams: ";
+                cout << "Klaida! Įveskite teigiamą sveiką skaičių Studentasentams: ";
             } else break;
         }
 
         auto start = std::chrono::high_resolution_clock::now(); 
 
-        string failo_pav = "studentai" + std::to_string(student_sk) + ".txt";
+        string failo_pav = "Studentasentai" + std::to_string(Studentasent_sk) + ".txt";
         ofstream fr;
         fr.open(failo_pav);
         
@@ -174,7 +132,7 @@ void failo_generavimas(ifstream &fd){
         for (int i = 0; i < nd_sk; i++) fr << "ND" + std::to_string(i+1) << setw(15); 
         fr << "Egzaminas" << endl;
 
-        for (int i = 0; i < student_sk; i++) {
+        for (int i = 0; i < Studentasent_sk; i++) {
             fr << std::left << setw(20) << "Vardas" + std::to_string(i+1) << std::right << setw(20) << "Pavarde" + std::to_string(i+1) << setw(15);
             for (int j = 0; j < nd_sk; j++) fr << std::right << rand() % 10 + 1 << setw(15);
             fr << rand() % 10 + 1 << endl;
