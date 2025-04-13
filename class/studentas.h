@@ -39,6 +39,7 @@ class Studentas {
 
         string vardas() const { return var_; }
         string pavarde() const { return pav_; }
+        int egzaminas() const { return egz_; }
         double galutinis_vidurkis() const { return galutinis_pagal_vid_; }
         double galutinis_mediana() const { return galutinis_pagal_med_; }
         
