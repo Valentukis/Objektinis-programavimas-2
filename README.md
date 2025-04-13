@@ -7,6 +7,7 @@ Programos pasikeitimai tarp versijų:
 -v0.4: Įgyvendinta failo generavimo bei studentų skirstymo į grupes pagal pažymius funkcijos.  
 -v1.0: Pilna programos versija, sutvarkytos direktyvos, patobulinta išvestis, sukurtas Makefile, realizuotos kelios versijos naudojant skirtingus konteinerius, optimizuotos senos funkcijos.  
 -v1.1: Perdaryta programa naudojant klases, taip užtikrinant patogų programos naudojimą, duomenų saugumą, patikimumą. Sutvarkyta programos strukūra, paliekant tik efektyviausius metodus
+-v1.2 Pritaikytas "Rule of five" studentų klasei, taip pat perdengti įvesties/išvesties operatoriui darbui su klase patogumui. Parašytas testas testuoti šią naują versiją.
 
 **Įdiegimo instrukcija**
 
@@ -197,5 +198,44 @@ Testavimui bus naudojamas 1000000 įrašų failas, balansuojant didelę duomenų
 | .exe failo dydis | 249KB | 249KB | 288KB| 401KB |   
 
 Taigi, matoma, kad optimizavimo flag'ai yra efektyvus būdas pagerinti programos spartą ir dydį.     
+
+Programos dokumentacija programuotojams (nuo v1.2): 
+---------------------------------------------------
+
+Jūsų patogumui, nuo v1.2 dokumentaciją įtraukiama naudojimosi instrukcija programuotojams. 
+v1.2: 
+- Pagrindinė klasė Studentas turi visus reikiamus metodus darbui su studentais.
+- Įvedimui yra sukurti metodai, leidžiantis duomenis įvesti rankiniu būdų, generuojant tam tikras dalis arba automatiškai nuskaitant nuo failo. Taip pat, perdengtas įvedimo operatorius >> leidžia įvesti vardą, pavardę ir egzamino įvertinimą
+- Išvedimui sukurtos funkcijos spausdinimas.cpp faile. Taip pat, perdengtas operatorius << leidžia spausdinti studento vardą, pavardę bei galutinius paskaičiuotus įvertinimus.
+- Pagrindinė programos eiga pasirenkama main.cpp, įvedus vartotojui.
+
+ 
+Lentelės, apibendrinančios įvedimo/išvedimo rekomendacijas:   
+
+Įvedimas:
+| Norimas būdas įvesti duomenis | Metodas/Funkcija |
+| ------ | ------------ |
+| Rankinis įvedimas | ivedimas_ranka() |
+| Generavimas tam tikrų duomenų | ivedimas_pazymiu_generavimu() / ivedimas_generuojant_viska() |
+| Automatinis (iš failo) | ivedimas_failu() (failu_funkcijos.cpp) |
+| Per >> operatorių | Perdengtas >> operatorius, leidžiantis įvesti var_, pav_, egz_ |
+
+
+Išvedimas:
+| Norimas būdas išvesti duomenis | Metodas/Funkcija |
+| ------ | ------------ |
+| Spausdinti tik vieną iš galutinių | spaudsdinimas_atskirai() |
+| Spausdinti abiejų galutinių | spaudsdinimas_kartu() |
+| Per << operatorių | Perdengtas << operatorius, leidžinatis spausdinti var_, pav_, galutinis_pagal_vid ir galutinis_pagal_med |  
+
+
+Pastaba: Pasirinkimas tarp išvedimo į ekraną ar į failą yra pateikiamas vartotojui programos vykdymo metu. Visos pateikots funkcijos veikia su bet kokiu Output stream'u.
+#### Testavimas
+
+Buvo sukurti testai ištestuoti rule of five ir perdengtus įvesties išvesties operatorius. Juos rasite test_studentas.cpp faile (Žemiau pateiktos nuotraukos)   
+![image](https://github.com/user-attachments/assets/f8bc94a6-9c7f-43af-b43a-a14f428b0fe0)
+
+![image](https://github.com/user-attachments/assets/f441c390-9d5b-48e5-a336-98bc9c269b10)
+
 
 Kilus klausimams ar pastaboms, susisiekti el. paštu: valentinas.samatovicius@mif.stud.vu.lt
