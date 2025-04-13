@@ -2,10 +2,10 @@
 #define student_H
 
 #include "mano_lib.h"
+#include "zmogus.h"
 
-class Studentas {
+class Studentas : public Zmogus {
     private:
-        string var_, pav_;
         int lytis_;
         vector<int> paz_;
         int egz_;
