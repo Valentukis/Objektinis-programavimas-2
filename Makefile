@@ -10,4 +10,4 @@ main: class/*.cpp
 	$(CXX) $(CXXFLAGS) -o main class/*.cpp
 
 clean:
-	rm -f vector_program main
+	rm -f main
