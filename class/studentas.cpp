@@ -1,7 +1,10 @@
 #include "studentas.h"
 
 Studentas::Studentas() : egz_(0) {}
-Studentas::Studentas(const string& vardas, const string& pavarde, const vector<int>& paz, int egzaminas) : var_(vardas), pav_(pavarde), paz_(paz), egz_(egzaminas) {}
+Studentas::Studentas(const string& vardas, const string& pavarde, const vector<int>& paz, int egzaminas) : Zmogus(vardas, pavarde), paz_(paz), egz_(egzaminas) {
+    paskaiciuoti_vid_ir_med();
+    paskaiciuoti_gal();
+}
 
 Studentas::Studentas(std::istream& is, int sk) {
     is >> var_ >> pav_;
@@ -28,11 +31,11 @@ Studentas::~Studentas() { //Destr
     galutinis_pagal_vid_ = 0;
 }
 
-Studentas::Studentas(const Studentas& other): var_(other.var_), pav_(other.pav_), lytis_(other.lytis_), //Copy constr
+Studentas::Studentas(const Studentas& other): Zmogus(other.var_, other.pav_), lytis_(other.lytis_), //Copy constr
     paz_(other.paz_), egz_(other.egz_), vidurkis_(other.vidurkis_), mediana_(other.mediana_),
     galutinis_pagal_vid_(other.galutinis_pagal_vid_), galutinis_pagal_med_(other.galutinis_pagal_med_) {}
 
-Studentas::Studentas(Studentas&& other) noexcept : var_(std::move(other.var_)), pav_(std::move(other.pav_)), lytis_(other.lytis_), //Move constr
+Studentas::Studentas(Studentas&& other) noexcept : Zmogus(std::move(other.var_), std::move(other.pav_)), lytis_(other.lytis_), //Move constr
     paz_(std::move(other.paz_)), egz_(other.egz_), vidurkis_(other.vidurkis_), mediana_(other.mediana_),
     galutinis_pagal_vid_(other.galutinis_pagal_vid_), galutinis_pagal_med_(other.galutinis_pagal_med_) {}
       
@@ -71,14 +74,17 @@ std::istream& operator>>(std::istream& is, Studentas& s) { //ivestis
     return is;
 }
 
-std::ostream& operator<<(std::ostream& os, const Studentas& s) { //isvestis
-    os << std::left << std::setw(20) << s.pavarde()
-       << std::setw(20) << s.vardas()
-       << std::setw(20) << std::fixed << std::setprecision(2) << s.galutinis_vidurkis()
-       << std::setw(20) << std::fixed << std::setprecision(2) << s.galutinis_mediana();
-    return os;
+void Studentas::spausdinti(std::ostream& os) const {
+    os << std::left << std::setw(20) << pav_ << std::setw(20) << var_
+       << std::setw(20) << std::fixed << std::setprecision(2) << galutinis_pagal_vid_
+       << std::setw(20) << galutinis_pagal_med_ << std::endl;
 }
 
+// Operator overloads
+std::ostream& operator<<(std::ostream& os, const Studentas& s) {
+    s.spausdinti(os);
+    return os;
+}
 
 void Studentas::sugeneruoti_lyti() {
     lytis_ = rand() % 2;  //0 - moteris, 1 - vyras;

@@ -42,6 +42,7 @@ class Studentas : public Zmogus {
         int egzaminas() const { return egz_; }
         double galutinis_vidurkis() const { return galutinis_pagal_vid_; }
         double galutinis_mediana() const { return galutinis_pagal_med_; }
+        void spausdinti(std::ostream& os) const override;
         
 };
 
