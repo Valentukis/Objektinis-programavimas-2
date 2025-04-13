@@ -1,4 +1,4 @@
-#include "studentas.h"
+#include "class/studentas.h"
 #include <cassert>
 #include <iostream>
 #include <sstream>

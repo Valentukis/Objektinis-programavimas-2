@@ -3,11 +3,11 @@ CXXFLAGS = -O3 -Wall -std=c++17
 
 .DEFAULT_GOAL := main
 
-vector: vector/*.cpp
-	$(CXX) $(CXXFLAGS) -o vector_program vector/*.cpp
-
 main: class/*.cpp
 	$(CXX) $(CXXFLAGS) -o main class/*.cpp
 
+test: class/studentas.cpp test_studentas.cpp
+	$(CXX) -o test_studentas test_studentas.cpp class/studentas.cpp 
+
 clean:
-	rm -f main
+	rm -f main test_studentas
