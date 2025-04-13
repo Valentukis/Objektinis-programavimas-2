@@ -17,7 +17,7 @@ Studentas::Studentas(std::istream& is, int sk) {
     paskaiciuoti_gal();
 }
 
-Studentas::~Studentas() {
+Studentas::~Studentas() { //Destr
     paz_.clear();
     var_ = "";
     pav_ = "";
@@ -26,6 +26,44 @@ Studentas::~Studentas() {
     mediana_ = 0;
     galutinis_pagal_med_ = 0;
     galutinis_pagal_vid_ = 0;
+}
+
+Studentas::Studentas(const Studentas& other): var_(other.var_), pav_(other.pav_), lytis_(other.lytis_), //Copy constr
+    paz_(other.paz_), egz_(other.egz_), vidurkis_(other.vidurkis_), mediana_(other.mediana_),
+    galutinis_pagal_vid_(other.galutinis_pagal_vid_), galutinis_pagal_med_(other.galutinis_pagal_med_) {}
+
+Studentas::Studentas(Studentas&& other) noexcept : var_(std::move(other.var_)), pav_(std::move(other.pav_)), lytis_(other.lytis_), //Move constr
+    paz_(std::move(other.paz_)), egz_(other.egz_), vidurkis_(other.vidurkis_), mediana_(other.mediana_),
+    galutinis_pagal_vid_(other.galutinis_pagal_vid_), galutinis_pagal_med_(other.galutinis_pagal_med_) {}
+      
+Studentas& Studentas::operator=(const Studentas& other) { //copy assign
+    if (this != &other) {
+        var_ = other.var_;
+        pav_ = other.pav_;
+        lytis_ = other.lytis_;
+        paz_ = other.paz_;
+        egz_ = other.egz_;
+        vidurkis_ = other.vidurkis_;
+        mediana_ = other.mediana_;
+        galutinis_pagal_vid_ = other.galutinis_pagal_vid_;
+        galutinis_pagal_med_ = other.galutinis_pagal_med_;
+    }
+    return *this;
+}
+
+Studentas& Studentas::operator=(Studentas&& other) noexcept { //move assign
+    if (this != &other) {
+        var_ = std::move(other.var_);
+        pav_ = std::move(other.pav_);
+        lytis_ = other.lytis_;
+        paz_ = std::move(other.paz_);
+        egz_ = other.egz_;
+        vidurkis_ = other.vidurkis_;
+        mediana_ = other.mediana_;
+        galutinis_pagal_vid_ = other.galutinis_pagal_vid_;
+        galutinis_pagal_med_ = other.galutinis_pagal_med_;
+    }
+    return *this;
 }
 
 void Studentas::sugeneruoti_lyti() {
