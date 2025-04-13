@@ -1,10 +1,7 @@
 #include "studentas.h"
 
 Studentas::Studentas() : egz_(0) {}
-Studentas::Studentas(const string& vardas, const string& pavarde, const vector<int>& paz, int egzaminas) : Zmogus(vardas, pavarde), paz_(paz), egz_(egzaminas) {
-    paskaiciuoti_vid_ir_med();
-    paskaiciuoti_gal();
-}
+Studentas::Studentas(const string& vardas, const string& pavarde, const vector<int>& paz, int egzaminas) : Zmogus(vardas, pavarde), paz_(paz), egz_(egzaminas) {}
 
 Studentas::Studentas(std::istream& is, int sk) {
     is >> var_ >> pav_;
