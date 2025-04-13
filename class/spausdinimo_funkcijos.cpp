@@ -26,7 +26,7 @@ void spausdinimas_kartu(vector <Studentas> &grupe, bool spausdinimas) {
         fr << string(76, '-') << endl;
         auto start = std::chrono::high_resolution_clock::now();
         for (auto n: grupe) {
-            fr << std::left << setw(20) << n.vardas() << setw(20) << n.pavarde() << setw(20) << std::fixed << std::setprecision(2) << (n.galutinis_vidurkis()) << setw(20) << (n.galutinis_mediana()) << endl;
+            fr << n << endl;
             }
             auto end = std::chrono::high_resolution_clock::now(); 
             std::chrono::duration<double> elapsed = end - start;
@@ -40,7 +40,7 @@ void spausdinimas_kartu(vector <Studentas> &grupe, bool spausdinimas) {
     output << string(76, '-') << endl;
     auto start = std::chrono::high_resolution_clock::now(); 
     for (auto n: grupe) {
-        output << std::left << setw(20) << n.vardas() << setw(20) << n.pavarde() << setw(20) << std::fixed << std::setprecision(2) << (n.galutinis_vidurkis()) << setw(20) << (n.galutinis_mediana()) << endl;
+        output << n << endl;
         }
         cout << output.str();
         auto end = std::chrono::high_resolution_clock::now(); 
