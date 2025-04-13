@@ -66,6 +66,20 @@ Studentas& Studentas::operator=(Studentas&& other) noexcept { //move assign
     return *this;
 }
 
+std::istream& operator>>(std::istream& is, Studentas& s) { //ivestis
+    is >> s.var_ >> s.pav_ >> s.egz_;
+    return is;
+}
+
+std::ostream& operator<<(std::ostream& os, const Studentas& s) { //isvestis
+    os << std::left << std::setw(20) << s.pavarde()
+       << std::setw(20) << s.vardas()
+       << std::setw(20) << std::fixed << std::setprecision(2) << s.galutinis_vidurkis()
+       << std::setw(20) << std::fixed << std::setprecision(2) << s.galutinis_mediana();
+    return os;
+}
+
+
 void Studentas::sugeneruoti_lyti() {
     lytis_ = rand() % 2;  //0 - moteris, 1 - vyras;
 }
