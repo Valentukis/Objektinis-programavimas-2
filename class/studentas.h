@@ -18,7 +18,15 @@ class Studentas {
         Studentas();
         Studentas(const string& vardas, const string& pavarde, const vector<int>& paz, int egzaminas);
         Studentas(std::istream& is, int sk);
+
+        Studentas(const Studentas& other);
+        Studentas(Studentas&& other) noexcept;
+        Studentas& operator=(const Studentas& other);
+        Studentas& operator=(Studentas&& other) noexcept;
         ~Studentas();
+
+        friend std::istream& operator>>(std::istream& is, Studentas& s);
+        friend std::ostream& operator<<(std::ostream& os, const Studentas& s);
         
         void ivedimas_ranka();
         void ivedimas_pazymiu_generavimu();
