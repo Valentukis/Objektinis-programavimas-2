@@ -34,7 +34,16 @@ Studentas::Studentas(const Studentas& other): Zmogus(other.var_, other.pav_), ly
 
 Studentas::Studentas(Studentas&& other) noexcept : Zmogus(std::move(other.var_), std::move(other.pav_)), lytis_(other.lytis_), //Move constr
     paz_(std::move(other.paz_)), egz_(other.egz_), vidurkis_(other.vidurkis_), mediana_(other.mediana_),
-    galutinis_pagal_vid_(other.galutinis_pagal_vid_), galutinis_pagal_med_(other.galutinis_pagal_med_) {}
+    galutinis_pagal_vid_(other.galutinis_pagal_vid_), galutinis_pagal_med_(other.galutinis_pagal_med_) {
+        other.var_.clear();
+        other.pav_.clear();
+        other.paz_.clear();
+        other.egz_ = 0;
+        other.galutinis_pagal_med_ = 0;
+        other.galutinis_pagal_vid_ = 0;
+        other.vidurkis_ = 0;
+        other.mediana_ = 0;
+    }
       
 Studentas& Studentas::operator=(const Studentas& other) { //copy assign
     if (this != &other) {
@@ -48,6 +57,7 @@ Studentas& Studentas::operator=(const Studentas& other) { //copy assign
         galutinis_pagal_vid_ = other.galutinis_pagal_vid_;
         galutinis_pagal_med_ = other.galutinis_pagal_med_;
     }
+    
     return *this;
 }
 
@@ -62,6 +72,14 @@ Studentas& Studentas::operator=(Studentas&& other) noexcept { //move assign
         mediana_ = other.mediana_;
         galutinis_pagal_vid_ = other.galutinis_pagal_vid_;
         galutinis_pagal_med_ = other.galutinis_pagal_med_;
+        other.var_.clear();
+        other.pav_.clear();
+        other.paz_.clear();
+        other.egz_ = 0;
+        other.vidurkis_ = 0;
+        other.mediana_ = 0;
+        other.galutinis_pagal_vid_ = 0;
+        other.galutinis_pagal_med_ = 0;
     }
     return *this;
 }

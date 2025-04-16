@@ -54,7 +54,7 @@ void test_io() {
 }
 
 int main() {
-    Zmogus zm;
+    //Zmogus zm;
     test_rule_of_five();
     test_io();
 }
