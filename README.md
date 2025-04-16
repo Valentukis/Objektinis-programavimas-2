@@ -237,5 +237,11 @@ Buvo sukurti testai ištestuoti rule of five ir perdengtus įvesties išvesties 
 
 ![image](https://github.com/user-attachments/assets/f441c390-9d5b-48e5-a336-98bc9c269b10)
 
+##### V1.5   
+Buvo sukurta bazinė klasė Zmogus. Iš jos Studentas yra derived klasė. Zmogus yra abstrakčioji klasė (demonstracija apačioje). Programa ir testai veikia identiškai kaip v1.2. Taip pat, patogomui buvo sukurtas make testavimui.
+![image](https://github.com/user-attachments/assets/fc018f87-13c5-4317-b332-b15439fafb8b)      
+
+     
+![image](https://github.com/user-attachments/assets/5d7d3eb8-6775-43e5-b68c-bdfad544bbb6)
 
 Kilus klausimams ar pastaboms, susisiekti el. paštu: valentinas.samatovicius@mif.stud.vu.lt
