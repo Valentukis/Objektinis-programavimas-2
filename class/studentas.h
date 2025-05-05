@@ -52,4 +52,5 @@ bool lyginti_pagal_vidurki(const Studentas &a, const Studentas &b);
 bool lyginti_pagal_mediana(const Studentas &a, const Studentas &b);
 void pasirink_rusiavimas(vector<Studentas> &grupe);
 void rusiuoti_grupemis(vector<Studentas> &grupe, vector<Studentas> &vargseliai);
+
 #endif
