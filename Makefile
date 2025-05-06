@@ -6,8 +6,8 @@ CXXFLAGS = -O3 -Wall -std=c++17
 main: class/*.cpp
 	$(CXX) $(CXXFLAGS) -o main class/*.cpp
 
-test: class/studentas.cpp test_studentas.cpp
-	$(CXX) -o test_studentas test_studentas.cpp class/studentas.cpp 
+test: class/studentas.cpp test_studentas.cpp catch_amalgamated.cpp
+	$(CXX) -o test_studentas test_studentas.cpp class/studentas.cpp catch_amalgamated.cpp
 
 clean:
 	rm -f main test_studentas
