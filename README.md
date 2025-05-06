@@ -8,24 +8,28 @@ Programos pasikeitimai tarp versijų:
 -v1.0: Pilna programos versija, sutvarkytos direktyvos, patobulinta išvestis, sukurtas Makefile, realizuotos kelios versijos naudojant skirtingus konteinerius, optimizuotos senos funkcijos.  
 -v1.1: Perdaryta programa naudojant klases, taip užtikrinant patogų programos naudojimą, duomenų saugumą, patikimumą. Sutvarkyta programos strukūra, paliekant tik efektyviausius metodus
 -v1.2 Pritaikytas "Rule of five" studentų klasei, taip pat perdengti įvesties/išvesties operatoriui darbui su klase patogumui. Parašytas testas testuoti šią naują versiją.
+-v1.5 Pagrindinė Studentas klasė išskirta į bazinę Žmogus ir derived Studentas klasę.
+-v2.0 Sugeneruota Doxygen dokumentacija HTML, TeX ir sukompiliuotu PDF formatais, parašyti unit test'ai su Catch
 
 **Įdiegimo instrukcija**
 
 Jūsų patogumui, buvo sukurtas Makefile. Atsidarę mėgstamiausią terminalą, galite naudoti šias komandas:
 1. Paleidžiamojo failo kūrimas   
-  1.1 Vector realziacija - "make vector" 
-  1.2 List realizacija - "make list"   
-  1.3 Deque realizacija - "make deque"
-  1.4 Class+Vector realizacija - "make main" (arba "make")
-3. Paleidimas  
-  2.1 Vector realziacija - "./vector_program"   
-  2.2 List realizacija - "./list_program"   
-  2.3 Deque realizacija - "./deque_program"   
-  2.4 Class realizacija - "./main"
-5. Programos valymas (ištrina sugeneruotus vykdomuosius failus) - "make clean"
+  1.1 Vector realziacija - "make" 
+  1.2 Testavimas - "make test"
+2. Paleidimas  
+  2.1 Class su Vector realziacija - "./vector_program"   
+  2.2 Testavimas - "./test_studentas"
+3. Programos valymas (ištrina sugeneruotus vykdomuosius failus) - "make clean"
 
-![image](https://github.com/user-attachments/assets/cb8a2436-d262-4c9d-bc6d-33f241aac815)
+![image](https://github.com/user-attachments/assets/82cc051a-6d34-460e-931e-573aded529cb)
 
+
+**Doxygen dokumentacija**
+
+Buvo sukurta programos dokumentacija, naudojant Doxygen. 
+
+[📄 Nuoroda į PDF failą](docs/pdf_doc.pdf)
 
 **Naudojimosi instrukcija**
 Programa sukurta intuityviai ir aiškiai. Atsidarius programą, Jūsų bus paprašoma pasirinkti norimą įvedimo būdą. Atitinkamai po to būsite prašomi įvesti studentų informaciją arba failo, laikančius šiuos duomenis, pavadinimą. Jūsų patogumui, bus galima pasirinkti rūšiavimo ir spausdinimo būdus. Pasirinkus įvedimą failu, studentai bus skirstomi į papildomus 2 failus pagal jų vidurkį, rezultatus rasite projekto direktyvoje
@@ -38,6 +42,8 @@ Sugeneruotas studentų failas:
 ![image](https://github.com/user-attachments/assets/4dcdb3a0-c2ba-4f71-b03c-d8c6e0d37e56)
 Surūšiuotų studentų failas:
 ![image](https://github.com/user-attachments/assets/39f13c60-4014-4706-8914-c793d66fbf98)
+Unit testai:
+![image](https://github.com/user-attachments/assets/d20eeff6-160f-4a26-a3c7-04f9f517141a)
 
 
 **Spartos analizė**
