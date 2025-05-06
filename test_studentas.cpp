@@ -64,7 +64,7 @@ TEST_CASE("Destructor runs without issues", "[rule_of_five]") {
 }
 
 TEST_CASE("Input operator >> works", "[io]") {
-    std::stringstream ss("Vardenis Pavardenis 8");
+    std::stringstream ss("Vardenis Pavardenis 3 10 9 7 8");
     Studentas s;
     ss >> s;
 
